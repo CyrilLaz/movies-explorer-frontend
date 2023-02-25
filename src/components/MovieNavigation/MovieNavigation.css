@@ -1,0 +1,16 @@
+.movie-navigation {
+  
+}
+
+.movie-navigation__list {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: flex;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.movie-navigation__link {
+}

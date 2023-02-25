@@ -1,0 +1,14 @@
+.App {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App__container {
+  background-color: #202020;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* .App__container_main */
