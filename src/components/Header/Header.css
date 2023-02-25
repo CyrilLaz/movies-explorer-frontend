@@ -1,5 +1,7 @@
 .header {
-
+  height: 74px;
+  display: flex;
+  align-items: center;
 }
 
 .main-header {
@@ -20,5 +22,5 @@
   background-image: url('../../images/logo.svg');
   background-repeat: no-repeat;
   background-size: contain;
-  margin: 18px 0 0;
+  margin:0;
 }

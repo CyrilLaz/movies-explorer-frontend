@@ -1,5 +1,6 @@
 .main-navigation {
-    
+  display: flex;
+  align-items: center;
 }
 
 .main-navigation__list {
@@ -18,7 +19,7 @@
 
 .main-navigation__item {
   padding: 0;
-  margin: 21px 0 0;
+  margin: 0;
 }
 
 .main-navigation__link {

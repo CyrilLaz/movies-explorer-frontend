@@ -1,9 +1,13 @@
-function Main(props) {
-    return (
-        <main className="Main">
-<h2>main</h2>
-        </main>
-    )
-};
+import AboutProject from '../AboutProject/AboutProject';
+import Promo from '../Promo/Promo';
+import './Main.css';
+function Main() {
+  return (
+    <main className="Main">
+      <Promo />
+      <AboutProject />
+    </main>
+  );
+}
 
 export default Main;
