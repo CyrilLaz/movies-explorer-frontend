@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -7,15 +9,17 @@ import MovieNavigation from '../MovieNavigation/MovieNavigation';
 import './App.css';
 
 function App() {
+  const [switcher, setSwitcher] = useState(true);
+
   return (
     <div className="App">
       <div className="App__container">
-        <Header children={MainNavigation} isMain={true} />
-        <Main />
-        <Footer />
-
-        <Header children={MovieNavigation} />
-        <Movie />
+        <Header Navigation={MainNavigation} isMain={switcher} />
+        <Routes>
+          <Route exact path="/" element={<Main />} />
+          <Route path="/movies" element={<Movie />} />
+          {/* <Header children={MovieNavigation} /> */}
+        </Routes>
         <Footer />
       </div>
     </div>

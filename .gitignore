@@ -21,4 +21,8 @@ yarn-error.log*
 # git
 .gitattributes
 
+#prettier
 .prettierrc
+
+#vs
+.vscode
