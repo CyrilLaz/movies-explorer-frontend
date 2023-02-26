@@ -11,15 +11,8 @@
   flex-direction: column;
 }
 
-.section-title {
-  margin: 0;
-  padding: 0 0 23px 0;
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 27px;
-  letter-spacing: -0.04em;
-  color: #ffffff;
-  border-bottom: 1px solid #dadada;
+.centred-block {
+  margin: 0 auto;
+  width: calc(1140 / 1280 * 100%);
+  max-width: 1140px;
 }
-
-/* .App__container_main */

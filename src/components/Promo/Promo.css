@@ -5,9 +5,6 @@
 }
 
 .promo__container {
-  margin: 0 auto;
-  width: calc(1140 / 1280 * 100%);
-  max-width: 1140px;
   display: flex;
   justify-content: space-between;
 }
