@@ -1,0 +1,55 @@
+.about-me {
+  padding: 90px 0;
+}
+
+.about-me__title {
+  margin-bottom: 66px;
+}
+
+.about-me__info-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-me__biography {
+  max-width: 600px;
+  width: 100%;
+}
+
+.about-me__name {
+  margin: 0 0 18px;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.about-me__job {
+  margin: 0 0 26px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  color: #fff;
+}
+
+.about-me__info {
+  margin: 0 0 99px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #fff;
+}
+
+.about-me__link {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.about-me__photo {
+  width: 270px;
+  border-radius: 10px;
+}
