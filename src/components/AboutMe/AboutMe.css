@@ -1,14 +1,15 @@
 .about-me {
-  padding: 90px 0;
+  padding: 110px 0 125px;
 }
 
-.about-me__title {
+.section-title.about-me__title {
   margin-bottom: 66px;
 }
 
 .about-me__info-container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 100px;
 }
 
 .about-me__biography {

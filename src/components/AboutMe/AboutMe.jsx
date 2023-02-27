@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import myPhoto from '../../images/my-photo.jpg';
+import Portfolio from '../Portfolio/Portfolio';
 import './AboutMe.css';
 
 function AboutMe() {
@@ -23,6 +24,7 @@ function AboutMe() {
         </article>
         <img className='about-me__photo' src={myPhoto} alt="Моя фотография" />
       </div>
+      <Portfolio />
     </section>
   );
 }
