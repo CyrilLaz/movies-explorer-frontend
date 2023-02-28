@@ -1,5 +1,4 @@
 .header {
-  height: 74px;
   display: flex;
   align-items: center;
 }
@@ -9,7 +8,8 @@
 }
 
 .header__container {
-  margin: 0 auto;
+  margin: 0 auto 74px;
+  padding: 18px 0;
   width: calc(1140 / 1280 * 100%);
   max-width: 1140px;
   display: flex;
@@ -22,5 +22,18 @@
   background-image: url('../../images/logo.svg');
   background-repeat: no-repeat;
   background-size: contain;
-  margin:0;
+}
+
+@media screen and (max-width: 800px) {
+  .header__container {
+    width: calc(708 / 768 * 100%);
+    margin-bottom: 140px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header__container {
+    width: calc(292 / 320 * 100%);
+    margin-bottom: 70px;
+  }
 }

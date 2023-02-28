@@ -3,12 +3,12 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <footer className="footer centred-block">
+    <footer className="footer">
       <p className="footer__head">
         Учебный проект Яндекс.Практикум х BeatFilm.
       </p>
       <div className="footer__container">
-        <p className="footer__copy">&copy; 2020</p>
+        <p className="footer__copy">&copy; 2023</p>
         <ul className="footer__list">
           <li className="footer__item">
             <Link className="footer__link" to={'*'}>

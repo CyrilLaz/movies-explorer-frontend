@@ -10,9 +10,21 @@
   display: flex;
   flex-direction: column;
 }
-
+/* 
 .centred-block {
   margin: 0 auto;
   width: calc(1140 / 1280 * 100%);
   max-width: 1140px;
 }
+
+@media screen and (max-width: 800px) {
+  .centred-block {
+    width: calc(668 / 768 * 100%);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .centred-block {
+    width: calc(668 / 768 * 100%);
+  }
+} */
