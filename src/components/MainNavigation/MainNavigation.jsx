@@ -8,7 +8,7 @@ function MainNavigation() {
           <Link className='main-navigation__link' to={'/'}>Регистрация</Link>
         </ul>
         <ul className="main-navigation__item">
-          <Link className='main-navigation__link main-navigation__link_type_button' to={'/'}>Войти</Link>
+          <Link className='main-navigation__link main-navigation__link_type_button' to={'/movies'}>Войти</Link>
         </ul>
       </li>
     </nav>

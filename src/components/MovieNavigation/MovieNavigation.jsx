@@ -1,21 +1,43 @@
 import { Link, NavLink } from 'react-router-dom';
 import './MovieNavigation.css';
+
 function MovieNavigation() {
   return (
     <nav className="movie-navigation">
       <ul className="movie-navigation__list">
-        <li>
-          <NavLink className="movie-navigation__link" to={'*'}>
-            Фильмы
-          </NavLink>
+        <li className="movie-navigation__item">
+          <ul className="movie-navigation__links">
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  `movie-navigation__link${
+                    isActive ? ' movie-navigation__link_active' : ''
+                  }`
+                }
+                to={'/movies'}
+              >
+                Фильмы
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  `movie-navigation__link${
+                    isActive ? ' movie-navigation__link_active' : ''
+                  }`
+                }
+                to={'*'}
+              >
+                Сохраненные фильмы
+              </NavLink>
+            </li>
+          </ul>
         </li>
-        <li>
-          <NavLink className="movie-navigation__link" to={'*'}>
-            Сохраненные фильмы
-          </NavLink>
+        <li className="movie-navigation__item">
+          {/* lдиблированная кнопка */}
+          <Link className="movie-navigation__button">Аккаунт</Link>
         </li>
       </ul>
-      <Link className="movie-navigation__button">Аккаунт</Link>
     </nav>
   );
 }
