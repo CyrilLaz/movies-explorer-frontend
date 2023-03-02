@@ -7,6 +7,7 @@
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
+  padding-top: 74px;
   width: calc(1140 / 1280 * 100%);
   max-width: 1140px;
 }
@@ -64,6 +65,7 @@
   .promo__container {
     flex-direction: column-reverse;
     align-items: center;
+    padding-top: 140px;
   }
 
   .promo__label {
@@ -86,6 +88,10 @@
 }
 
 @media screen and (max-width: 500px) {
+  .promo__container {
+    padding-top: 70px;
+  }
+  
   .promo__label {
     width: 210px;
     height: 210px;

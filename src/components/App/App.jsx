@@ -8,9 +8,19 @@ import './App.css';
 
 function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
+  const [isShortMovie, setIsShortMovie] = useState(false);
+  const [isPreloaderVisible, setShowPreloader] = useState(false);
 
   function toggleSlider() {
     setSliderIsOpen(!sliderIsOpen);
+  }
+
+  function toShowShortMovie() {
+    setIsShortMovie(!isShortMovie);
+  }
+
+  function showPreloader() {
+    setShowPreloader(!isPreloaderVisible);
   }
 
   return (
@@ -21,7 +31,13 @@ function App() {
           <Route
             path="/movies"
             element={
-              <Movie toggleSlider={toggleSlider} sliderIsOpen={sliderIsOpen} />
+              <Movie
+                toggleSlider={toggleSlider}
+                sliderIsOpen={sliderIsOpen}
+                isShortMovie={isShortMovie}
+                toShowShortMovie={toShowShortMovie}
+                isPreloaderVisible={isPreloaderVisible}
+              />
             }
           />
         </Routes>

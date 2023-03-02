@@ -8,7 +8,7 @@
 }
 
 .header__container {
-  margin: 0 auto 74px;
+  margin: 0 auto;
   padding: 18px 0;
   width: calc(1140 / 1280 * 100%);
   max-width: 1140px;
@@ -28,13 +28,11 @@
 @media screen and (max-width: 800px) {
   .header__container {
     width: calc(708 / 768 * 100%);
-    margin-bottom: 140px;
   }
 }
 
 @media screen and (max-width: 500px) {
   .header__container {
     width: calc(292 / 320 * 100%);
-    margin-bottom: 70px;
   }
 }
