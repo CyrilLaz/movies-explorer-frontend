@@ -1,7 +1,7 @@
 import './Preloader.css'
 
 const Preloader = (props) => {
-  console.log(props);
+  console.log('render preloader');
     return (
         <div className={`preloader${props.handle?' preloader__visible':''}`}>
             <div className="preloader__container">

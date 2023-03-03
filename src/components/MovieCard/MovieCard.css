@@ -1,0 +1,68 @@
+.movies-card {
+  background-color: #222;
+  max-width: 450px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.movies-card__container {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+
+.movies-card__picture {
+  width: 100%;
+  height: 203px;
+  object-fit: cover;
+  margin-bottom: 9px;
+}
+
+.movies-card__capture {
+  margin: 0;
+  padding: 0 16px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.movies-card__description {
+padding-top: 7px;
+}
+
+.movies-card__title {
+  margin: 0 0 17px;
+  padding: 0;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #fff;
+}
+
+.movies-card__duration {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: #8b8b8b;
+}
+
+.movies-card__like {
+  background-image: url('../../images/heartoff.svg');
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.movies-card__like_active {
+background-image: url('../../images/hearton.svg');
+}

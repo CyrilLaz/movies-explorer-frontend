@@ -1,7 +1,10 @@
+import { render } from '@testing-library/react';
 import { Link, NavLink } from 'react-router-dom';
 import './MovieNavigation.css';
 
 function MovieNavigation() {
+
+  console.log('render MovieNavigation');
   return (
     <nav className="movie-navigation">
       <ul className="movie-navigation__list">

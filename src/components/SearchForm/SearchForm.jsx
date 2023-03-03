@@ -1,7 +1,7 @@
 import './SearchForm.css';
 
 function SearchForm({...props}) {
-  console.log(props.isShortMovie);
+  // console.log(props.isShortMovie);
   return (
     <form className="search-form">
       <fieldset className="search-form__field search-form__search-container">

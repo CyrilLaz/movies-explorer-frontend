@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import useWindowDimensions from '../../hooks/useWindowDimentions';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 
@@ -10,6 +11,9 @@ function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [isPreloaderVisible, setShowPreloader] = useState(false);
+  const [isSliderNavigation, setIsSliderNavigation] = useState(false);
+
+  const { width } = useWindowDimensions();
 
   function toggleSlider() {
     setSliderIsOpen(!sliderIsOpen);
@@ -23,6 +27,15 @@ function App() {
     setShowPreloader(!isPreloaderVisible);
   }
 
+  useEffect(() => {
+    if (width<=800) {
+      setIsSliderNavigation(true);
+    } else {
+      setIsSliderNavigation(false);
+    }
+  }, [width]);
+
+console.log(isSliderNavigation);
   return (
     <div className="App">
       <div className="App__container">
@@ -37,6 +50,7 @@ function App() {
                 isShortMovie={isShortMovie}
                 toShowShortMovie={toShowShortMovie}
                 isPreloaderVisible={isPreloaderVisible}
+                isSliderNavigation={isSliderNavigation}
               />
             }
           />
