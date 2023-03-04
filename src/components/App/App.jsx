@@ -35,7 +35,7 @@ function App() {
     }
   }, [width]);
 
-console.log(isSliderNavigation);
+// console.log(isSliderNavigation);
   return (
     <div className="App">
       <div className="App__container">

@@ -4,7 +4,7 @@ import './MovieNavigation.css';
 
 function MovieNavigation() {
 
-  console.log('render MovieNavigation');
+  // console.log('render MovieNavigation');
   return (
     <nav className="movie-navigation">
       <ul className="movie-navigation__list">

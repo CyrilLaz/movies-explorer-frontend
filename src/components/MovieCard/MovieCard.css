@@ -1,6 +1,6 @@
 .movies-card {
   background-color: #222;
-  max-width: 450px;
+  max-width: 364px;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -31,7 +31,7 @@
 }
 
 .movies-card__description {
-padding-top: 7px;
+  padding-top: 7px;
 }
 
 .movies-card__title {
@@ -56,6 +56,7 @@ padding-top: 7px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+  cursor: pointer;
   width: 30px;
   height: 30px;
   padding: 0;
@@ -64,5 +65,46 @@ padding-top: 7px;
 }
 
 .movies-card__like_active {
-background-image: url('../../images/hearton.svg');
+  background-image: url('../../images/hearton.svg');
+}
+
+@media screen and (max-width: 800px) {
+  .movies-card__picture {
+    height: 190px;
+    margin-bottom: 8px;
+  }
+
+  .movies-card__capture {
+    padding: 0 14px 14px;
+  }
+
+  .movies-card__description {
+    padding-top: 6px;
+  }
+
+  .movies-card__title {
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .movies-card__picture {
+    height: 168px;
+    margin-bottom: 7px;
+  }
+
+  .movies-card__description {
+    padding-top: 5px;
+  }
+
+  .movies-card__title {
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 14px;
+  }
+
+  .movies-card__duration {
+    font-size: 10px;
+    line-height: 12px;
+  }
 }

@@ -20,7 +20,7 @@ function MoviesCardList(props) {
         <MovieCard {...props}/>
         <MovieCard {...props}/>
       </ul>
-      <div className="movies-cards__paginator">Ещё</div>
+      <button className="movies-cards__paginator">Ещё</button>
     </section>
   );
 }

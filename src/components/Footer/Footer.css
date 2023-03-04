@@ -58,7 +58,6 @@
 @media screen and (max-width: 500px) {
   .footer {
     margin: 79px auto 20px;
-
     width: calc(300 / 320 * 100%);
   }
 
@@ -85,6 +84,10 @@
 
   .footer__item {
     margin: 0 0 12px;
+  }
+
+  .footer__item:last-of-type {
+    margin: 0;
   }
 
   .footer__link {
