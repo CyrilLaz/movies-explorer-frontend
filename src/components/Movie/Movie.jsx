@@ -10,13 +10,7 @@ import './Movie.css';
 function Movie(props) {
   return (
     <>
-      <Header
-        Navigation={
-          props.isSliderNavigation ? SliderNavigation : MovieNavigation
-        }
-        isMain={false}
-        {...props}
-      />
+     {props.header}
       <main className="Movie">
         <SearchForm {...props} />
         <Preloader handle={props.isPreloaderVisible} />

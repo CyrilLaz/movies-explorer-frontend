@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation, useMatch } from 'react-router-dom';
 import useWindowDimensions from '../../hooks/useWindowDimentions';
 import Main from '../Main/Main';
 
@@ -8,17 +8,28 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import { cards, saved as savedCards } from '../../constants/cards';
 import './App.css';
 import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
+import SliderNavigation from '../SliderNavigation/SliderNavigation';
+import MovieNavigation from '../MovieNavigation/MovieNavigation';
+import MainNavigation from '../MainNavigation/MainNavigation';
+import Header from '../Header/Header';
 
 function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [isPreloaderVisible, setShowPreloader] = useState(false);
-  const [isSliderNavigation, setIsSliderNavigation] = useState(false);
+  const history = useLocation();
   const { width } = useWindowDimensions();
+  const [isSliderNavigation, setIsSliderNavigation] = useState(width <= 800);
 
   function toggleSlider() {
     setSliderIsOpen(!sliderIsOpen);
   }
+
+  useEffect(() => {
+    setSliderIsOpen(false);
+    console.log(isSliderNavigation);
+  }, [history, isSliderNavigation]);
 
   function toShowShortMovie() {
     setIsShortMovie(!isShortMovie);
@@ -42,16 +53,37 @@ function App() {
     <div className="App">
       <div className="App__container">
         <Routes>
-          <Route exact path="/" element={<Main />} />
+          <Route
+            exact
+            path="/"
+            element={
+              <Main
+                header={<Header children={<MainNavigation />} isMain={true} />}
+              />
+            }
+          />
           <Route
             path="/movies"
             element={
               <Movie
+                header={
+                  <Header
+                    children={
+                      isSliderNavigation ? (
+                        <SliderNavigation
+                          toggleSlider={toggleSlider}
+                          sliderIsOpen={sliderIsOpen}
+                        />
+                      ) : (
+                        <MovieNavigation />
+                      )
+                    }
+                    isMain={false}
+                  />
+                }
                 cards={cards}
                 handlerCard={() => console.log('Сохранить мувик')}
                 handlerPage={() => console.log('Следующая страница')}
-                toggleSlider={toggleSlider}
-                sliderIsOpen={sliderIsOpen}
                 isShortMovie={isShortMovie}
                 isSliderNavigation={isSliderNavigation}
                 toShowShortMovie={toShowShortMovie}
@@ -63,27 +95,45 @@ function App() {
             path="/saved-movies"
             element={
               <SavedMovies
+                header={
+                  <Header
+                    children={
+                      isSliderNavigation ? (
+                        <SliderNavigation
+                          toggleSlider={toggleSlider}
+                          sliderIsOpen={sliderIsOpen}
+                        />
+                      ) : (
+                        <MovieNavigation />
+                      )
+                    }
+                    isMain={false}
+                  />
+                }
                 cards={savedCards}
                 handlerCard={() => console.log('удалить карточку')}
                 handlerPage={() => console.log('Следующая страница')}
-                toggleSlider={toggleSlider}
-                sliderIsOpen={sliderIsOpen}
                 isShortMovie={isShortMovie}
                 toShowShortMovie={toShowShortMovie}
                 isPreloaderVisible={isPreloaderVisible}
-                isSliderNavigation={isSliderNavigation}
               />
             }
           />
-          <Route path="/signup" element={<>signup</>} />
+          <Route path="/signup" element={<Register />} />
           <Route
             path="/profile"
             element={
               <Profile
-                toggleSlider={toggleSlider}
-                sliderIsOpen={sliderIsOpen}
-                isShortMovie={isShortMovie}
-                isSliderNavigation={isSliderNavigation}
+                headerChildren={
+                  isSliderNavigation ? (
+                    <SliderNavigation
+                      toggleSlider={toggleSlider}
+                      sliderIsOpen={sliderIsOpen}
+                    />
+                  ) : (
+                    <MovieNavigation />
+                  )
+                }
                 name="Васёк"
                 email="vas@vasvas.dep"
               />
