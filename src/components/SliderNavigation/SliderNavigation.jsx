@@ -34,7 +34,7 @@ function SliderNavigation(props) {
                     </NavLink>
                   </li>
                   <li className="slider-navigation__links-item">
-                    <NavLink className={({isActive})=>`slider-navigation__link${isActive?' slider-navigation__link_active':''}`} to={'/'}>
+                    <NavLink className={({isActive})=>`slider-navigation__link${isActive?' slider-navigation__link_active':''}`} to={'/saved-movies'}>
                       Сохранённые фильмы
                     </NavLink>
                   </li>
@@ -42,7 +42,7 @@ function SliderNavigation(props) {
               </li>
 
               <li className="slider-navigation__menu-item">
-                <Link className="slider-navigation__slider-button" to={''}>
+                <Link className="slider-navigation__slider-button" to={'/profile'}>
                   Аккаунт
                 </Link>
               </li>

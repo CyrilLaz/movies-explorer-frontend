@@ -50,8 +50,7 @@
   color: #8b8b8b;
 }
 
-.movies-card__like {
-  background-image: url('../../images/heartoff.svg');
+.movies-card__button {
   background-color: transparent;
   background-position: center;
   background-repeat: no-repeat;
@@ -64,7 +63,15 @@
   border: none;
 }
 
-.movies-card__like_active {
+.movies-card__button_type_remove {
+  background-image: url('../../images/remove-icon.svg');
+}
+
+.movies-card__button_type_like {
+  background-image: url('../../images/heartoff.svg');
+}
+
+.movies-card__button_type_active-like {
   background-image: url('../../images/hearton.svg');
 }
 

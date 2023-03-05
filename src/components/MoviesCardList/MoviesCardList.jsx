@@ -5,22 +5,17 @@ function MoviesCardList(props) {
   return (
     <section className="movies-cards">
       <ul className="movies-cards_list">
-        <MovieCard {...props}/>
-        <MovieCard {...props}/>
-        <MovieCard name = '33 слова о дизайне' link = 'https://cdn.smartfacts.ru/202395/conversions/soyuzniki_0-small.jpg' duration = '128 minute'/>
-        <MovieCard {...props}/>
-        <MovieCard {...props}/>
-        <MovieCard name = '33 слова о дизайне' link = 'https://cdn.smartfacts.ru/202395/conversions/soyuzniki_0-small.jpg' duration = '128 minute'/>
-        <MovieCard {...props}/>
-        <MovieCard {...props}/>
-        <MovieCard {...props}/>
-        <MovieCard {...props}/>
-        <MovieCard name = '33 слова о дизайне' link = 'https://i.ytimg.com/vi/e8nUcYH0EjA/mqdefault.jpg' duration = '128 minute'/>
-        <MovieCard {...props}/>
-        <MovieCard {...props}/>
-        <MovieCard {...props}/>
+        {props.cards.map((elem, index) => (
+          <MovieCard
+            handler={props.handlerCard}
+            key={index}
+            isLiked={props.isLiked}
+            isSaved={props.isLiked}
+            {...elem}
+          />
+        ))}
       </ul>
-      <button className="movies-cards__paginator">Ещё</button>
+      <button className="movies-cards__paginator" onClick={props.handlerPage}>Ещё</button>
     </section>
   );
 }

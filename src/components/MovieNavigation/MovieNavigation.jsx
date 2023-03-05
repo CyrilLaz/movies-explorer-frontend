@@ -1,9 +1,7 @@
-import { render } from '@testing-library/react';
 import { Link, NavLink } from 'react-router-dom';
 import './MovieNavigation.css';
 
 function MovieNavigation() {
-
   // console.log('render MovieNavigation');
   return (
     <nav className="movie-navigation">
@@ -29,7 +27,7 @@ function MovieNavigation() {
                     isActive ? ' movie-navigation__link_active' : ''
                   }`
                 }
-                to={'*'}
+                to={'/saved-movies'}
               >
                 Сохраненные фильмы
               </NavLink>
@@ -38,7 +36,9 @@ function MovieNavigation() {
         </li>
         <li className="movie-navigation__item">
           {/* lдиблированная кнопка */}
-          <Link className="movie-navigation__button">Аккаунт</Link>
+          <Link className="movie-navigation__button" to={'/profile'}>
+            Аккаунт
+          </Link>
         </li>
       </ul>
     </nav>

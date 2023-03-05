@@ -1,5 +1,14 @@
 import './MovieCard.css';
 function MovieCard(props) {
+
+  const cardButtonClassName = `movies-card__button${
+    props.isLiked
+      ? props.isSaved
+        ? ' movies-card__button_type_remove'
+        : ' movies-card__button_type_active-like'
+      : ' movies-card__button_type_like'
+  }`;
+
   return (
     <li className="movies-card">
       <figure className="movies-card__container">
@@ -14,8 +23,8 @@ function MovieCard(props) {
             <span className="movies-card__duration">{props.duration}</span>
           </div>
           <button
-            className="movies-card__like movies-card__like_active"
-            onClick={() => console.log('Like')}
+            className={cardButtonClassName}
+            onClick={props.handler}
           ></button>
         </figcaption>
       </figure>

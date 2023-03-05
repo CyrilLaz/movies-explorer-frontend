@@ -1,3 +1,4 @@
+import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MovieNavigation from '../MovieNavigation/MovieNavigation';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -19,12 +20,9 @@ function Movie(props) {
       <main className="Movie">
         <SearchForm {...props} />
         <Preloader handle={props.isPreloaderVisible} />
-        <MoviesCardList
-          name="33 слова о дизайне"
-          link="https://www.ejin.ru/wp-content/uploads/2018/05/12-4.jpg"
-          duration="128 minute"
-        />
+        <MoviesCardList handlerPage={props.handlerPage} handlerCard={props.handlerCard} cards={props.cards} />
       </main>
+      <Footer />
     </>
   );
 }

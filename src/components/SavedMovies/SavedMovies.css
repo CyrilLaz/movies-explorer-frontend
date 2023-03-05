@@ -1,0 +1,18 @@
+.SavedMovies {
+  flex: 1;
+  margin: 0 auto;
+  width: calc(1140 / 1280 * 100%);
+  max-width: 1140px;
+}
+
+@media screen and (max-width: 800px) {
+  .SavedMovies {
+    width: calc(708 / 768 * 100%);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .SavedMovies {
+    width: calc(300 / 320 * 100%);
+  }
+}

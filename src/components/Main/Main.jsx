@@ -4,6 +4,7 @@ import Promo from '../Promo/Promo';
 import Techs from '../Techs/Techs';
 import Header from '../Header/Header';
 import MainNavigation from '../MainNavigation/MainNavigation';
+import Footer from '../Footer/Footer';
 import './Main.css';
 
 function Main() {
@@ -16,6 +17,7 @@ function Main() {
         <Techs />
         <AboutMe />
       </main>
+      <Footer />
     </>
   );
 }
