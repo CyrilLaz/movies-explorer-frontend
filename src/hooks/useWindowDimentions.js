@@ -22,7 +22,7 @@ export default function useWindowDimensions() {
       function handleResize() {
         setWindowDimensions(getWindowDimensions());
         // setTimeout(()=>handleResize(),200)
-        console.log('Hi')
+        // console.log('Hi')
       }
       function delayHandle() {
         setTimeout(() => handleResize(), 1000);
@@ -30,7 +30,7 @@ export default function useWindowDimensions() {
       // setTimeout(()=>window.addEventListener('resize', handleResize),5000)
       window.addEventListener(
         'resize',()=>
-        setTimeout(() => handleResize()),
+        setTimeout(() => delayHandle()),
         5000
       );
       return () => window.removeEventListener('resize', handleResize);

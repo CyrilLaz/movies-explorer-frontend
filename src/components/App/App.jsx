@@ -119,7 +119,7 @@ function App() {
               />
             }
           />
-          <Route path="/signup" element={<Register />} />
+          <Route path="/signup" element={<Register header={<Header children={<span className='header__welcome'>Добро пожаловать!</span>}/>}/>} />
           <Route
             path="/profile"
             element={

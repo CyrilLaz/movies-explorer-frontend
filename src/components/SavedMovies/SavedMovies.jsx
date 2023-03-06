@@ -1,6 +1,4 @@
 import Footer from '../Footer/Footer';
-import Header from '../Header/Header';
-
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import SearchForm from '../SearchForm/SearchForm';

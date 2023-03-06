@@ -2,7 +2,7 @@ import { Link, NavLink } from 'react-router-dom';
 import './SliderNavigation.css';
 
 function SliderNavigation(props) {
-  // console.log('render slider');
+  // console.log(props.toggleSlider);
   return (
     <>
       <div
