@@ -1,12 +1,13 @@
 .promo {
   margin: 0;
   background-color: #073042;
+  position: relative;
 }
 
 .promo__container {
   display: flex;
   justify-content: space-between;
-  margin: 0 auto;
+  margin: -1px auto 1px;
   padding-top: 74px;
   width: calc(1140 / 1280 * 100%);
   max-width: 1140px;
@@ -91,7 +92,7 @@
   .promo__container {
     padding-top: 70px;
   }
-  
+
   .promo__label {
     width: 210px;
     height: 210px;

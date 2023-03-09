@@ -1,22 +1,20 @@
-.register {
-  max-width: 396px;
-  width: 100%;
-  margin: 70px auto;
+.form {
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
-.register__logo {
-  width: 38px;
-  height: 38px;
-  background-image: url('../../images/logo.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-bottom: 40px;
+.form-container {
+  max-width: 396px;
+  width: 100%;
+  margin: 70px auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-.register__greeting {
+.form__greeting {
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
@@ -24,26 +22,19 @@
   margin: 0 0 40px;
 }
 
-.register__form {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: space-between;
-}
-
-.register__inputs {
+.form__inputs {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.register__inputs-item {
+.form__inputs-item {
   display: flex;
   flex-direction: column;
   margin-bottom: 12px;
 }
 
-.register__label {
+.form__label {
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
@@ -51,7 +42,7 @@
   margin-bottom: 5px;
 }
 
-.register__input {
+.form__input {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
@@ -63,11 +54,11 @@
   border-bottom: 1px solid #424242;
 }
 
-.register__input:focus {
+.form__input:focus {
   outline: 1px solid #424242;
 }
 
-.register__error {
+.form__error {
   color: #ee3465;
   font-weight: 400;
   font-size: 10px;
@@ -75,15 +66,15 @@
   visibility: hidden;
 }
 
-.register__error_visible {
+.form__error_visible {
   visibility: visible;
 }
 
-.register__input_errored {
+.form__input_errored {
   color: #ee3465;
 }
 
-.register__submit-button {
+.form__submit-button {
   background-color: #4285f4;
   border-radius: 3px;
   border: none;
@@ -93,11 +84,11 @@
   margin-bottom: 16px;
 }
 
-.register__submit-button_inactive {
+.form__submit-button_inactive {
   background-color: #f8f8f8;
 }
 
-.register__entry {
+.form__entry {
   display: flex;
   justify-content: center;
   font-weight: 400;
@@ -106,34 +97,34 @@
   color: #8b8b8b;
 }
 
-.register__entry-link {
+.form__entry-link {
   color: #4285f4;
   padding: 0 6px;
   text-decoration: none;
 }
 
 @media screen and (max-width: 800px) {
-  .register {
+  .form-container {
     margin: 232px auto;
   }
 }
 
 @media screen and (max-width: 500px) {
-  .register {
+  .form-container {
     max-width: 260px;
     margin: 56px auto 30px;
   }
-  .register__logo {
-    margin: 0 auto 50px;
-  }
-  .register__greeting {
+
+  .form__greeting {
     margin: 0 auto 80px;
   }
-  .register__submit-button {
+
+  .form__submit-button {
     font-size: 12px;
     line-height: 15px;
   }
-  .register__entry {
+  
+  .form__entry {
     font-size: 12px;
     line-height: 15px;
   }

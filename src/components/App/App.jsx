@@ -8,11 +8,12 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import { cards, saved as savedCards } from '../../constants/cards';
 import './App.css';
 import Profile from '../Profile/Profile';
-import Register from '../Register/Register';
 import SliderNavigation from '../SliderNavigation/SliderNavigation';
 import MovieNavigation from '../MovieNavigation/MovieNavigation';
 import MainNavigation from '../MainNavigation/MainNavigation';
 import Header from '../Header/Header';
+import RegisterWithForm from '../RegisterWithForm/RegisterWithForm';
+import LoginWithForm from '../LoginWithForm/LoginWithForm';
 
 function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
@@ -21,6 +22,11 @@ function App() {
   const history = useLocation();
   const { width } = useWindowDimensions();
   const [isSliderNavigation, setIsSliderNavigation] = useState(width <= 800);
+  const [toggleErrors, setToggleErrors] = useState({
+    nameIsError: false,
+    emailIsError: false,
+    passwordIsError: false,
+  });
 
   function toggleSlider() {
     setSliderIsOpen(!sliderIsOpen);
@@ -29,6 +35,7 @@ function App() {
   useEffect(() => {
     setSliderIsOpen(false);
     console.log(isSliderNavigation);
+    console.log(history);
   }, [history, isSliderNavigation]);
 
   function toShowShortMovie() {
@@ -51,7 +58,11 @@ function App() {
 
   return (
     <div className="App">
-      <div className="App__container">
+      <div
+        className={`App__container${
+          history.pathname === '/' ? ' App__container_main' : ''
+        }`}
+      >
         <Routes>
           <Route
             exact
@@ -119,7 +130,6 @@ function App() {
               />
             }
           />
-          <Route path="/signup" element={<Register header={<Header children={<span className='header__welcome'>Добро пожаловать!</span>}/>}/>} />
           <Route
             path="/profile"
             element={
@@ -139,7 +149,11 @@ function App() {
               />
             }
           />
-          <Route path="/signin" element={<>signin</>} />
+          <Route
+            path="/signup"
+            element={<RegisterWithForm {...toggleErrors} />}
+          />
+          <Route path="/signin" element={<LoginWithForm {...toggleErrors} />} />
         </Routes>
       </div>
     </div>

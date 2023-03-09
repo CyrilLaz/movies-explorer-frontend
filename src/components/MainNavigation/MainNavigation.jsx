@@ -3,14 +3,14 @@ import './MainNavigation.css';
 function MainNavigation() {
   return (
     <nav className="main-navigation">
-      <li className="main-navigation__list">
-        <ul className="main-navigation__item">
+      <ul className="main-navigation__list">
+        <li className="main-navigation__item">
           <Link className='main-navigation__link' to={'/signup'}>Регистрация</Link>
-        </ul>
-        <ul className="main-navigation__item">
+        </li>
+        <li className="main-navigation__item">
           <Link className='main-navigation__link main-navigation__link_type_button' to={'/movies'}>Войти</Link>
-        </ul>
-      </li>
+        </li>
+      </ul >
     </nav>
   );
 }

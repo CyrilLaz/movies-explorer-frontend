@@ -2,11 +2,31 @@
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #202020;
 }
 
 .App__container {
-  background-color: #202020;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: calc(1140 / 1280 * 100%);
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.App__container.App__container_main {
+  width: 100%;
+  max-width: none;
+}
+
+@media screen and (max-width: 800px) {
+  .App__container {
+    width: calc(708 / 768 * 100%);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .App__container {
+    width: calc(300 / 320 * 100%);
+  }
 }
