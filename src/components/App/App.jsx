@@ -135,7 +135,7 @@ function App() {
             path="/profile"
             element={
               <Profile
-                headerChildren={
+                children={
                   isSliderNavigation ? (
                     <SliderNavigation
                       toggleSlider={toggleSlider}

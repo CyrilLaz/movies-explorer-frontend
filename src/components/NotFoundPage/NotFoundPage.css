@@ -38,6 +38,12 @@
   bottom: 60px;
 }
 
+@media screen and (max-height: 340px) and (min-width: 800px) {
+  .not-found__back-button {
+    position: static;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .not-found__message {
     padding-bottom: 15px;
@@ -68,5 +74,10 @@
     font-size: 12px;
     line-height: 15px;
     bottom: 30px;
+  }
+  @media screen and (max-height: 219px) {
+    .not-found__back-button {
+      position: static;
+    }
   }
 }
