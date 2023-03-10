@@ -14,6 +14,7 @@ import MainNavigation from '../MainNavigation/MainNavigation';
 import Header from '../Header/Header';
 import RegisterWithForm from '../RegisterWithForm/RegisterWithForm';
 import LoginWithForm from '../LoginWithForm/LoginWithForm';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
@@ -154,6 +155,7 @@ function App() {
             element={<RegisterWithForm {...toggleErrors} />}
           />
           <Route path="/signin" element={<LoginWithForm {...toggleErrors} />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </div>
