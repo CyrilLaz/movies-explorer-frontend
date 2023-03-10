@@ -43,7 +43,7 @@
 
 @media screen and (max-width: 500px) {
   .header__container {
-    max-width: 292px;
+    width: calc(292/300*100%);
   }
 
   .header__logo_form {

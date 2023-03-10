@@ -1,8 +1,5 @@
 .SavedMovies {
   flex: 1;
-  margin: 0 auto;
-  width: calc(1140 / 1280 * 100%);
-  max-width: 1140px;
 }
 
 @media screen and (max-width: 800px) {
