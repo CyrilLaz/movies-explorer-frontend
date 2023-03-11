@@ -1,8 +1,3 @@
-.header {
-  /* display: flex;
-  align-items: center; */
-}
-
 .main-header {
   background-color: #073042;
 }
@@ -43,17 +38,17 @@
 
 @media screen and (max-width: 500px) {
   .header__container {
-    width: calc(292/300*100%);
+    width: calc(292 / 300 * 100%);
   }
 
   .header__logo_form {
-    margin-bottom: 50px;
+    margin:0 auto 50px;
   }
 
   .header__container_form {
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
   }
+
   .header__container_main {
     width: calc(292 / 320 * 100%);
   }

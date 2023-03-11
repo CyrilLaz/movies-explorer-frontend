@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.footer_hidden {
+  display: none;
+}
+
 .footer__head {
   margin: 0 0 20px;
   font-weight: 400;

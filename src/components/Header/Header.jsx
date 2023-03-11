@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Header.css';
-function Header({ children, isForm, isMain, ...props }) {
+function Header({ children, isForm, isMain }) {
   return (
     <header className={`header${isMain ? ' main-header' : ''}`}>
       <div

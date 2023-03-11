@@ -1,4 +1,3 @@
-import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import SearchForm from '../SearchForm/SearchForm';
@@ -8,7 +7,6 @@ import './SavedMovies.css';
 function SavedMovies(props) {
   return (
     <>
-      {props.header}
       <main className="SavedMovies">
         <SearchForm {...props} />
         <Preloader handle={props.isPreloaderVisible} />
@@ -20,7 +18,6 @@ function SavedMovies(props) {
           cards={props.cards}
         />
       </main>
-      <Footer />
     </>
   );
 }

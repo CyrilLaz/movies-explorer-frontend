@@ -1,18 +1,7 @@
-import Header from '../Header/Header';
-import MovieNavigation from '../MovieNavigation/MovieNavigation';
-import SliderNavigation from '../SliderNavigation/SliderNavigation';
 import './Profile.css'
 
 function Profile(props) {
   return (
-    <>
-      <Header
-        Navigation={
-          props.isSliderNavigation ? SliderNavigation : MovieNavigation
-        }
-        isMain={false}
-        {...props}
-      />
       <main className="profile">
         <h1 className="profile__title">{`Привет, ${props.name}!`}</h1>
         <form
@@ -46,7 +35,6 @@ function Profile(props) {
           Выйти из аккаунта
         </button>
       </main>
-    </>
   );
 }
 
