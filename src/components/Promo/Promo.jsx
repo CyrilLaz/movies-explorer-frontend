@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
 import "./Promo.css";
 
-function Promo() {
+function Promo({handleAnchor}) {
   return (
     <section className="promo">
       <div className="promo__container">
@@ -12,9 +11,9 @@ function Promo() {
           <p className="promo__subtitle">
             Листайте ниже, чтобы узнать больше про этот проект и его создателя.
           </p>
-          <Link to={'/'} className="promo__link">
+          <button onClick={handleAnchor} className="promo__link">
             Узнать больше
-          </Link>
+          </button>
         </div>
         <div className="promo__label"></div>
       </div>
