@@ -15,6 +15,7 @@ import RegisterWithForm from '../RegisterWithForm/RegisterWithForm';
 import LoginWithForm from '../LoginWithForm/LoginWithForm';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Layout from '../Layout/Layout';
+import { user, UserContext } from '../../context/userContext';
 
 function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
@@ -53,8 +54,6 @@ function App() {
   }
 
   useEffect(() => {
-    // хренеово сделанная хрень
-
     if (width <= 800) {
       setIsSliderNavigation(true);
     } else {
@@ -63,72 +62,76 @@ function App() {
   }, [width]);
 
   return (
-    <div className="App">
-      <div className={`App__container${isMain ? ' App__container_main' : ''}`}>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Layout
-                header={{
-                  children: isMain ? (
-                    <MainNavigation />
-                  ) : isSliderNavigation ? (
-                    <SliderNavigation
-                      toggleSlider={toggleSlider}
-                      sliderIsOpen={sliderIsOpen}
-                    />
-                  ) : (
-                    <MovieNavigation />
-                  ),
-                }}
-                isMain={isMain}
-                isHiddenFooter={isProfile}
+    <UserContext.Provider value={user}>
+      <div className="App">
+        <div
+          className={`App__container${isMain ? ' App__container_main' : ''}`}
+        >
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Layout
+                  header={{
+                    children: isMain ? (
+                      <MainNavigation />
+                    ) : isSliderNavigation ? (
+                      <SliderNavigation
+                        toggleSlider={toggleSlider}
+                        sliderIsOpen={sliderIsOpen}
+                      />
+                    ) : (
+                      <MovieNavigation />
+                    ),
+                  }}
+                  isMain={isMain}
+                  isHiddenFooter={isProfile}
+                />
+              }
+            >
+              <Route index element={<Main />} />
+              <Route
+                path="movies"
+                element={
+                  <Movie
+                    cards={cards}
+                    handlerCard={() => console.log('Сохранить мувик')}
+                    handlerPage={() => console.log('Следующая страница')}
+                    isShortMovie={isShortMovie}
+                    isSliderNavigation={isSliderNavigation}
+                    toShowShortMovie={toShowShortMovie}
+                    isPreloaderVisible={isPreloaderVisible}
+                  />
+                }
               />
-            }
-          >
-            <Route index element={<Main />} />
+              <Route
+                path="saved-movies"
+                element={
+                  <SavedMovies
+                    cards={savedCards}
+                    handlerCard={() => console.log('удалить карточку')}
+                    handlerPage={() => console.log('Следующая страница')}
+                    isShortMovie={isShortMovie}
+                    toShowShortMovie={toShowShortMovie}
+                    isPreloaderVisible={isPreloaderVisible}
+                  />
+                }
+              />
+              <Route path="/profile" element={<Profile />} />
+            </Route>
             <Route
-              path="movies"
-              element={
-                <Movie
-                  cards={cards}
-                  handlerCard={() => console.log('Сохранить мувик')}
-                  handlerPage={() => console.log('Следующая страница')}
-                  isShortMovie={isShortMovie}
-                  isSliderNavigation={isSliderNavigation}
-                  toShowShortMovie={toShowShortMovie}
-                  isPreloaderVisible={isPreloaderVisible}
-                />
-              }
+              path="/signup"
+              element={<RegisterWithForm {...toggleErrors} />}
             />
             <Route
-              path="saved-movies"
-              element={
-                <SavedMovies
-                  cards={savedCards}
-                  handlerCard={() => console.log('удалить карточку')}
-                  handlerPage={() => console.log('Следующая страница')}
-                  isShortMovie={isShortMovie}
-                  toShowShortMovie={toShowShortMovie}
-                  isPreloaderVisible={isPreloaderVisible}
-                />
-              }
+              path="/signin"
+              element={<LoginWithForm {...toggleErrors} />}
             />
-            <Route
-              path="/profile"
-              element={<Profile name="Васёк" email="vas@vasvas.dep" />}
-            />
-          </Route>
-          <Route
-            path="/signup"
-            element={<RegisterWithForm {...toggleErrors} />}
-          />
-          <Route path="/signin" element={<LoginWithForm {...toggleErrors} />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </UserContext.Provider>
   );
 }
 

@@ -1,9 +1,12 @@
+import { useContext } from 'react';
+import { UserContext } from '../../context/userContext';
 import './Profile.css'
 
 function Profile(props) {
+  const user = useContext(UserContext);
   return (
       <main className="profile">
-        <h1 className="profile__title">{`Привет, ${props.name}!`}</h1>
+        <h1 className="profile__title">{`Привет, ${user.name}!`}</h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -14,11 +17,11 @@ function Profile(props) {
           <ul className="profile__inputs-list">
             <li className="profile__inputs-item">
               <label htmlFor='name' className="profile__label">Имя</label>
-              <input id='name' type="text" defaultValue={props.name} className="profile__input" />
+              <input id='name' type="text" defaultValue={user.name} className="profile__input" />
             </li>
             <li className="profile__inputs-item">
               <label htmlFor='email' className="profile__label">E-mail</label>
-              <input id='email' type="email" defaultValue={props.email} className="profile__input" />
+              <input id='email' type="email" defaultValue={user.email} className="profile__input" />
             </li>
           </ul>
           <button

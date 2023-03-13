@@ -64,6 +64,11 @@
 
 .movies-card__button_type_remove {
   background-image: url('../../images/remove-icon.svg');
+  display: none;
+}
+
+.movies-card:hover .movies-card__button_type_remove {
+  display: block;
 }
 
 .movies-card__button_type_like {
