@@ -46,7 +46,7 @@
   background-image: url('../../images/close-button.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   width: 31px;
   height: 31px;
   align-self: flex-end;
@@ -54,7 +54,7 @@
 }
 
 .slider-navigation__menu {
-  margin: 105.4px 0 0;
+  margin: 113.4px 0 0;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -106,4 +106,19 @@
   padding: 8px 20px;
   background: #313131;
   border-radius: 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .slider-navigation__close-button {
+    margin: 16.4px 14.4px 0 0;
+  }
+  .slider-navigation__menu {
+    margin-top: 103.4px;
+  }
+  .slider-navigation__links-item {
+    margin-bottom: 25px;
+  }
+  .slider-navigation__list {
+    margin-bottom: 46px;
+  }
 }

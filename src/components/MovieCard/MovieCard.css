@@ -101,7 +101,7 @@
 @media screen and (max-width: 500px) {
   .movies-card__picture {
     aspect-ratio: 300/168;
-    margin-bottom: 7px;
+    margin-bottom: 9px;
   }
 
   .movies-card__description {

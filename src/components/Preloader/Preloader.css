@@ -86,3 +86,9 @@
   background: #4285f4;
   animation: preloader-inside-red 1s ease-in-out infinite;
 }
+
+@media screen and (max-width: 500px) {
+  .preloader {
+    margin-bottom: 16px;
+  }
+}

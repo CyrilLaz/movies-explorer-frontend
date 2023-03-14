@@ -45,5 +45,6 @@
 
   .movies-cards__paginator {
     max-width: calc(240/300*100%);
+    margin-bottom: 80px;
   }
 }

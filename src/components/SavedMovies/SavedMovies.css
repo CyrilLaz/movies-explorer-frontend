@@ -1,15 +1,3 @@
 .SavedMovies {
   flex: 1;
 }
-
-@media screen and (max-width: 800px) {
-  .SavedMovies {
-    width: calc(708 / 768 * 100%);
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .SavedMovies {
-    width: calc(300 / 320 * 100%);
-  }
-}

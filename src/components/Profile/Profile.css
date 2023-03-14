@@ -93,7 +93,7 @@
 @media screen and (max-width: 800px) {
   .profile {
     margin: auto;
-    padding: 53px 0 20px 0;
+    padding-bottom: 36px;
     max-height: 445px;
   }
 
@@ -108,8 +108,11 @@
     margin-bottom: 40px;
     padding: 0;
     max-height: none;
-    width: calc(260 / 320 * 100%);
-    /* height: calc(596/780 * 100vh); */
+    width: calc(260 / 300 * 100%);
+  }
+
+  .profile__title {
+    margin-bottom: 81px;
   }
 
   .profile__button {
