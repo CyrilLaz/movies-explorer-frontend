@@ -16,7 +16,7 @@
 .promo__presentation {
   max-width: 640px;
   width: 100%;
-  margin-bottom: 85px;
+  margin-bottom: 75px;
 }
 
 .promo__title {
@@ -25,14 +25,13 @@
   font-weight: 400;
   font-size: 50px;
   line-height: 58px;
-  letter-spacing: -0.04em;
   color: #fff;
 }
 
 .promo__subtitle {
   max-width: 310px;
   width: 100%;
-  margin: 0 0 156px 0;
+  margin: 0 0 148px 0;
   padding: 0;
   font-weight: 400;
   font-size: 13px;
@@ -72,7 +71,7 @@
   }
 
   .promo__label {
-    margin-bottom: 48px;
+    margin-bottom: 43px;
   }
 
   .promo__presentation {
@@ -86,7 +85,8 @@
   }
 
   .promo__subtitle {
-    margin: 0 auto 102px;
+    max-width: 260px;
+    margin: 0 auto 90px;
   }
 }
 
@@ -98,7 +98,10 @@
   .promo__label {
     width: 210px;
     height: 210px;
-    margin-bottom: 44px;
+    margin-bottom: 40px;
+  }
+  .promo__presentation {
+    margin-bottom: 30px;
   }
 
   .promo__title {
@@ -106,12 +109,12 @@
     margin-bottom: 24px;
     font-size: 30px;
     line-height: 38px;
+    letter-spacing: -0.04em;
   }
 
   .promo__subtitle {
-    max-width: 260px;
-    margin-bottom: 90px;
     font-size: 13px;
     line-height: 16px;
+    margin-bottom: 80px;
   }
 }

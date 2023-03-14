@@ -27,7 +27,7 @@
   display: flex;
   text-decoration: none;
   justify-content: space-between;
-  margin: 0 0 19px;
+  margin: 0 0 10px;
   padding: 0;
   font-weight: 400;
   font-size: 30px;
@@ -53,6 +53,7 @@
   .portfolio__link {
     font-size: 28px;
     line-height: 50px;
+    margin-bottom: 8px;
   }
 
   .portfolio__link::after {
@@ -69,6 +70,7 @@
   .portfolio__link {
     font-size: 18px;
     line-height: 28px;
+    margin-bottom: 19px;
   }
 
   .portfolio__link::after {

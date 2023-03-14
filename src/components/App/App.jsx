@@ -26,7 +26,8 @@ function App() {
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const [isSliderNavigation, setIsSliderNavigation] = useState(width <= 800);
-  const [toggleErrors, setToggleErrors] = useState({ // разобраться в ошибках
+  const [toggleErrors, setToggleErrors] = useState({
+    // разобраться в ошибках
     nameIsError: false,
     emailIsError: false,
     passwordIsError: false,
@@ -35,15 +36,15 @@ function App() {
   const [isProfile, setIsProfile] = useState(location.pathname === '/profile');
   const [modalSettings, setModalSettings] = useState({
     isOpen: false,
-    message: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
+    message:
+      'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
   });
 
   function openModal() {
     setModalSettings({
       ...modalSettings,
       isOpen: true,
-      message:
-        'Произошло что-то непредвиденное, поворот не туда',
+      message: 'Произошло что-то непредвиденное, поворот не туда',
     });
   }
 
@@ -65,6 +66,10 @@ function App() {
   }, [location, isSliderNavigation]); // закрываем слайдер после перехода на другой адрес или после того как слайдер перестал быть нужным
 
   useEffect(() => {
+    setIsSliderNavigation(width <= 800);
+  }, [width]);
+
+  useEffect(() => {
     setIsMain(location.pathname === '/');
     setIsProfile(location.pathname === '/profile');
   }, [location.pathname]);
@@ -77,21 +82,13 @@ function App() {
     setShowPreloader(!isPreloaderVisible);
   }
 
-  useEffect(() => {
-    if (width <= 800) {
-      setIsSliderNavigation(true);
-    } else {
-      setIsSliderNavigation(false);
-    }
-  }, [width]);
-
   return (
     <UserContext.Provider value={user}>
       <div className="App">
         <div
           className={`App__container${isMain ? ' App__container_main' : ''}`}
         >
-          <Modal {...modalSettings} close={closeModal}/>
+          <Modal {...modalSettings} close={closeModal} />
           <Routes>
             <Route
               path="/"

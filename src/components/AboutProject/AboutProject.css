@@ -18,7 +18,7 @@
 
 .about-project__info-item {
   list-style: none;
-  max-width: 550px;
+  max-width: 540px;
   width: 100%;
   padding-right: 10px;
 }
@@ -96,7 +96,9 @@
   .about-project__info-list {
     margin-bottom: 37px;
   }
-
+  .about-project__info-item {
+  max-width: 309px;
+  }
   .about-project__segment:nth-of-type(1) {
     min-width: 140px;
     flex: none;

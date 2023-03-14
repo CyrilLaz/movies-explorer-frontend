@@ -120,11 +120,11 @@
     max-width: 400px;
     width: 100%;
     align-self: center;
-    margin-bottom: 40px;
+    margin-bottom: 37px;
   }
 
   .about-me__biography {
-  padding: 0;
+    padding: 0;
   }
   .about-me__name {
     font-size: 30px;
@@ -133,6 +133,11 @@
   }
 
   .about-me__job {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-me__info {
     font-size: 11px;
     line-height: 16px;
   }
