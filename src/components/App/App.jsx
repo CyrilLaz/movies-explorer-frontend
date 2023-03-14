@@ -16,22 +16,40 @@ import LoginWithForm from '../LoginWithForm/LoginWithForm';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Layout from '../Layout/Layout';
 import { user, UserContext } from '../../context/userContext';
+import Modal from '../Modal/Modal';
 
 function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [isPreloaderVisible, setShowPreloader] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const [isSliderNavigation, setIsSliderNavigation] = useState(width <= 800);
-  const [toggleErrors, setToggleErrors] = useState({
+  const [toggleErrors, setToggleErrors] = useState({ // разобраться в ошибках
     nameIsError: false,
     emailIsError: false,
     passwordIsError: false,
   });
   const [isMain, setIsMain] = useState(location.pathname === '/');
   const [isProfile, setIsProfile] = useState(location.pathname === '/profile');
-  let navigate = useNavigate();
+  const [modalSettings, setModalSettings] = useState({
+    isOpen: false,
+    message: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
+  });
+
+  function openModal() {
+    setModalSettings({
+      ...modalSettings,
+      isOpen: true,
+      message:
+        'Произошло что-то непредвиденное, поворот не туда',
+    });
+  }
+
+  function closeModal() {
+    setModalSettings({ isOpen: false, message: '' });
+  }
 
   function goToMovie(e) {
     e.preventDefault();
@@ -73,6 +91,7 @@ function App() {
         <div
           className={`App__container${isMain ? ' App__container_main' : ''}`}
         >
+          <Modal {...modalSettings} close={closeModal}/>
           <Routes>
             <Route
               path="/"
@@ -127,11 +146,21 @@ function App() {
             </Route>
             <Route
               path="/signup"
-              element={<RegisterWithForm {...toggleErrors} onSubmit={(e)=>goToMovie(e)} />}
+              element={
+                <RegisterWithForm
+                  {...toggleErrors}
+                  onSubmit={(e) => goToMovie(e)}
+                />
+              }
             />
             <Route
               path="/signin"
-              element={<LoginWithForm {...toggleErrors} onSubmit={(e)=>goToMovie(e)} />}
+              element={
+                <LoginWithForm
+                  {...toggleErrors}
+                  onSubmit={(e) => goToMovie(e)}
+                />
+              }
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
