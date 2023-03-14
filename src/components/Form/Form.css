@@ -33,7 +33,6 @@
 .form__inputs-item {
   display: flex;
   flex-direction: column;
-  margin-bottom: 12px;
 }
 
 .form__label {
@@ -65,14 +64,14 @@
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
-  visibility: hidden;
+  height: 18px;
 }
 
 .form__error_visible {
   visibility: visible;
 }
 
-.form__input_errored {
+.form__input:invalid {
   color: #ee3465;
 }
 
@@ -82,7 +81,6 @@
   border: none;
   color: #fff;
   height: 45px;
-  cursor: pointer;
   margin-bottom: 16px;
 }
 

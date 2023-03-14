@@ -6,17 +6,17 @@ function Portfolio() {
       <h3 className="portfolio__header">Портфолио</h3>
       <ul className="portfolio__list">
         <li className="portfolio__item">
-          <Link className="portfolio__link" to={'*'}>
+          <Link className="my-link portfolio__link" to={'*'}>
             Статичный сайт
           </Link>
         </li>
         <li className="portfolio__item">
-          <Link className="portfolio__link" to={'*'}>
+          <Link className="my-link portfolio__link" to={'*'}>
             Адаптивный сайт
           </Link>
         </li>
         <li className="portfolio__item">
-          <Link className="portfolio__link" to={'*'}>
+          <Link className="my-link portfolio__link" to={'*'}>
             Одностраничное приложение
           </Link>
         </li>

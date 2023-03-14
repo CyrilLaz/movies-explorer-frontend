@@ -2,12 +2,11 @@ import { Link, NavLink } from 'react-router-dom';
 import './SliderNavigation.css';
 
 function SliderNavigation(props) {
-  // console.log(props.toggleSlider);
   return (
     <>
       <div
         onClick={props.toggleSlider}
-        className="slider-navigation__burger"
+        className="my-button slider-navigation__burger"
       ></div>
       <div
         className={`slider-navigation__overlay ${
@@ -21,28 +20,31 @@ function SliderNavigation(props) {
         >
           <div
             onClick={props.toggleSlider}
-            className="slider-navigation__close-button"
+            className="my-button slider-navigation__close-button"
           ></div>
           <nav className="slider-navigation__menu">
-            <p className="slider-navigation__header">Главная</p>
             <ul className="slider-navigation__list">
               <li className="slider-navigation__menu-item">
                 <ul className="slider-navigation__links">
                   <li className="slider-navigation__links-item">
-                    <NavLink className={({isActive})=>`slider-navigation__link${isActive?' slider-navigation__link_active':''}`} to={'/movies'}>
+                    <NavLink className={({isActive})=>`my-link slider-navigation__link${isActive?' slider-navigation__link_active':''}`} to={'/'}>
+                    Главная
+                    </NavLink>
+                  </li>
+                  <li className="slider-navigation__links-item">
+                    <NavLink className={({isActive})=>`my-link slider-navigation__link${isActive?' slider-navigation__link_active':''}`} to={'/movies'}>
                       Фильмы
                     </NavLink>
                   </li>
                   <li className="slider-navigation__links-item">
-                    <NavLink className={({isActive})=>`slider-navigation__link${isActive?' slider-navigation__link_active':''}`} to={'/saved-movies'}>
+                    <NavLink className={({isActive})=>`my-link slider-navigation__link${isActive?' slider-navigation__link_active':''}`} to={'/saved-movies'}>
                       Сохранённые фильмы
                     </NavLink>
                   </li>
                 </ul>
               </li>
-
               <li className="slider-navigation__menu-item">
-                <Link className="slider-navigation__slider-button" to={'/profile'}>
+                <Link className="my-button slider-navigation__slider-button" to={'/profile'}>
                   Аккаунт
                 </Link>
               </li>

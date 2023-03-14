@@ -1,7 +1,7 @@
 import './MovieCard.css';
 function MovieCard(props) {
 
-  const cardButtonClassName = `movies-card__button${
+  const cardButtonClassName = `my-button movies-card__button${
     props.isLiked
       ? props.isSaved
         ? ' movies-card__button_type_remove'

@@ -7,10 +7,7 @@ function LoginWithForm(props) {
         header={props.header}
         formName="login"
         greeting="Рады видеть!!"
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log('login');
-        }}
+        onSubmit={props.onSubmit}
         inputs={[
           {
             onChange: (e) => console.log(e.target.value),

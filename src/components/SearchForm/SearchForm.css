@@ -35,7 +35,6 @@
 }
 
 .search-form__submit {
-  cursor: pointer;
   border: none;
   font-weight: 500;
   font-size: 11px;
@@ -43,9 +42,6 @@
   padding: 8px 10.35px;
   background: #4285f4;
   border-radius: 48px;
-}
-
-.search-form__switch-container {
 }
 
 .search-form__label {

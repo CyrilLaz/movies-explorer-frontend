@@ -15,7 +15,7 @@ function MoviesCardList(props) {
           />
         ))}
       </ul>
-      <button className="movies-cards__paginator" onClick={props.handlerPage}>Ещё</button>
+      <button className="my-button movies-cards__paginator" onClick={props.handlerPage}>Ещё</button>
     </section>
   );
 }

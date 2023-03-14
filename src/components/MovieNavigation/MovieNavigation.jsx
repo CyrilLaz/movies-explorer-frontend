@@ -11,7 +11,7 @@ function MovieNavigation() {
             <li>
               <NavLink
                 className={({ isActive }) =>
-                  `movie-navigation__link${
+                  `my-link movie-navigation__link${
                     isActive ? ' movie-navigation__link_active' : ''
                   }`
                 }
@@ -23,7 +23,7 @@ function MovieNavigation() {
             <li>
               <NavLink
                 className={({ isActive }) =>
-                  `movie-navigation__link${
+                  `my-link movie-navigation__link${
                     isActive ? ' movie-navigation__link_active' : ''
                   }`
                 }
@@ -35,8 +35,7 @@ function MovieNavigation() {
           </ul>
         </li>
         <li className="movie-navigation__item">
-          {/* lдиблированная кнопка */}
-          <Link className="movie-navigation__button" to={'/profile'}>
+          <Link className="my-button movie-navigation__button" to={'/profile'}>
             Аккаунт
           </Link>
         </li>

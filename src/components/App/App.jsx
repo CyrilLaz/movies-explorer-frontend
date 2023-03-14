@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import useWindowDimensions from '../../hooks/useWindowDimentions';
 import Main from '../Main/Main';
 
@@ -31,6 +31,12 @@ function App() {
   });
   const [isMain, setIsMain] = useState(location.pathname === '/');
   const [isProfile, setIsProfile] = useState(location.pathname === '/profile');
+  let navigate = useNavigate();
+
+  function goToMovie(e) {
+    e.preventDefault();
+    navigate('/movies');
+  }
 
   function toggleSlider() {
     setSliderIsOpen(!sliderIsOpen);
@@ -121,11 +127,11 @@ function App() {
             </Route>
             <Route
               path="/signup"
-              element={<RegisterWithForm {...toggleErrors} />}
+              element={<RegisterWithForm {...toggleErrors} onSubmit={(e)=>goToMovie(e)} />}
             />
             <Route
               path="/signin"
-              element={<LoginWithForm {...toggleErrors} />}
+              element={<LoginWithForm {...toggleErrors} onSubmit={(e)=>goToMovie(e)} />}
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

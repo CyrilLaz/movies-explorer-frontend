@@ -12,7 +12,7 @@ function SearchForm({...props}) {
             console.log('submit search');
           }}
           type="submit"
-          className="search-form__submit"
+          className="my-button search-form__submit"
         >
           Найти
         </button>
@@ -22,9 +22,7 @@ function SearchForm({...props}) {
           <input
             className="search-form__checkbox"
             type="checkbox"
-
             onChange={()=>props.toShowShortMovie()}
-            // props.isShortMovie?checked:null
             checked={props.isShortMovie}
           />
           <span className="search-form__switcher"></span>

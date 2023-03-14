@@ -15,12 +15,12 @@ function Footer({ isMain, isHidden }) {
         <p className="footer__copy">&copy; 2023</p>
         <ul className="footer__list">
           <li className="footer__item">
-            <Link className="footer__link" to={'*'}>
+            <Link className="my-link footer__link" to={'https://practicum.yandex.ru/'}>
               Яндекс.Практикум
             </Link>
           </li>
           <li className="footer__item">
-            <Link className="footer__link" to={'*'}>
+            <Link className="my-link footer__link" to={'https://github.com/'}>
               Github
             </Link>
           </li>

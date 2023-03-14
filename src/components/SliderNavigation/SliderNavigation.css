@@ -1,5 +1,4 @@
 .slider-navigation__burger {
-  cursor: pointer;
   width: 44px;
   background-image: url('../../images/burger.svg');
   background-repeat: no-repeat;
@@ -44,7 +43,6 @@
 }
 
 .slider-navigation__close-button {
-  cursor: pointer;
   background-image: url('../../images/close-button.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -72,14 +70,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-}
-
-.slider-navigation__header {
-  font-size: 18px;
-  line-height: 22px;
-  color: #fff;
-  margin: 0 0 28px;
-  padding: 0;
 }
 
 .slider-navigation__links {

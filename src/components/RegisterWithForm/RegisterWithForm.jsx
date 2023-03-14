@@ -8,10 +8,7 @@ function RegisterWithForm(props) {
         header={props.header}
         formName="register"
         greeting="Добро пожаловать!"
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log('регистрация');
-        }}
+        onSubmit={props.onSubmit}
         inputs={[
           {
             onChange: (e) => console.log(e.target.value),

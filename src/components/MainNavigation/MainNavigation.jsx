@@ -5,10 +5,10 @@ function MainNavigation() {
     <nav className="main-navigation">
       <ul className="main-navigation__list">
         <li className="main-navigation__item">
-          <Link className='main-navigation__link' to={'/signup'}>Регистрация</Link>
+          <Link className='my-link main-navigation__link' to={'/signup'}>Регистрация</Link>
         </li>
         <li className="main-navigation__item">
-          <Link className='main-navigation__link main-navigation__link_type_button' to={'/movies'}>Войти</Link>
+          <Link className='my-button main-navigation__link main-navigation__link_type_button' to={'/signin'}>Войти</Link>
         </li>
       </ul >
     </nav>
