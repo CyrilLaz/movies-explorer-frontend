@@ -2,6 +2,14 @@ import { NavLink } from 'react-router-dom';
 import './SliderNavigation.css';
 
 function SliderNavigation(props) {
+  const linkClassName = ({ isActive }) =>
+    `my-link slider-navigation__link${
+      isActive ? ' slider-navigation__link_active' : ''
+    }`;
+  const buttonClassName = ({ isActive }) =>
+    `my-button slider-navigation__slider-button${
+      isActive ? ' slider-navigation__slider-button_active' : ''
+    }`;
   return (
     <>
       <div
@@ -27,24 +35,24 @@ function SliderNavigation(props) {
               <li className="slider-navigation__menu-item">
                 <ul className="slider-navigation__links">
                   <li className="slider-navigation__links-item">
-                    <NavLink className={({isActive})=>`my-link slider-navigation__link${isActive?' slider-navigation__link_active':''}`} to={'/'}>
-                    Главная
+                    <NavLink className={linkClassName} to={'/'}>
+                      Главная
                     </NavLink>
                   </li>
                   <li className="slider-navigation__links-item">
-                    <NavLink className={({isActive})=>`my-link slider-navigation__link${isActive?' slider-navigation__link_active':''}`} to={'/movies'}>
+                    <NavLink className={linkClassName} to={'/movies'}>
                       Фильмы
                     </NavLink>
                   </li>
                   <li className="slider-navigation__links-item">
-                    <NavLink className={({isActive})=>`my-link slider-navigation__link${isActive?' slider-navigation__link_active':''}`} to={'/saved-movies'}>
+                    <NavLink className={linkClassName} to={'/saved-movies'}>
                       Сохранённые фильмы
                     </NavLink>
                   </li>
                 </ul>
               </li>
               <li className="slider-navigation__menu-item">
-                <NavLink className={({isActive})=>`my-button slider-navigation__slider-button${isActive?' slider-navigation__slider-button_active':''}`} to={'/profile'}>
+                <NavLink className={buttonClassName} to={'/profile'}>
                   Аккаунт
                 </NavLink>
               </li>

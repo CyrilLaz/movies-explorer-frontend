@@ -7,10 +7,10 @@ function Movie(props) {
     <main className="Movie">
       <SearchForm {...props} />
       <MoviesCardList
-        handlerPage={props.handlerPage}
-        handlerCard={props.handlerCard}
         cards={props.cards}
+        handlerCard={props.handlerCard}
         isPreloader={props.isPreloader}
+        handlerPage={props.handlerPage}
         isPaginator={props.isPaginator}
       />
     </main>

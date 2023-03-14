@@ -1,41 +1,34 @@
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './MovieNavigation.css';
 
 function MovieNavigation() {
-  // console.log('render MovieNavigation');
+  const linkClassName = ({ isActive }) =>
+    `my-link movie-navigation__link${
+      isActive ? ' movie-navigation__link_active' : ''
+    }`;
+  const buttonClassName = ({ isActive }) =>
+    `my-button movie-navigation__button${
+      isActive ? ' movie-navigation__button_active' : ''
+    }`;
   return (
     <nav className="movie-navigation">
       <ul className="movie-navigation__list">
         <li className="movie-navigation__item">
           <ul className="movie-navigation__links">
             <li>
-              <NavLink
-                className={({ isActive }) =>
-                  `my-link movie-navigation__link${
-                    isActive ? ' movie-navigation__link_active' : ''
-                  }`
-                }
-                to={'/movies'}
-              >
+              <NavLink className={linkClassName} to={'/movies'}>
                 Фильмы
               </NavLink>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) =>
-                  `my-link movie-navigation__link${
-                    isActive ? ' movie-navigation__link_active' : ''
-                  }`
-                }
-                to={'/saved-movies'}
-              >
+              <NavLink className={linkClassName} to={'/saved-movies'}>
                 Сохраненные фильмы
               </NavLink>
             </li>
           </ul>
         </li>
         <li className="movie-navigation__item">
-          <NavLink className={({isActive})=>`my-button movie-navigation__button${isActive?' movie-navigation__button_active':''}`} to={'/profile'}>
+          <NavLink className={buttonClassName} to={'/profile'}>
             Аккаунт
           </NavLink>
         </li>
