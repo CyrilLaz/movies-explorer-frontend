@@ -53,25 +53,4 @@ export const saved = [
     isLiked: true,
     isSaved: true,
   },
-  {
-    name: '33 слова о дизайне',
-    link: 'https://www.ejin.ru/wp-content/uploads/2018/05/12-4.jpg',
-    duration: '128 minute',
-    isLiked: true,
-    isSaved: true,
-  },
-  {
-    name: '33 слова о дизайне',
-    link: 'https://www.ejin.ru/wp-content/uploads/2018/05/12-4.jpg',
-    duration: '128 minute',
-    isLiked: true,
-    isSaved: true,
-  },
-  {
-    name: '33 слова о дизайне',
-    link: 'https://www.ejin.ru/wp-content/uploads/2018/05/12-4.jpg',
-    duration: '128 minute',
-    isLiked: true,
-    isSaved: true,
-  },
 ];

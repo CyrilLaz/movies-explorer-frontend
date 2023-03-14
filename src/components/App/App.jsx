@@ -21,7 +21,7 @@ import Modal from '../Modal/Modal';
 function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isShortMovie, setIsShortMovie] = useState(false);
-  const [isPreloaderVisible, setShowPreloader] = useState(false);
+  const [isPreloader, setShowPreloader] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
@@ -79,7 +79,7 @@ function App() {
   }
 
   function showPreloader() {
-    setShowPreloader(!isPreloaderVisible);
+    setShowPreloader(!isPreloader);
   }
 
   return (
@@ -118,11 +118,12 @@ function App() {
                   <Movie
                     cards={cards}
                     handlerCard={() => console.log('Сохранить мувик')}
-                    handlerPage={() => console.log('Следующая страница')}
+                    handlerPage={() => showPreloader()}
                     isShortMovie={isShortMovie}
                     isSliderNavigation={isSliderNavigation}
                     toShowShortMovie={toShowShortMovie}
-                    isPreloaderVisible={isPreloaderVisible}
+                    isPreloader={isPreloader}
+                    isPaginator={true}
                   />
                 }
               />
@@ -132,10 +133,11 @@ function App() {
                   <SavedMovies
                     cards={savedCards}
                     handlerCard={() => console.log('удалить карточку')}
-                    handlerPage={() => console.log('Следующая страница')}
+                    handlerPage={() => showPreloader()}
                     isShortMovie={isShortMovie}
                     toShowShortMovie={toShowShortMovie}
-                    isPreloaderVisible={isPreloaderVisible}
+                    isPreloader={isPreloader}
+                    isPaginator={false}
                   />
                 }
               />

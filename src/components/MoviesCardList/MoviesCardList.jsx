@@ -1,4 +1,5 @@
 import MovieCard from '../MovieCard/MovieCard';
+import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 
 function MoviesCardList(props) {
@@ -15,7 +16,16 @@ function MoviesCardList(props) {
           />
         ))}
       </ul>
-      <button className="my-button movies-cards__paginator" onClick={props.handlerPage}>Ещё</button>
+      {props.isPreloader ? (
+        <Preloader />
+      ) : props.isPaginator ? (
+        <button
+          className="my-button movies-cards__paginator"
+          onClick={props.handlerPage}
+        >
+          Ещё
+        </button>
+      ) : null}
     </section>
   );
 }
