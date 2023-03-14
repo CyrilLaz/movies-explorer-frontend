@@ -31,6 +31,7 @@
 
 .movies-card__description {
   padding-top: 7px;
+  max-width: 85%;
 }
 
 .movies-card__title {
@@ -40,6 +41,9 @@
   font-size: 13px;
   line-height: 16px;
   color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .movies-card__duration {

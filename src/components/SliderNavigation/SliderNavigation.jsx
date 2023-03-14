@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './SliderNavigation.css';
 
 function SliderNavigation(props) {
@@ -44,9 +44,9 @@ function SliderNavigation(props) {
                 </ul>
               </li>
               <li className="slider-navigation__menu-item">
-                <Link className="my-button slider-navigation__slider-button" to={'/profile'}>
+                <NavLink className={({isActive})=>`my-button slider-navigation__slider-button${isActive?' slider-navigation__slider-button_active':''}`} to={'/profile'}>
                   Аккаунт
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </nav>

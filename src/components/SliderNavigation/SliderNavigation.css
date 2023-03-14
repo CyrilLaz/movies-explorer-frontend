@@ -108,6 +108,12 @@
   border-radius: 20px;
 }
 
+.slider-navigation__slider-button_active {
+  cursor: default;
+  color: gray;
+  pointer-events: none;
+}
+
 @media screen and (max-width: 500px) {
   .slider-navigation__close-button {
     margin: 16.4px 14.4px 0 0;
