@@ -35,9 +35,9 @@ function MovieNavigation() {
           </ul>
         </li>
         <li className="movie-navigation__item">
-          <Link className="my-button movie-navigation__button" to={'/profile'}>
+          <NavLink className={({isActive})=>`my-button movie-navigation__button${isActive?' movie-navigation__button_active':''}`} to={'/profile'}>
             Аккаунт
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </nav>

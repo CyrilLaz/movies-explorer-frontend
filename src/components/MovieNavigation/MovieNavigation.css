@@ -42,3 +42,10 @@
 .movie-navigation__link_active {
   font-weight: 500;
 }
+
+.movie-navigation__button.movie-navigation__button_active {
+  cursor: default;
+  color: gray;
+  pointer-events: none;
+
+}
