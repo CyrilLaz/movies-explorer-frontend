@@ -40,6 +40,7 @@
 .my-link:hover,
 .my-link:active {
   opacity: 0.7;
+  cursor: pointer;
 }
 
 .my-link,

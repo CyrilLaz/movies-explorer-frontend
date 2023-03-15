@@ -46,14 +46,14 @@ function Profile(props) {
         </ul>
         <button
           type="submit"
-          className="profile__button profile__button_type_submit"
+          className="my-link profile__button profile__button_type_submit"
         >
           Редактировать
         </button>
       </form>
       <button
         onClick={() => console.log('Выход из аккаунта')}
-        className="profile__button profile__button_type_logout"
+        className="my-link profile__button profile__button_type_logout"
       >
         Выйти из аккаунта
       </button>
