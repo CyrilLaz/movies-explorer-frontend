@@ -25,6 +25,8 @@ function Profile(props) {
               type="text"
               defaultValue={user.name}
               className="profile__input"
+              minLength="2"
+              maxLength="30"
             />
             <span className={`profile__input-error`}>{props.name}</span>
           </li>

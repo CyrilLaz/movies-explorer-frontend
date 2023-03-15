@@ -15,6 +15,10 @@
   margin: 0 auto;
 }
 
+.App__container_bloked {
+  overflow: hidden;
+}
+
 .App__container.App__container_main {
   width: 100%;
   max-width: none;
@@ -32,12 +36,19 @@
   }
 }
 
-.my-link:hover {
+
+.my-link:hover,
+.my-link:active {
   opacity: 0.7;
-  cursor: pointer;
 }
 
-.my-button:hover {
+.my-link,
+.my-button {
   cursor: pointer;
+  transition: opacity .3s ease;
+}
+
+.my-button:hover,
+.my-button:active {
   opacity: 0.8;
 }

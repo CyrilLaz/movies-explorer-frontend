@@ -49,23 +49,25 @@
   background-size: cover;
   width: 31px;
   height: 31px;
-  align-self: flex-end;
-  margin: 22.4px 22.4px 0 0;
+  position: absolute;
+  right: 22.4px;
+  top: 22.4px;
 }
 
 .slider-navigation__menu {
-  margin: 113.4px 0 0;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
 }
 
 .slider-navigation__list {
   list-style: none;
   height: 100%;
-  margin: 0 0 98px;
-  padding: 0;
+  max-height: 767px;
+  margin: auto 0;
+  padding: 113px 0 54px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -114,17 +116,21 @@
   pointer-events: none;
 }
 
+@media screen and (max-height: 340px) {
+  .slider-navigation__list {
+    padding-top: 40px;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .slider-navigation__close-button {
-    margin: 16.4px 14.4px 0 0;
-  }
-  .slider-navigation__menu {
-    margin-top: 103.4px;
+    top: 14px;
+    right: 14px;
   }
   .slider-navigation__links-item {
     margin-bottom: 25px;
   }
   .slider-navigation__list {
-    margin-bottom: 46px;
+    padding: 144px 0 54px;
   }
 }

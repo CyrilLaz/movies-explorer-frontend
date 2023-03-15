@@ -22,6 +22,9 @@ function LoginWithForm(props) {
             id: 'password',
             name: 'password',
             label: 'Пароль',
+            autocomplete: 'current-password',
+            minLength: 2,
+            maxLength: 30,
           },
         ]}
         button="Войти"

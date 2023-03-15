@@ -26,12 +26,7 @@ function App() {
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const [isSliderNavigation, setIsSliderNavigation] = useState(width <= 800);
-  const [toggleErrors, setToggleErrors] = useState({
-    // разобраться в ошибках
-    nameIsError: false,
-    emailIsError: false,
-    passwordIsError: false,
-  });
+  const [errorMessages, setErrorMessages] = useState({});
   const [isMain, setIsMain] = useState(location.pathname === '/');
   const [isProfile, setIsProfile] = useState(location.pathname === '/profile');
   const [modalSettings, setModalSettings] = useState({
@@ -145,21 +140,11 @@ function App() {
             </Route>
             <Route
               path="/signup"
-              element={
-                <RegisterWithForm
-                  {...toggleErrors}
-                  onSubmit={(e) => goToMovie(e)}
-                />
-              }
+              element={<RegisterWithForm onSubmit={(e) => goToMovie(e)} />}
             />
             <Route
               path="/signin"
-              element={
-                <LoginWithForm
-                  {...toggleErrors}
-                  onSubmit={(e) => goToMovie(e)}
-                />
-              }
+              element={<LoginWithForm onSubmit={(e) => goToMovie(e)} />}
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

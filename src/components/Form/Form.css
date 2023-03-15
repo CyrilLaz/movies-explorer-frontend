@@ -65,10 +65,9 @@
   font-size: 10px;
   line-height: 12px;
   height: 18px;
-}
-
-.form__error_visible {
-  visibility: visible;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .form__input:invalid {
