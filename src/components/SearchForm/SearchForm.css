@@ -42,6 +42,7 @@
   padding: 8px 12.7px;
   background: #4285f4;
   border-radius: 48px;
+  color: #fff;
 }
 
 .search-form__label {
@@ -102,10 +103,10 @@
     margin-bottom: 41px;
   }
 
-.search-form__text {
-  font-size: 11px;
-  line-height: 18px;
-}
+  .search-form__text {
+    font-size: 11px;
+    line-height: 18px;
+  }
 
   .search-form__input {
     font-size: 18px;
@@ -113,6 +114,6 @@
   }
 
   .search-form__switch-container {
-  justify-content: center;
+    justify-content: center;
   }
 }
