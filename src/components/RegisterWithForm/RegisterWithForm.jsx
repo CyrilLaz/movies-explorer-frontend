@@ -18,7 +18,7 @@ function RegisterWithForm(props) {
             label: 'Имя',
             minLength:2,
             maxLength:30,
-            autocomplete:"username ",
+            autoComplete:"username ",
           },
           {
             onChange: (e) => console.log(e.target.value),
@@ -26,7 +26,7 @@ function RegisterWithForm(props) {
             id: 'email',
             name: 'email',
             label: 'E-mail',
-            autocomplete:"email",
+            autoComplete:"email",
           },
           {
             onChange: (e) => console.log(e.target.value),
@@ -36,7 +36,7 @@ function RegisterWithForm(props) {
             label: 'Пароль',
             minLength:3,
             maxLength:30,
-            autocomplete:"new-password",
+            autoComplete:"new-password",
           },
         ]}
         button="Зарегистрироваться"

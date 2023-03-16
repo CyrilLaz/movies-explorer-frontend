@@ -122,4 +122,8 @@
     font-size: 10px;
     line-height: 12px;
   }
+
+  .movies-card__button_type_remove {
+    display: block;
+  }
 }
