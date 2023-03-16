@@ -1,4 +1,4 @@
-.slider-navigation__burger {
+.header__burger {
   width: 44px;
   background-image: url('../../images/burger.svg');
   background-repeat: no-repeat;
@@ -6,7 +6,7 @@
   background-position: center;
 }
 
-.slider-navigation__overlay {
+.slider-navigation {
   position: fixed;
   z-index: 1;
   display: flex;
@@ -20,7 +20,7 @@
   transition: opacity 0.3s linear, visibility 0.3s linear;
 }
 
-.slider-navigation__overlay_visible {
+.slider-navigation_visible {
   visibility: visible;
   opacity: 1;
 }

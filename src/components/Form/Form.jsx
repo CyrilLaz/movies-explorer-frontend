@@ -4,9 +4,9 @@ import './Form.css';
 
 function Form(props) {
   return (
-    <div className="form-container">
+    <div className="signing">
       <Header isForm={true} />
-      <h1 className="form__greeting">{props.greeting}</h1>
+      <h1 className="signing__greeting">{props.greeting}</h1>
       <form onSubmit={props.onSubmit} name={props.formName} className="form" noValidate>
         <ul className="form__inputs">
           {props.inputs.map((input, index) => (
@@ -24,9 +24,9 @@ function Form(props) {
         </ul>
         <button className="my-button form__submit-button">{props.button}</button>
       </form>
-      <div className="form__entry">
-        <span className="form__entry-text">{props.entryText}</span>
-        <Link to={props.entryLinkPath} className="my-link form__entry-link">
+      <div className="signing__entry">
+        <span className="signing__entry-text">{props.entryText}</span>
+        <Link to={props.entryLinkPath} className="my-link signing__entry-link">
           {props.entryLinkText}
         </Link>
       </div>

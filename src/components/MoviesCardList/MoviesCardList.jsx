@@ -5,7 +5,7 @@ import './MoviesCardList.css';
 function MoviesCardList(props) {
   return (
     <section className="movies-cards">
-      <ul className="movies-cards_list">
+      <ul className="movies-cards__list">
         {props.cards.map((elem, index) => (
           <MovieCard
             handler={props.handlerCard}

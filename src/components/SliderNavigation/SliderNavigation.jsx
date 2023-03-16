@@ -10,22 +10,21 @@ function SliderNavigation(props) {
     `my-button slider-navigation__slider-button${
       isActive ? ' slider-navigation__slider-button_active' : ''
     }`;
+  const sliderNavigationClassName = `slider-navigation ${
+    props.sliderIsOpen ? ' slider-navigation_visible' : ''
+  }`;
+  const sliderNavigationContainerClassName = `slider-navigation__container${
+    props.sliderIsOpen ? ' slider-navigation__container_visible' : ''
+  }`;
+
   return (
     <>
       <div
         onClick={props.toggleSlider}
-        className="my-button slider-navigation__burger"
+        className="my-button header__burger"
       ></div>
-      <div
-        className={`slider-navigation__overlay ${
-          props.sliderIsOpen ? ' slider-navigation__overlay_visible' : ''
-        }`}
-      >
-        <div
-          className={`slider-navigation__container${
-            props.sliderIsOpen ? ' slider-navigation__container_visible' : ''
-          }`}
-        >
+      <div className={sliderNavigationClassName}>
+        <div className={sliderNavigationContainerClassName}>
           <div
             onClick={props.toggleSlider}
             className="my-button slider-navigation__close-button"

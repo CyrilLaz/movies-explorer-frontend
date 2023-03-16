@@ -5,7 +5,7 @@
   justify-content: space-between;
 }
 
-.form-container {
+.signing {
   max-height: 560px;
   max-width: 396px;
   width: 100%;
@@ -16,7 +16,7 @@
   flex: 1;
 }
 
-.form__greeting {
+.signing__greeting {
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
@@ -87,7 +87,7 @@
   background-color: #f8f8f8;
 }
 
-.form__entry {
+.signing__entry {
   display: flex;
   justify-content: center;
   font-weight: 400;
@@ -96,21 +96,21 @@
   color: #8b8b8b;
 }
 
-.form__entry-link {
+.signing__entry-link {
   color: #4285f4;
   padding: 0 6px;
   text-decoration: none;
 }
 
 @media screen and (max-width: 500px) {
-  .form-container {
+  .signing {
     max-height: none;
     max-width: 260px;
     margin: 56px auto 30px;
     padding: 0;
   }
 
-  .form__greeting {
+  .signing__greeting {
     margin: 0 auto 80px;
   }
 
@@ -119,7 +119,7 @@
     line-height: 15px;
   }
 
-  .form__entry {
+  .signing__entry {
     font-size: 12px;
     line-height: 15px;
   }
