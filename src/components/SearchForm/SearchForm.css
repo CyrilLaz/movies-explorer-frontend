@@ -18,7 +18,7 @@
 
 .search-form__input {
   border: 0;
-  margin: 0;
+  margin: 0 10px 0 0;
   padding: 0;
   background-color: transparent;
   font-family: inherit;
@@ -30,8 +30,8 @@
   width: 100%;
 }
 
-.search-form__input:focus-visible {
-  outline: none;
+.search-form__input:focus {
+  outline: 1px solid #424242;
 }
 
 .search-form__submit {
@@ -54,6 +54,7 @@
   position: absolute;
   overflow: hidden;
   opacity: 0;
+  cursor: pointer;
 }
 
 .search-form__switcher {

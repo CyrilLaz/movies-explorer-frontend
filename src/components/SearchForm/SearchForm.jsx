@@ -1,11 +1,16 @@
 import './SearchForm.css';
 
 function SearchForm(props) {
-
   return (
     <form className="search-form">
       <fieldset className="search-form__field search-form__search-container">
-        <input type="text" className="search-form__input" maxLength="63" />
+        <input
+          type="text"
+          className="search-form__input"
+          maxLength="63"
+          required
+          placeholder='Фильм'
+        />
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -22,7 +27,7 @@ function SearchForm(props) {
           <input
             className="search-form__checkbox"
             type="checkbox"
-            onChange={()=>props.toShowShortMovie()}
+            onChange={() => props.toShowShortMovie()}
             checked={props.isShortMovie}
           />
           <span className="search-form__switcher"></span>
