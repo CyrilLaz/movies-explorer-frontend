@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import useWindowDimensions from '../../hooks/useWindowDimentions';
 import Main from '../Main/Main';
+import Api from '../../utils/MainApi';
 
 import Movie from '../Movie/Movie';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -19,6 +20,8 @@ import { user, UserContext } from '../../context/userContext';
 import Modal from '../Modal/Modal';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [isPreloader, setShowPreloader] = useState(false);
@@ -34,6 +37,17 @@ function App() {
     message:
       'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
   });
+  const [inputs, setInputs] = useState({});
+
+  function registration(e) {
+    e.preventDefault();
+    console.log(inputs);
+  }
+
+  function login(e) {
+    e.preventDefault();
+    console.log(inputs);
+  }
 
   function openModal() {
     setModalSettings({
@@ -45,11 +59,6 @@ function App() {
 
   function closeModal() {
     setModalSettings({ isOpen: false, message: '' });
-  }
-
-  function goToMovie(e) {
-    e.preventDefault();
-    navigate('/movies');
   }
 
   function toggleSlider() {
@@ -140,11 +149,27 @@ function App() {
             </Route>
             <Route
               path="/signup"
-              element={<RegisterWithForm onSubmit={(e) => goToMovie(e)} />}
+              element={
+                <RegisterWithForm
+                  onChange={(e) =>
+                    setInputs({ ...inputs, [e.target.name]: e.target.value })
+                  }
+                  values={{ ...inputs }}
+                  onSubmit={registration}
+                />
+              }
             />
             <Route
               path="/signin"
-              element={<LoginWithForm onSubmit={(e) => goToMovie(e)} />}
+              element={
+                <LoginWithForm
+                  onChange={(e) =>
+                    setInputs({ ...inputs, [e.target.name]: e.target.value })
+                  }
+                  values={{ ...inputs }}
+                  onSubmit={login}
+                />
+              }
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

@@ -7,7 +7,12 @@ function Form(props) {
     <div className="signing">
       <Header isForm={true} />
       <h1 className="signing__greeting">{props.greeting}</h1>
-      <form onSubmit={props.onSubmit} name={props.formName} className="form" noValidate>
+      <form
+        onSubmit={props.onSubmit}
+        name={props.formName}
+        className="form"
+        noValidate
+      >
         <ul className="form__inputs">
           {props.inputs.map((input, index) => (
             <li key={index} className="form__inputs-item">
@@ -15,6 +20,8 @@ function Form(props) {
                 {input.label}
               </label>
               <input
+                value={props.values[input.name]||''}
+                onChange={props.onChange}
                 {...input}
                 className='form__input'
                 required
@@ -23,7 +30,9 @@ function Form(props) {
             </li>
           ))}
         </ul>
-        <button className="my-button form__submit-button">{props.button}</button>
+        <button className="my-button form__submit-button">
+          {props.button}
+        </button>
       </form>
       <div className="signing__entry">
         <span className="signing__entry-text">{props.entryText}</span>
