@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
+import { isEmail } from 'validator';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import useWindowDimensions from '../../hooks/useWindowDimentions';
 import Main from '../Main/Main';
-import Api from '../../utils/MainApi';
-
+import MainApi from '../../utils/MainApi';
 import Movie from '../Movie/Movie';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import { cards, saved as savedCards } from '../../constants/cards';
@@ -16,45 +16,86 @@ import RegisterWithForm from '../RegisterWithForm/RegisterWithForm';
 import LoginWithForm from '../LoginWithForm/LoginWithForm';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Layout from '../Layout/Layout';
-import { user, UserContext } from '../../context/userContext';
+import { UserContext } from '../../context/userContext';
 import Modal from '../Modal/Modal';
+import { useFormValidator } from '../../hooks/useFormValidator';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-
+  const [
+    handleValidForm,
+    errors,
+    isButtonDisabled,
+    resetForm,
+    toggleButtonDisabling,
+  ] = useFormValidator((e) => {
+    // проверка адреса почты с помощью стороннего модуля
+    if (e.target.name === 'email') {
+      if (!isEmail(e.target.value)) {
+        return e.target.setCustomValidity('Не верный формат для адреса почты');
+      } else {
+        return e.target.setCustomValidity('');
+      }
+    }
+  });
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [isPreloader, setShowPreloader] = useState(false);
+  const [user, setUser] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const [isSliderNavigation, setIsSliderNavigation] = useState(width <= 800);
-  const [errorMessages, setErrorMessages] = useState({});
+
   const [isMain, setIsMain] = useState(location.pathname === '/');
   const [isProfile, setIsProfile] = useState(location.pathname === '/profile');
   const [modalSettings, setModalSettings] = useState({
     isOpen: false,
-    message:
-      'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
+    message: '',
   });
   const [inputs, setInputs] = useState({});
 
-  function registration(e) {
+  function onRegistr(e) {
     e.preventDefault();
-    console.log(inputs);
+    toggleButtonDisabling(true);
+    const { name, email, password } = inputs;
+    MainApi.register(name, email, password)
+      .then((res) => {
+        if (!res.data) throw res;
+        login(email, password);
+      })
+      .catch((err) =>
+        setModalSettings({
+          ...modalSettings,
+          isOpen: true,
+          message: err.message,
+        })
+      );
   }
 
-  function login(e) {
-    e.preventDefault();
-    console.log(inputs);
+  function login(email, password) {
+    return MainApi.login(email, password)
+      .then((res) => {
+        if (!res.data) throw res;
+        setLoggedIn(true);
+        setUser(res.data);
+        navigate('/movies');
+        console.log(user);
+      })
+      .catch((err) =>
+        setModalSettings({
+          ...modalSettings,
+          isOpen: true,
+          message: err.message,
+        })
+      );
   }
 
-  function openModal() {
-    setModalSettings({
-      ...modalSettings,
-      isOpen: true,
-      message: 'Произошло что-то непредвиденное, поворот не туда',
-    });
+  function onLogin(e) {
+    e.preventDefault();
+    toggleButtonDisabling(true);
+    const { email, password } = inputs;
+    login(email, password);
   }
 
   function closeModal() {
@@ -67,7 +108,8 @@ function App() {
 
   useEffect(() => {
     if (isSliderNavigation === true) setSliderIsOpen(false);
-  }, [location, isSliderNavigation]); // закрываем слайдер после перехода на другой адрес или после того как слайдер перестал быть нужным
+    return () => resetForm(); // !! каждый раз когда меняется адресс будет сбрасываться форма!!! можно сделать лучше
+  }, [location, isSliderNavigation, resetForm]); // закрываем слайдер после перехода на другой адрес или после того как слайдер перестал быть нужным
 
   useEffect(() => {
     setIsSliderNavigation(width <= 800);
@@ -151,11 +193,14 @@ function App() {
               path="/signup"
               element={
                 <RegisterWithForm
-                  onChange={(e) =>
-                    setInputs({ ...inputs, [e.target.name]: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setInputs({ ...inputs, [e.target.name]: e.target.value });
+                    handleValidForm(e);
+                  }}
                   values={{ ...inputs }}
-                  onSubmit={registration}
+                  onSubmit={onRegistr}
+                  {...errors}
+                  isButtonDisabled={isButtonDisabled}
                 />
               }
             />
@@ -163,11 +208,14 @@ function App() {
               path="/signin"
               element={
                 <LoginWithForm
-                  onChange={(e) =>
-                    setInputs({ ...inputs, [e.target.name]: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setInputs({ ...inputs, [e.target.name]: e.target.value });
+                    handleValidForm(e);
+                  }}
                   values={{ ...inputs }}
-                  onSubmit={login}
+                  onSubmit={onLogin}
+                  {...errors}
+                  isButtonDisabled={isButtonDisabled}
                 />
               }
             />

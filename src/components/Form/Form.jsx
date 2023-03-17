@@ -3,6 +3,10 @@ import Header from '../Header/Header';
 import './Form.css';
 
 function Form(props) {
+  const buttonClassName = `my-button form__submit-button${
+    props.isButtonDisabled ? ' form__submit-button_inactive' : ''
+  }`;
+
   return (
     <div className="signing">
       <Header isForm={true} />
@@ -20,19 +24,17 @@ function Form(props) {
                 {input.label}
               </label>
               <input
-                value={props.values[input.name]||''}
+                value={props.values[input.name] || ''}
                 onChange={props.onChange}
                 {...input}
-                className='form__input'
+                className="form__input"
                 required
               />
               <span className={`form__error`}>{props[input.name]}</span>
             </li>
           ))}
         </ul>
-        <button className="my-button form__submit-button">
-          {props.button}
-        </button>
+        <button className={buttonClassName}>{props.button}</button>
       </form>
       <div className="signing__entry">
         <span className="signing__entry-text">{props.entryText}</span>
