@@ -27,6 +27,7 @@ function Profile(props) {
               className="profile__input"
               minLength="2"
               maxLength="30"
+              required
             />
             <span className={`profile__input-error`}>{props.name}</span>
           </li>
@@ -40,6 +41,7 @@ function Profile(props) {
               type="email"
               defaultValue={user.email}
               className="profile__input"
+              required
             />
             <span className={`profile__input-error`}>{props.email}</span>
           </li>

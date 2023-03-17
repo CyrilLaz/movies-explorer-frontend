@@ -17,6 +17,7 @@ function Form(props) {
               <input
                 {...input}
                 className='form__input'
+                required
               />
               <span className={`form__error`}>{props[input.name]}</span>
             </li>
