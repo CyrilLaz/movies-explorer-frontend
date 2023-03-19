@@ -6,6 +6,19 @@ import './Profile.css';
 function Profile(props) {
   const user = useContext(UserContext);
   const [isEditMode, setEditMode] = useState(false);
+  const [inputs, setInputs] = useState({ ...user, _id: undefined });
+
+  function handleChange(e) {
+    props.handleValidForm(e);
+    const nameInput = e.target.name;
+    const valueInput = e.target.value;
+    setInputs({ ...inputs, [nameInput]: valueInput });
+    if (valueInput === user[nameInput]) {
+      props.toggleButtonDisabling(true);
+    } else {
+      props.toggleButtonDisabling(false);
+    }
+  }
 
   return (
     <main className="profile">
@@ -13,7 +26,8 @@ function Profile(props) {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          console.log('Изменить данные пользователя');
+          const { name, email } = inputs;
+          props.onSubmit(name, email);
         }}
         className="profile__form"
         noValidate
@@ -30,10 +44,10 @@ function Profile(props) {
                 minLength="2"
                 maxLength="30"
                 required
-                defaultValue={user.name}
+                // defaultValue={user.name}
                 disabled={!isEditMode}
-                onChange={props.onChange}
-                value={props.values.name}
+                onChange={handleChange}
+                value={inputs.name||''}
               />
             </label>
 
@@ -48,10 +62,10 @@ function Profile(props) {
                 type="email"
                 className="profile__input"
                 required
-                defaultValue={user.name}
+                // defaultValue={user.name}
                 disabled={!isEditMode}
-                onChange={props.onChange}
-                value={props.values.email}
+                onChange={handleChange}
+                value={inputs.email||''}
               />
             </label>
 
@@ -64,10 +78,12 @@ function Profile(props) {
           }`}
         >
           <button
-            onClick={() => {
-              props.setInputs(user);
+            onClick={(e) => {
+              e.preventDefault();
+              setInputs({ ...user, _id: undefined });
               props.resetError();
-              setEditMode(!isEditMode)}}
+              setEditMode(!isEditMode);
+            }}
             className="my-link profile__button profile__button_type_edit"
           >
             Отменить редактирование

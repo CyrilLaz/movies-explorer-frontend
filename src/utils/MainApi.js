@@ -50,6 +50,17 @@ class Api {
       ...this.options,
     }).then(this._checkResponse());
   };
+
+  updateUser = (name, email) => {
+    return fetch(`${REACT_APP_BASE_URL}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      ...this.options,
+      body: JSON.stringify({ name, email }),
+    }).then(this._checkResponse());
+  };
 }
 
 export default Api = new Api({

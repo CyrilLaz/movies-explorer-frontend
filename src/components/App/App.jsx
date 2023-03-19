@@ -115,6 +115,19 @@ function App() {
       });
   }
 
+  function onUpdateUser(name, email) {
+    return MainApi.updateUser(name, email).then(({data,...res}) => {
+      if(!data) throw res;
+      setUser({...data});
+    }).catch(err=>{
+      setModalSettings({
+        ...modalSettings,
+        isOpen: true,
+        message: 'произошло при изменении профиля',
+      });
+    });
+  }
+
   function closeModal() {
     setModalSettings({ isOpen: false, message: '' });
   }
@@ -216,20 +229,10 @@ function App() {
                     loggedIn={loggedIn}
                     onLogout={onLogout}
                     component={Profile}
-                    onChange={(e) => {
-                      const nameInput = e.target.name;
-                      const valueInput = e.target.value;
-                      setInputs({ ...inputs, [nameInput]: valueInput });
-                      handleValidForm(e);
-                      if (
-                        valueInput === user[nameInput]
-                      ) {
-                        toggleButtonDisabling(true);
-                      } else {
-                        toggleButtonDisabling(false);
-                      }
-                    }}
-                    values={{ ...inputs }}
+                    handleValidForm={handleValidForm}
+                    toggleButtonDisabling={toggleButtonDisabling}
+                    onSubmit={onUpdateUser}
+                    values={inputs}
                     setInputs={setInputs}
                     {...errors}
                     isButtonDisabled={isButtonDisabled}
