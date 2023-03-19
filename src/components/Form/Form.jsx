@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
+import SubmitButton from '../../SubmitButton/SubmitButton';
 import Header from '../Header/Header';
 import './Form.css';
 
-function Form(props) {
-  const buttonClassName = `my-button form__submit-button${
-    props.isButtonDisabled ? ' form__submit-button_inactive' : ''
-  }`;
+function Form({ button, isButtonDisabled, ...props }) {
 
   return (
     <div className="signing">
@@ -34,7 +32,7 @@ function Form(props) {
             </li>
           ))}
         </ul>
-        <button className={buttonClassName}>{props.button}</button>
+        <SubmitButton button={button} isButtonDisabled={isButtonDisabled} />
       </form>
       <div className="signing__entry">
         <span className="signing__entry-text">{props.entryText}</span>
