@@ -12,7 +12,7 @@ export function useFormValidator(customVal) {
       if (!target.validity.valueMissing) {
         customVal(event);
       } else {
-        event.target.setCustomValidity('');
+        target.setCustomValidity('');
       }
     }
 

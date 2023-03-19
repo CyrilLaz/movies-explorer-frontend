@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './MainNavigation.css';
-function MainNavigation() {
+function MainNavigation(props) {
   return (
     <nav className="main-navigation">
       <ul className="main-navigation__list">
@@ -8,7 +8,7 @@ function MainNavigation() {
           <Link className='my-link main-navigation__link' to={'/signup'}>Регистрация</Link>
         </li>
         <li className="main-navigation__item">
-          <Link className='my-button main-navigation__link main-navigation__link_type_button' to={'/signin'}>Войти</Link>
+          <Link className='my-button main-navigation__link main-navigation__link_type_button' to={props.loggedIn?'/movies':'/signin'}>Войти</Link>
         </li>
       </ul >
     </nav>

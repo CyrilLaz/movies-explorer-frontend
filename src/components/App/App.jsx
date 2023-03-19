@@ -19,6 +19,7 @@ import Layout from '../Layout/Layout';
 import { UserContext } from '../../context/userContext';
 import Modal from '../Modal/Modal';
 import { useFormValidator } from '../../hooks/useFormValidator';
+import ProtectedRoute from '../ProtectedRouter/ProtectedRoute';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -142,7 +143,7 @@ function App() {
                 <Layout
                   header={{
                     children: isMain ? (
-                      <MainNavigation />
+                      <MainNavigation loggedIn={loggedIn}/>
                     ) : isSliderNavigation ? (
                       <SliderNavigation
                         toggleSlider={toggleSlider}
@@ -161,22 +162,20 @@ function App() {
               <Route
                 path="movies"
                 element={
-                  <Movie
-                    cards={cards}
-                    handlerCard={() => console.log('Сохранить мувик')}
-                    handlerPage={() => showPreloader()}
-                    isShortMovie={isShortMovie}
-                    isSliderNavigation={isSliderNavigation}
-                    toShowShortMovie={toShowShortMovie}
-                    isPreloader={isPreloader}
-                    isPaginator={true}
-                  />
+                  <ProtectedRoute loggedIn={loggedIn} component={Movie} cards={cards}
+                      handlerCard={() => console.log('Сохранить мувик')}
+                      handlerPage={() => showPreloader()}
+                      isShortMovie={isShortMovie}
+                      isSliderNavigation={isSliderNavigation}
+                      toShowShortMovie={toShowShortMovie}
+                      isPreloader={isPreloader}
+                      isPaginator={true}/>
                 }
               />
               <Route
                 path="saved-movies"
                 element={
-                  <SavedMovies
+                  <ProtectedRoute loggedIn={loggedIn} component={SavedMovies}
                     cards={savedCards}
                     handlerCard={() => console.log('удалить карточку')}
                     handlerPage={() => showPreloader()}
@@ -187,7 +186,7 @@ function App() {
                   />
                 }
               />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile" element={<ProtectedRoute loggedIn={loggedIn} component={Profile} />} />
             </Route>
             <Route
               path="/signup"
@@ -219,7 +218,7 @@ function App() {
                 />
               }
             />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path="*" element={<ProtectedRoute loggedIn={loggedIn} component={NotFoundPage}  />} />
           </Routes>
         </div>
       </div>
