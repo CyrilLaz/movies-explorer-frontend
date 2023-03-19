@@ -1,9 +1,12 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../../context/userContext';
+import SubmitButton from '../SubmitButton/SubmitButton';
 import './Profile.css';
 
 function Profile(props) {
   const user = useContext(UserContext);
+  const [isEditMode, setEditMode] = useState(false);
+
   return (
     <main className="profile">
       <h1 className="profile__title">{`Привет, ${user.name}!`}</h1>
@@ -13,52 +16,86 @@ function Profile(props) {
           console.log('Изменить данные пользователя');
         }}
         className="profile__form"
+        noValidate
       >
         <ul className="profile__inputs-list">
           <li className="profile__inputs-item">
             <label htmlFor="name" className="profile__label">
               Имя
+              <input
+                id="name"
+                name="name"
+                type="text"
+                className="profile__input"
+                minLength="2"
+                maxLength="30"
+                required
+                defaultValue={user.name}
+                disabled={!isEditMode}
+                onChange={props.onChange}
+                value={props.values.name}
+              />
             </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              defaultValue={user.name}
-              className="profile__input"
-              minLength="2"
-              maxLength="30"
-              required
-            />
+
             <span className={`profile__input-error`}>{props.name}</span>
           </li>
           <li className="profile__inputs-item">
             <label htmlFor="email" className="profile__label">
               E-mail
+              <input
+                id="email"
+                name="email"
+                type="email"
+                className="profile__input"
+                required
+                defaultValue={user.name}
+                disabled={!isEditMode}
+                onChange={props.onChange}
+                value={props.values.email}
+              />
             </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              defaultValue={user.email}
-              className="profile__input"
-              required
-            />
+
             <span className={`profile__input-error`}>{props.email}</span>
           </li>
         </ul>
+        <div
+          className={`profile__buttons${
+            !isEditMode ? ' profile__buttons_hidden' : ''
+          }`}
+        >
+          <button
+            onClick={() => {
+              props.setInputs(user);
+              props.resetError();
+              setEditMode(!isEditMode)}}
+            className="my-link profile__button profile__button_type_edit"
+          >
+            Отменить редактирование
+          </button>
+          <SubmitButton
+            button="Сохранить"
+            isButtonDisabled={props.isButtonDisabled}
+          />
+        </div>
+      </form>
+      <div
+        className={`profile__buttons${
+          isEditMode ? ' profile__buttons_hidden' : ''
+        }`}
+      >
         <button
-          type="submit"
-          className="my-link profile__button profile__button_type_submit"
+          onClick={() => setEditMode(!isEditMode)}
+          className="my-link profile__button profile__button_type_edit"
         >
           Редактировать
         </button>
-      </form>
-      <button
-        onClick={props.onLogout}
-        className="my-link profile__button profile__button_type_logout"
-      >
-        Выйти из аккаунта
-      </button>
+        <button
+          onClick={props.onLogout}
+          className="my-link profile__button profile__button_type_logout"
+        >
+          Выйти из аккаунта
+        </button>
+      </div>
     </main>
   );
 }

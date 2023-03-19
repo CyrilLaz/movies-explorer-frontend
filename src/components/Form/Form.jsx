@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import SubmitButton from '../../SubmitButton/SubmitButton';
+import SubmitButton from '../SubmitButton/SubmitButton';
 import Header from '../Header/Header';
 import './Form.css';
 

@@ -99,17 +99,20 @@ function App() {
   }
 
   function onLogout() {
-    return MainApi.logout().then((res) => {
-      if (!res) throw res;
-      setLoggedIn(false);
-      setUser({});
-      navigate('/');
-    }).catch((err)=>{
-      setModalSettings({
-      ...modalSettings,
-      isOpen: true,
-      message: 'произошло не предвиденное',
-    })});
+    return MainApi.logout()
+      .then((res) => {
+        if (!res) throw res;
+        setLoggedIn(false);
+        setUser({});
+        navigate('/');
+      })
+      .catch((err) => {
+        setModalSettings({
+          ...modalSettings,
+          isOpen: true,
+          message: 'произошло не предвиденное',
+        });
+      });
   }
 
   function closeModal() {
@@ -122,7 +125,7 @@ function App() {
 
   useEffect(() => {
     if (isSliderNavigation === true) setSliderIsOpen(false);
-    resetForm(); // !! каждый раз когда меняется адресс будет сбрасываться форма!!! можно сделать лучше ()
+    resetForm(); // !! каждый раз когда меняется адрес будет сбрасываться форма!!! можно сделать лучше ()
     setInputs({});
   }, [location, isSliderNavigation, resetForm]); // закрываем слайдер после перехода на другой адрес или после того как слайдер перестал быть нужным
 
@@ -213,6 +216,24 @@ function App() {
                     loggedIn={loggedIn}
                     onLogout={onLogout}
                     component={Profile}
+                    onChange={(e) => {
+                      const nameInput = e.target.name;
+                      const valueInput = e.target.value;
+                      setInputs({ ...inputs, [nameInput]: valueInput });
+                      handleValidForm(e);
+                      if (
+                        valueInput === user[nameInput]
+                      ) {
+                        toggleButtonDisabling(true);
+                      } else {
+                        toggleButtonDisabling(false);
+                      }
+                    }}
+                    values={{ ...inputs }}
+                    setInputs={setInputs}
+                    {...errors}
+                    isButtonDisabled={isButtonDisabled}
+                    resetError={resetForm}
                   />
                 }
               />
