@@ -54,7 +54,7 @@ function Profile(props) {
         </button>
       </form>
       <button
-        onClick={() => console.log('Выход из аккаунта')}
+        onClick={props.onLogout}
         className="my-link profile__button profile__button_type_logout"
       >
         Выйти из аккаунта

@@ -7,13 +7,22 @@ class Api {
     this.options = options;
   }
 
+  _checkResponse() {
+    return (res) => {
+      if (!res.ok) {
+        return Promise.reject(res);
+      }
+      return res.json();
+    };
+  }
+
   login = (email, password) => {
     return fetch(`${REACT_APP_BASE_URL}/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include',
+      ...this.options,
       body: JSON.stringify({ password, email }),
     }).then((response) => {
       return response.json();
@@ -30,6 +39,16 @@ class Api {
     }).then((response) => {
       return response.json();
     });
+  };
+
+  logout = () => {
+    return fetch(`${REACT_APP_BASE_URL}/signout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      ...this.options,
+    }).then(this._checkResponse());
   };
 }
 

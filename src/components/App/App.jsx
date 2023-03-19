@@ -56,7 +56,7 @@ function App() {
   });
   const [inputs, setInputs] = useState({});
 
-  function onRegistr(e) {
+  function onRegister(e) {
     e.preventDefault();
     toggleButtonDisabling(true);
     const { name, email, password } = inputs;
@@ -81,7 +81,6 @@ function App() {
         setLoggedIn(true);
         setUser(res.data);
         navigate('/movies');
-        console.log(user);
       })
       .catch((err) =>
         setModalSettings({
@@ -99,6 +98,20 @@ function App() {
     login(email, password);
   }
 
+  function onLogout() {
+    return MainApi.logout().then((res) => {
+      if (!res) throw res;
+      setLoggedIn(false);
+      setUser({});
+      navigate('/');
+    }).catch((err)=>{
+      setModalSettings({
+      ...modalSettings,
+      isOpen: true,
+      message: 'произошло не предвиденное',
+    })});
+  }
+
   function closeModal() {
     setModalSettings({ isOpen: false, message: '' });
   }
@@ -109,7 +122,8 @@ function App() {
 
   useEffect(() => {
     if (isSliderNavigation === true) setSliderIsOpen(false);
-    return () => resetForm(); // !! каждый раз когда меняется адресс будет сбрасываться форма!!! можно сделать лучше
+    resetForm(); // !! каждый раз когда меняется адресс будет сбрасываться форма!!! можно сделать лучше ()
+    setInputs({});
   }, [location, isSliderNavigation, resetForm]); // закрываем слайдер после перехода на другой адрес или после того как слайдер перестал быть нужным
 
   useEffect(() => {
@@ -143,7 +157,7 @@ function App() {
                 <Layout
                   header={{
                     children: isMain ? (
-                      <MainNavigation loggedIn={loggedIn}/>
+                      <MainNavigation loggedIn={loggedIn} />
                     ) : isSliderNavigation ? (
                       <SliderNavigation
                         toggleSlider={toggleSlider}
@@ -162,20 +176,26 @@ function App() {
               <Route
                 path="movies"
                 element={
-                  <ProtectedRoute loggedIn={loggedIn} component={Movie} cards={cards}
-                      handlerCard={() => console.log('Сохранить мувик')}
-                      handlerPage={() => showPreloader()}
-                      isShortMovie={isShortMovie}
-                      isSliderNavigation={isSliderNavigation}
-                      toShowShortMovie={toShowShortMovie}
-                      isPreloader={isPreloader}
-                      isPaginator={true}/>
+                  <ProtectedRoute
+                    loggedIn={loggedIn}
+                    component={Movie}
+                    cards={cards}
+                    handlerCard={() => console.log('Сохранить мувик')}
+                    handlerPage={() => showPreloader()}
+                    isShortMovie={isShortMovie}
+                    isSliderNavigation={isSliderNavigation}
+                    toShowShortMovie={toShowShortMovie}
+                    isPreloader={isPreloader}
+                    isPaginator={true}
+                  />
                 }
               />
               <Route
                 path="saved-movies"
                 element={
-                  <ProtectedRoute loggedIn={loggedIn} component={SavedMovies}
+                  <ProtectedRoute
+                    loggedIn={loggedIn}
+                    component={SavedMovies}
                     cards={savedCards}
                     handlerCard={() => console.log('удалить карточку')}
                     handlerPage={() => showPreloader()}
@@ -186,7 +206,16 @@ function App() {
                   />
                 }
               />
-              <Route path="/profile" element={<ProtectedRoute loggedIn={loggedIn} component={Profile} />} />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute
+                    loggedIn={loggedIn}
+                    onLogout={onLogout}
+                    component={Profile}
+                  />
+                }
+              />
             </Route>
             <Route
               path="/signup"
@@ -197,7 +226,7 @@ function App() {
                     handleValidForm(e);
                   }}
                   values={{ ...inputs }}
-                  onSubmit={onRegistr}
+                  onSubmit={onRegister}
                   {...errors}
                   isButtonDisabled={isButtonDisabled}
                 />
@@ -218,7 +247,12 @@ function App() {
                 />
               }
             />
-            <Route path="*" element={<ProtectedRoute loggedIn={loggedIn} component={NotFoundPage}  />} />
+            <Route
+              path="*"
+              element={
+                <ProtectedRoute loggedIn={loggedIn} component={NotFoundPage} />
+              }
+            />
           </Routes>
         </div>
       </div>
