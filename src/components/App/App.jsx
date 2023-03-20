@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { isEmail } from 'validator';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import useWindowDimensions from '../../hooks/useWindowDimentions';
@@ -6,7 +6,6 @@ import Main from '../Main/Main';
 import MainApi from '../../utils/MainApi';
 import Movie from '../Movie/Movie';
 import SavedMovies from '../SavedMovies/SavedMovies';
-import { cards, saved as savedCards } from '../../constants/cards';
 import './App.css';
 import Profile from '../Profile/Profile';
 import SliderNavigation from '../SliderNavigation/SliderNavigation';
@@ -22,7 +21,7 @@ import { useFormValidator } from '../../hooks/useFormValidator';
 import ProtectedRoute from '../ProtectedRouter/ProtectedRoute';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
   const [
     handleValidForm,
     errors,
@@ -42,6 +41,7 @@ function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [isPreloader, setShowPreloader] = useState(false);
+  const [cards, setCards] = useState([]);
   const [user, setUser] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
@@ -56,13 +56,34 @@ function App() {
   });
   const [inputs, setInputs] = useState({});
 
+  const getInitialData = useCallback(() => {
+    MainApi.getUserData()
+      .then((res) => {
+        setUser(res.data);
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        localStorage.removeItem('logged'); // отработка ошибки с токеном
+        // setLoggedIn(false);
+        // setModalSettings({
+        //   isOpen: true,
+        //   message: 'Что т опроизошло при попытке авторизации',
+        // });
+      });
+  }, []);
+
+  useEffect(() => {
+    getInitialData();
+  }, [getInitialData]);
+
   function onRegister(e) {
     e.preventDefault();
     toggleButtonDisabling(true);
     const { name, email, password } = inputs;
     MainApi.register(name, email, password)
       .then((res) => {
-        if (!res.data) throw res;
+        if (!res.data)
+          throw new Error('Что т опроизошло при попытке регистрации');
         login(email, password);
       })
       .catch((err) =>
@@ -79,6 +100,7 @@ function App() {
       .then((res) => {
         if (!res.data) throw res;
         setLoggedIn(true);
+        localStorage.setItem('logged', JSON.stringify(true));
         setUser(res.data);
         navigate('/movies');
       })
@@ -102,6 +124,7 @@ function App() {
     return MainApi.logout()
       .then((res) => {
         if (!res) throw res;
+        localStorage.removeItem('currentLocation');
         setLoggedIn(false);
         setUser({});
         navigate('/');
@@ -116,16 +139,18 @@ function App() {
   }
 
   function onUpdateUser(name, email) {
-    return MainApi.updateUser(name, email).then(({data,...res}) => {
-      if(!data) throw res;
-      setUser({...data});
-    }).catch(err=>{
-      setModalSettings({
-        ...modalSettings,
-        isOpen: true,
-        message: 'произошло при изменении профиля',
+    return MainApi.updateUser(name, email)
+      .then(({ data, ...res }) => {
+        if (!data) throw res;
+        setUser({ ...data });
+      })
+      .catch((err) => {
+        setModalSettings({
+          ...modalSettings,
+          isOpen: true,
+          message: 'произошла ошибка при изменении профиля',
+        });
       });
-    });
   }
 
   function closeModal() {
@@ -193,8 +218,8 @@ function App() {
                 path="movies"
                 element={
                   <ProtectedRoute
-                    loggedIn={loggedIn}
                     component={Movie}
+                    loggedIn={loggedIn}
                     cards={cards}
                     handlerCard={() => console.log('Сохранить мувик')}
                     handlerPage={() => showPreloader()}
@@ -210,9 +235,9 @@ function App() {
                 path="saved-movies"
                 element={
                   <ProtectedRoute
-                    loggedIn={loggedIn}
                     component={SavedMovies}
-                    cards={savedCards}
+                    loggedIn={loggedIn}
+                    cards={[]}
                     handlerCard={() => console.log('удалить карточку')}
                     handlerPage={() => showPreloader()}
                     isShortMovie={isShortMovie}
@@ -226,9 +251,9 @@ function App() {
                 path="/profile"
                 element={
                   <ProtectedRoute
+                    component={Profile}
                     loggedIn={loggedIn}
                     onLogout={onLogout}
-                    component={Profile}
                     handleValidForm={handleValidForm}
                     toggleButtonDisabling={toggleButtonDisabling}
                     onSubmit={onUpdateUser}

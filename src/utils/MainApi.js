@@ -7,16 +7,14 @@ class Api {
     this.options = options;
   }
 
-  _checkResponse() {
-    return (res) => {
-      if (!res.ok) {
-        return Promise.reject(res);
-      }
-      return res.json();
-    };
+  _checkResponse(res) {
+    if (!res.ok) {
+      return Promise.reject(res);
+    }
+    return res.json();
   }
 
-  login = (email, password) => {
+  login(email, password) {
     return fetch(`${REACT_APP_BASE_URL}/signin`, {
       method: 'POST',
       headers: {
@@ -24,34 +22,30 @@ class Api {
       },
       ...this.options,
       body: JSON.stringify({ password, email }),
-    }).then((response) => {
-      return response.json();
-    });
-  };
+    }).then(this._checkResponse);
+  }
 
-  register = (name, email, password) => {
+  register(name, email, password) {
     return fetch(`${REACT_APP_BASE_URL}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ name, password, email }),
-    }).then((response) => {
-      return response.json();
-    });
-  };
+    }).then(this._checkResponse);
+  }
 
-  logout = () => {
+  logout() {
     return fetch(`${REACT_APP_BASE_URL}/signout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       ...this.options,
-    }).then(this._checkResponse());
-  };
+    }).then(this._checkResponse);
+  }
 
-  updateUser = (name, email) => {
+  updateUser(name, email) {
     return fetch(`${REACT_APP_BASE_URL}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -59,8 +53,17 @@ class Api {
       },
       ...this.options,
       body: JSON.stringify({ name, email }),
-    }).then(this._checkResponse());
-  };
+    }).then(this._checkResponse);
+  }
+
+  getUserData() {
+    return fetch(`${REACT_APP_BASE_URL}/users/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      ...this.options,
+    }).then(this._checkResponse);
+  }
 }
 
 export default Api = new Api({
