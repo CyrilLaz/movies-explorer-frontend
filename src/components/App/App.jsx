@@ -19,6 +19,7 @@ import { UserContext } from '../../context/userContext';
 import Modal from '../Modal/Modal';
 import { useFormValidator } from '../../hooks/useFormValidator';
 import ProtectedRoute from '../ProtectedRouter/ProtectedRoute';
+import MoviesApi from '../../utils/MoviesApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
@@ -41,7 +42,9 @@ function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [isPreloader, setShowPreloader] = useState(false);
+  const [isPaginator, setShowPaginator] = useState(false); // перенести в компонент списка карточек
   const [cards, setCards] = useState([]);
+  const [userCards, setUserCards] = useState([]);
   const [user, setUser] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
@@ -60,7 +63,6 @@ function App() {
     MainApi.getUserData()
       .then((res) => {
         setUser(res.data);
-        setLoggedIn(true);
       })
       .catch((err) => {
         localStorage.removeItem('logged'); // отработка ошибки с токеном
@@ -124,7 +126,6 @@ function App() {
     return MainApi.logout()
       .then((res) => {
         if (!res) throw res;
-        localStorage.removeItem('currentLocation');
         setLoggedIn(false);
         setUser({});
         navigate('/');
@@ -150,6 +151,27 @@ function App() {
           isOpen: true,
           message: 'произошла ошибка при изменении профиля',
         });
+      });
+  }
+
+  function searchMovies(keyWord) {
+    setShowPreloader(true);
+    MoviesApi.getMovieList()
+      .then((cards) => {
+        // findMovies(cards,keyWord);
+        localStorage.setItem('searchCard', JSON.stringify(cards));
+        setCards(cards);
+      })
+      .catch((err) => {
+        setModalSettings({
+          ...modalSettings,
+          isOpen: true,
+          message:
+            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',
+        });
+      })
+      .finally(() => {
+        setShowPreloader(false);
       });
   }
 
@@ -222,12 +244,15 @@ function App() {
                     loggedIn={loggedIn}
                     cards={cards}
                     handlerCard={() => console.log('Сохранить мувик')}
-                    handlerPage={() => showPreloader()}
+                    handlerPage={showPreloader}
                     isShortMovie={isShortMovie}
                     isSliderNavigation={isSliderNavigation}
                     toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
-                    isPaginator={true}
+                    isPaginator={isPaginator}
+                    onSubmitSearch={searchMovies}
+                    onChangeSearch={(e)=>setInputs({ ...inputs, [e.target.name]: e.target.value })}
+                    valueSearch = {inputs}
                   />
                 }
               />
@@ -237,13 +262,17 @@ function App() {
                   <ProtectedRoute
                     component={SavedMovies}
                     loggedIn={loggedIn}
-                    cards={[]}
+                    cards={userCards}
                     handlerCard={() => console.log('удалить карточку')}
                     handlerPage={() => showPreloader()}
                     isShortMovie={isShortMovie}
                     toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
-                    isPaginator={false}
+                    isPaginator={isPaginator}
+                    onSubmitSearch={()=>console.log('поиск среди своих фильмов')}
+                    onChangeSearch={(e)=>setInputs({ ...inputs, [e.target.name]: e.target.value })}
+                    valueSearch = {inputs}
+                    // getMovie={}
                   />
                 }
               />
