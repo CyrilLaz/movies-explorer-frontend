@@ -8,7 +8,7 @@ function MoviesCardList(props) {
       <ul className="movies-cards__list">
         {props.cards.map((elem) => (
           <MovieCard
-            handleCard = {()=>props.handleCard(elem)}
+            handleCard={() => props.handleCard(elem)}
             key={elem.id}
             isLiked={props.isLiked}
             isSaved={props.isLiked}
@@ -25,6 +25,8 @@ function MoviesCardList(props) {
         >
           Ещё
         </button>
+      ) : props.isEmpty ? (
+        <span className="movies-cards__message">Ничего не найдено</span>
       ) : null}
     </section>
   );

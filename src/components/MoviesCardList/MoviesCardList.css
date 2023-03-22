@@ -30,6 +30,14 @@
   color: #fff;
 }
 
+.movies-cards__message {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #fff;
+  text-align: center;
+}
+
 @media screen and (max-width: 1065px) {
   .movies-cards__list {
     gap: 30px;

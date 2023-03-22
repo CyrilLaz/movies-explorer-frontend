@@ -58,6 +58,7 @@ function App() {
     message: '',
   });
   const [inputs, setInputs] = useState({});
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const getInitialData = useCallback(() => {
     Promise.all([MainApi.getUserData(), MainApi.getUserMovie()])
@@ -160,16 +161,25 @@ function App() {
     setShowPreloader(true);
     MoviesApi.getMovieList()
       .then((data) => {
-        const movies = searcher(data,''+inputs.search,isShortMovie).map((elem) => {
-          elem.thumbnail =
-            'https://api.nomoreparties.co' + elem.image.formats.thumbnail.url;
-          elem.image = 'https://api.nomoreparties.co' + elem.image.url;
-          if(userCards.find((card)=>card.id===elem.id)) {
-            elem.isLiked = true;
+        const movies = searcher(data, '' + inputs.search, isShortMovie).map(
+          (elem) => {
+            elem.thumbnail =
+              'https://api.nomoreparties.co' + elem.image.formats.thumbnail.url;
+            elem.image = 'https://api.nomoreparties.co' + elem.image.url;
+            if (userCards.find((card) => card.id === elem.id)) {
+              elem.isLiked = true;
+            }
+            return elem;
           }
-          return elem;
-        });
-        setCards(movies);
+        );
+
+        if (movies.length > 0) {
+          setCards(movies);
+          setIsEmpty(false);
+        } else {
+          setCards(movies);
+          setIsEmpty(true);
+        }
       })
       .catch((err) => {
         setModalSettings({
@@ -188,19 +198,21 @@ function App() {
     delete card.created_at;
     delete card.updated_at;
     delete card.isLiked;
-    MainApi.saveMovie(card).then(({ data }) => {
-      setUserCards([...userCards, data]);
-      setCards((cards) =>
-        cards.map((c) => {
-          if (c.id === card.id) {
-            c.isLiked = true;
-            return c;
-          } else {
-            return c;
-          }
-        })
-      );
-    }).catch(err=>console.log(err));
+    MainApi.saveMovie(card)
+      .then(({ data }) => {
+        setUserCards([...userCards, data]);
+        setCards((cards) =>
+          cards.map((c) => {
+            if (c.id === card.id) {
+              c.isLiked = true;
+              return c;
+            } else {
+              return c;
+            }
+          })
+        );
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleDelete(card) {
@@ -219,7 +231,7 @@ function App() {
         );
       })
 
-      .catch(err=>console.log(err));
+      .catch((err) => console.log(err));
   }
 
   function closeModal() {
@@ -249,9 +261,9 @@ function App() {
     setIsShortMovie(!isShortMovie);
   }
 
-  function showPreloader() {
-    setShowPreloader(!isPreloader);
-  }
+  // function showPreloader() {
+  //   setShowPreloader(!isPreloader);
+  // }
 
   return (
     <UserContext.Provider value={{ user, userCards }}>
@@ -301,6 +313,7 @@ function App() {
                       setInputs({ ...inputs, [e.target.name]: e.target.value })
                     }
                     valueSearch={inputs}
+                    isEmpty={isEmpty}
                   />
                 }
               />

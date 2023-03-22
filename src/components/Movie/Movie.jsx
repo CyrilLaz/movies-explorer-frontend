@@ -18,6 +18,7 @@ function Movie(props) {
         isPreloader={props.isPreloader}
         handlerPage={props.handlerPage}
         isPaginator={props.isPaginator}
+        isEmpty={props.isEmpty}
       />
     </main>
   );

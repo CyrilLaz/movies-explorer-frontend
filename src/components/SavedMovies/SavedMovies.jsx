@@ -9,11 +9,21 @@ import './SavedMovies.css';
 function SavedMovies(props) {
   const { userCards } = useContext(UserContext);
   const [sortedCards, setSortedCards] = useState(null);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   function onSubmitSearch() {
-    setSortedCards(
-      searcher(userCards, '' + props.valueSearch.search, props.isShortMovie)
+    const result = searcher(
+      userCards,
+      '' + props.valueSearch.search,
+      props.isShortMovie
     );
+    if(result.length > 0) {
+      setSortedCards(result);
+      setIsEmpty(false);
+      return;
+    }
+   setSortedCards(result);
+   setIsEmpty(true);
   }
 
   return (
@@ -26,6 +36,7 @@ function SavedMovies(props) {
         toShowShortMovie={props.toShowShortMovie}
       />
       <MoviesCardList
+        isEmpty={isEmpty}
         handleCard={props.handleDelete}
         isLiked={true}
         isSaved={true}
