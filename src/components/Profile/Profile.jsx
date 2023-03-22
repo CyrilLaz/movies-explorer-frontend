@@ -4,7 +4,7 @@ import SubmitButton from '../SubmitButton/SubmitButton';
 import './Profile.css';
 
 function Profile(props) {
-  const user = useContext(UserContext);
+  const {user} = useContext(UserContext);
   const [isEditMode, setEditMode] = useState(false);
   const [inputs, setInputs] = useState({ ...user, _id: undefined });
 

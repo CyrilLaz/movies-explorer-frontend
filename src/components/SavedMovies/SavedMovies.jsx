@@ -1,23 +1,29 @@
+import { useContext, useEffect } from 'react';
+import { UserContext } from '../../context/userContext';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
 import './SavedMovies.css';
 
 function SavedMovies(props) {
+  const {userCards} = useContext(UserContext);
+
   return (
-    <>
       <main className="SavedMovies">
-        <SearchForm {...props} />
+        <SearchForm
+          onSubmit={props.onSubmitSearch}
+          onChange={props.onChangeSearch}
+          value={props.valueSearch}
+          isShortMovie={props.isShortMovie}
+          toShowShortMovie={props.toShowShortMovie}
+        />
         <MoviesCardList
-          handlerPage={props.handlerPage}
-          handlerCard={props.handlerCard}
+          handleCard = {props.handleDelete}
           isLiked={true}
           isSaved={true}
-          cards={props.cards}
-          isPaginator={props.isPaginator}
+          cards={userCards}
         />
       </main>
-    </>
   );
 }
 

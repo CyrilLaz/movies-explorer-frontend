@@ -64,6 +64,37 @@ class Api {
       ...this.options,
     }).then(this._checkResponse);
   }
+
+  getUserMovie() {
+    return fetch(`${REACT_APP_BASE_URL}/movies`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      ...this.options,
+    }).then(this._checkResponse);
+  }
+
+  saveMovie(movie) {
+    return fetch(`${REACT_APP_BASE_URL}/movies`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      ...this.options,
+      body: JSON.stringify(movie),
+    }).then(this._checkResponse);
+  }
+
+  deleteMovie(movieId) {
+    return fetch(`${REACT_APP_BASE_URL}/movies/${movieId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      ...this.options,
+    }).then(this._checkResponse);
+  }
+
 }
 
 export default Api = new Api({

@@ -80,6 +80,7 @@
 }
 
 .movies-card__button_type_active-like {
+  pointer-events: none;
   background-image: url('../../images/hearton.svg');
 }
 

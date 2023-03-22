@@ -14,7 +14,7 @@ function Movie(props) {
       />
       <MoviesCardList
         cards={props.cards}
-        handlerCard={props.handlerCard}
+        handleCard={props.handleSave}
         isPreloader={props.isPreloader}
         handlerPage={props.handlerPage}
         isPaginator={props.isPaginator}

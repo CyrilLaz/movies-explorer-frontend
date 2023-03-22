@@ -42,7 +42,6 @@ function App() {
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [isPreloader, setShowPreloader] = useState(false);
-  const [isPaginator, setShowPaginator] = useState(false); // перенести в компонент списка карточек
   const [cards, setCards] = useState([]);
   const [userCards, setUserCards] = useState([]);
   const [user, setUser] = useState({});
@@ -60,9 +59,10 @@ function App() {
   const [inputs, setInputs] = useState({});
 
   const getInitialData = useCallback(() => {
-    MainApi.getUserData()
-      .then((res) => {
-        setUser(res.data);
+    Promise.all([MainApi.getUserData(), MainApi.getUserMovie()])
+      .then(([userData, userMovie]) => {
+        setUser(userData.data);
+        setUserCards(userMovie.data);
       })
       .catch((err) => {
         localStorage.removeItem('logged'); // отработка ошибки с токеном
@@ -155,12 +155,22 @@ function App() {
   }
 
   function searchMovies(keyWord) {
+    setCards([]);
     setShowPreloader(true);
     MoviesApi.getMovieList()
-      .then((cards) => {
+      .then((data) => {
         // findMovies(cards,keyWord);
-        localStorage.setItem('searchCard', JSON.stringify(cards));
-        setCards(cards);
+        // localStorage.setItem('searchCard', JSON.stringify(movies));
+        const movies = data.map((elem) => {
+          elem.thumbnail =
+            'https://api.nomoreparties.co' + elem.image.formats.thumbnail.url;
+          elem.image = 'https://api.nomoreparties.co' + elem.image.url;
+          if(userCards.find((card)=>card.id===elem.id)) {
+            elem.isLiked = true;
+          }
+          return elem;
+        });
+        setCards(movies);
       })
       .catch((err) => {
         setModalSettings({
@@ -173,6 +183,44 @@ function App() {
       .finally(() => {
         setShowPreloader(false);
       });
+  }
+
+  function handleSave(card) {
+    delete card.created_at;
+    delete card.updated_at;
+    delete card.isLiked;
+    MainApi.saveMovie(card).then(({ data }) => {
+      setUserCards([...userCards, data]);
+      setCards((cards) =>
+        cards.map((c) => {
+          if (c.id === card.id) {
+            c.isLiked = true;
+            return c;
+          } else {
+            return c;
+          }
+        })
+      );
+    }).catch(err=>console.log(err));
+  }
+
+  function handleDelete(card) {
+    MainApi.deleteMovie(card._id)
+      .then((res) => {
+        setUserCards((cards) => cards.filter((c) => c.id !== card.id));
+        setCards((cards) =>
+          cards.map((c) => {
+            if (c.id === card.id) {
+              c.isLiked = false;
+              return c;
+            } else {
+              return c;
+            }
+          })
+        );
+      })
+
+      .catch(err=>console.log(err));
   }
 
   function closeModal() {
@@ -207,7 +255,7 @@ function App() {
   }
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={{ user, userCards }}>
       <div className="App">
         <div
           className={`App__container${isMain ? ' App__container_main' : ''}`}
@@ -243,16 +291,17 @@ function App() {
                     component={Movie}
                     loggedIn={loggedIn}
                     cards={cards}
-                    handlerCard={() => console.log('Сохранить мувик')}
-                    handlerPage={showPreloader}
+                    handleSave={handleSave}
+                    handleDelete={handleDelete}
                     isShortMovie={isShortMovie}
                     isSliderNavigation={isSliderNavigation}
                     toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
-                    isPaginator={isPaginator}
                     onSubmitSearch={searchMovies}
-                    onChangeSearch={(e)=>setInputs({ ...inputs, [e.target.name]: e.target.value })}
-                    valueSearch = {inputs}
+                    onChangeSearch={(e) =>
+                      setInputs({ ...inputs, [e.target.name]: e.target.value })
+                    }
+                    valueSearch={inputs}
                   />
                 }
               />
@@ -262,17 +311,17 @@ function App() {
                   <ProtectedRoute
                     component={SavedMovies}
                     loggedIn={loggedIn}
-                    cards={userCards}
-                    handlerCard={() => console.log('удалить карточку')}
-                    handlerPage={() => showPreloader()}
+                    handleDelete={handleDelete}
                     isShortMovie={isShortMovie}
                     toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
-                    isPaginator={isPaginator}
-                    onSubmitSearch={()=>console.log('поиск среди своих фильмов')}
-                    onChangeSearch={(e)=>setInputs({ ...inputs, [e.target.name]: e.target.value })}
-                    valueSearch = {inputs}
-                    // getMovie={}
+                    onSubmitSearch={() =>
+                      console.log('поиск среди своих фильмов')
+                    }
+                    onChangeSearch={(e) =>
+                      setInputs({ ...inputs, [e.target.name]: e.target.value })
+                    }
+                    valueSearch={inputs}
                   />
                 }
               />

@@ -6,10 +6,10 @@ function MoviesCardList(props) {
   return (
     <section className="movies-cards">
       <ul className="movies-cards__list">
-        {props.cards.map((elem, index) => (
+        {props.cards.map((elem) => (
           <MovieCard
-            handler={props.handlerCard}
-            key={index}
+            handleCard = {()=>props.handleCard(elem)}
+            key={elem.id}
             isLiked={props.isLiked}
             isSaved={props.isLiked}
             {...elem}
