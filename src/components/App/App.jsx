@@ -20,6 +20,7 @@ import Modal from '../Modal/Modal';
 import { useFormValidator } from '../../hooks/useFormValidator';
 import ProtectedRoute from '../ProtectedRouter/ProtectedRoute';
 import MoviesApi from '../../utils/MoviesApi';
+import searcher from '../../utils/searcher';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
@@ -154,14 +155,12 @@ function App() {
       });
   }
 
-  function searchMovies(keyWord) {
+  function searchMovies() {
     setCards([]);
     setShowPreloader(true);
     MoviesApi.getMovieList()
       .then((data) => {
-        // findMovies(cards,keyWord);
-        // localStorage.setItem('searchCard', JSON.stringify(movies));
-        const movies = data.map((elem) => {
+        const movies = searcher(data,''+inputs.search,isShortMovie).map((elem) => {
           elem.thumbnail =
             'https://api.nomoreparties.co' + elem.image.formats.thumbnail.url;
           elem.image = 'https://api.nomoreparties.co' + elem.image.url;
