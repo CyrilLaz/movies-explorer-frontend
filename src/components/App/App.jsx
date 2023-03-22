@@ -21,6 +21,7 @@ import { useFormValidator } from '../../hooks/useFormValidator';
 import ProtectedRoute from '../ProtectedRouter/ProtectedRoute';
 import MoviesApi from '../../utils/MoviesApi';
 import searcher from '../../utils/searcher';
+import usePaginator from '../../hooks/usePaginator';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
@@ -40,6 +41,7 @@ function App() {
       }
     }
   });
+
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [isPreloader, setShowPreloader] = useState(false);
@@ -50,7 +52,7 @@ function App() {
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const [isSliderNavigation, setIsSliderNavigation] = useState(width <= 800);
-
+  const [countColumn, setCountColumn] = useState(0);
   const [isMain, setIsMain] = useState(location.pathname === '/');
   const [isProfile, setIsProfile] = useState(location.pathname === '/profile');
   const [modalSettings, setModalSettings] = useState({
@@ -250,6 +252,7 @@ function App() {
 
   useEffect(() => {
     setIsSliderNavigation(width <= 800);
+    setCountColumn(width>1065?3:width>700?2:1);
   }, [width]);
 
   useEffect(() => {
@@ -300,6 +303,8 @@ function App() {
                 element={
                   <ProtectedRoute
                     component={Movie}
+                    setInputs={setInputs}
+                    countColumn={countColumn}
                     loggedIn={loggedIn}
                     cards={cards}
                     handleSave={handleSave}

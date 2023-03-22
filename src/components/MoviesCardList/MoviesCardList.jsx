@@ -21,7 +21,7 @@ function MoviesCardList(props) {
       ) : props.isPaginator ? (
         <button
           className="my-button movies-cards__paginator"
-          onClick={props.handlerPage}
+          onClick={props.nextStep}
         >
           Ещё
         </button>
