@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import './SearchForm.css';
 
-function SearchForm(props) {
+function SearchForm({ setCards, setSearchInputs, ...props }) {
   const [isEmptyInput, setIsEmptyInput] = useState(false);
-  
+
   function onSubmit(e) {
     e.preventDefault();
     if (isEmptyInput) return;
@@ -16,6 +16,7 @@ function SearchForm(props) {
     }
     props.onSubmit();
   }
+
   return (
     <form className="search-form" onSubmit={onSubmit} noValidate>
       <fieldset className="search-form__field search-form__search-container">
@@ -40,9 +41,10 @@ function SearchForm(props) {
         <label className="search-form__label">
           <input
             className="search-form__checkbox"
+            name="isShortMovie"
             type="checkbox"
-            onChange={() => props.toShowShortMovie()}
-            checked={props.isShortMovie}
+            onChange={props.toShowShortMovie}
+            checked={props.value.isShortMovie||false}
           />
           <span className="search-form__switcher"></span>
         </label>

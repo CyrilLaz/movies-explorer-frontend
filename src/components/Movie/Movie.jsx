@@ -1,35 +1,25 @@
 import { useEffect } from 'react';
-import usePaginator from '../../hooks/usePaginator';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import './Movie.css';
 
-function Movie(props) {
-  const [setColumns, setArray, getArray, nextState, isPaginator, resetState] =
-    usePaginator();
+function Movie({ paginator, setSearchInputs, setArray, nextState, isPaginator, ...props }) {
 
   useEffect(() => {
-    setColumns(props.countColumn);
-  }, [props.countColumn, setColumns]);
-
-  useEffect(() => {
-    setArray(props.cards);
-  }, [props.cards, setArray]);
+    setArray(JSON.parse(localStorage.getItem('searchMovies'))||[]);
+    setSearchInputs(JSON.parse(localStorage.getItem('searchInputs'))||{});
+  }, [setSearchInputs, setArray]);
 
   return (
     <main className="Movie">
       <SearchForm
-        onSubmit={(submit) => {
-          resetState();
-          props.onSubmitSearch(submit);
-        }}
+        onSubmit={props.onSubmitSearch}
         onChange={props.onChangeSearch}
         value={props.valueSearch}
-        isShortMovie={props.isShortMovie}
         toShowShortMovie={props.toShowShortMovie}
       />
       <MoviesCardList
-        cards={getArray()}
+        cards={props.cards}
         handleCard={props.handleSave}
         isPreloader={props.isPreloader}
         isPaginator={isPaginator}

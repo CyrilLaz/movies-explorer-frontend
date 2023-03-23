@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/userContext';
 import searcher from '../../utils/searcher';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -6,10 +6,15 @@ import SearchForm from '../SearchForm/SearchForm';
 
 import './SavedMovies.css';
 
-function SavedMovies(props) {
+function SavedMovies({ setSearchInputs, setCards, ...props }) {
   const { userCards } = useContext(UserContext);
   const [sortedCards, setSortedCards] = useState(null);
   const [isEmpty, setIsEmpty] = useState(false);
+
+  useEffect(() => {
+    setSearchInputs({});
+  }, [setSearchInputs]);
+
 
   function onSubmitSearch() {
     const result = searcher(
@@ -32,7 +37,6 @@ function SavedMovies(props) {
         onSubmit={onSubmitSearch}
         onChange={props.onChangeSearch}
         value={props.valueSearch}
-        isShortMovie={props.isShortMovie}
         toShowShortMovie={props.toShowShortMovie}
       />
       <MoviesCardList

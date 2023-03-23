@@ -41,11 +41,8 @@ function App() {
       }
     }
   });
-
   const [sliderIsOpen, setSliderIsOpen] = useState(false);
-  const [isShortMovie, setIsShortMovie] = useState(false);
   const [isPreloader, setShowPreloader] = useState(false);
-  const [cards, setCards] = useState([]);
   const [userCards, setUserCards] = useState([]);
   const [user, setUser] = useState({});
   const location = useLocation();
@@ -61,6 +58,19 @@ function App() {
   });
   const [inputs, setInputs] = useState({});
   const [isEmpty, setIsEmpty] = useState(false);
+  const [searchInputs, setSearchInputs] = useState({});
+  const [
+    setColumns,
+    setArray,
+    getArray,
+    nextState,
+    isPaginator,
+    resetState,
+  ] = usePaginator();
+
+  useEffect(() => {
+    setColumns(countColumn);
+  }, [countColumn, setColumns]);
 
   const getInitialData = useCallback(() => {
     Promise.all([MainApi.getUserData(), MainApi.getUserMovie()])
@@ -139,6 +149,9 @@ function App() {
         setLoggedIn(false);
         setUser({});
         navigate('/');
+        localStorage.removeItem('search');
+        localStorage.removeItem('searchMovies');
+        localStorage.removeItem('searchInputs');
       })
       .catch((err) => {
         if (err.status === 500) {
@@ -182,33 +195,34 @@ function App() {
   }
 
   function searchMovies() {
-    setCards([]);
+    setArray([]);
     setShowPreloader(true);
+    resetState()
     MoviesApi.getMovieList()
       .then((data) => {
-        const movies = searcher(data, '' + inputs.search, isShortMovie).map(
-          (elem) => {
-            elem.thumbnail =
-              'https://api.nomoreparties.co' + elem.image.formats.thumbnail.url;
-            elem.image = 'https://api.nomoreparties.co' + elem.image.url;
-            if (userCards.find((card) => card.id === elem.id)) {
-              elem.isLiked = true;
-            }
-            return elem;
+        const movies = searcher(
+          data,
+          '' + searchInputs.search,
+          searchInputs.isShortMovie
+        ).map((elem) => {
+          elem.thumbnail =
+            'https://api.nomoreparties.co' + elem.image.formats.thumbnail.url;
+          elem.image = 'https://api.nomoreparties.co' + elem.image.url;
+          if (userCards.find((card) => card.id === elem.id)) {
+            elem.isLiked = true;
           }
-        );
+          return elem;
+        });
 
         if (movies.length > 0) {
-          setCards(movies);
+          setArray(movies);
           setIsEmpty(false);
         } else {
-          setCards(movies);
+          setArray(movies);
           setIsEmpty(true);
         }
-        // localStorage.setItem(
-        //   'search',
-        //   JSON.stringify({ movies, keyword: inputs.search, isShortMovie })
-        // );
+        localStorage.setItem('searchMovies', JSON.stringify(movies));
+        localStorage.setItem('searchInputs', JSON.stringify(searchInputs));
       })
       .catch((err) => {
         setModalSettings({
@@ -230,7 +244,7 @@ function App() {
     MainApi.saveMovie(card)
       .then(({ data }) => {
         setUserCards([...userCards, data]);
-        setCards((cards) =>
+        setArray((cards) =>
           cards.map((c) => {
             if (c.id === card.id) {
               c.isLiked = true;
@@ -248,7 +262,7 @@ function App() {
     MainApi.deleteMovie(card._id)
       .then((res) => {
         setUserCards((cards) => cards.filter((c) => c.id !== card.id));
-        setCards((cards) =>
+        setArray((cards) =>
           cards.map((c) => {
             if (c.id === card.id) {
               c.isLiked = false;
@@ -273,7 +287,7 @@ function App() {
 
   useEffect(() => {
     if (isSliderNavigation === true) setSliderIsOpen(false);
-    resetForm(); // !! каждый раз когда меняется адрес будет сбрасываться форма!!! можно сделать лучше ()
+    resetForm();
     setInputs({});
   }, [location, isSliderNavigation, resetForm]); // закрываем слайдер после перехода на другой адрес или после того как слайдер перестал быть нужным
 
@@ -287,8 +301,11 @@ function App() {
     setIsProfile(location.pathname === '/profile');
   }, [location.pathname]);
 
-  function toShowShortMovie() {
-    setIsShortMovie(!isShortMovie);
+  function toShowShortMovie(state) {
+    setSearchInputs({
+      ...searchInputs,
+      isShortMovie: state.target.checked,
+    });
   }
 
   return (
@@ -327,20 +344,26 @@ function App() {
                   <ProtectedRoute
                     component={Movie}
                     setInputs={setInputs}
+                    setSearchInputs={setSearchInputs}
+                    setArray={setArray}
+                    nextState={nextState}
+                    isPaginator={isPaginator}
                     countColumn={countColumn}
                     loggedIn={loggedIn}
-                    cards={cards}
+                    cards={getArray()}
                     handleSave={handleSave}
                     handleDelete={handleDelete}
-                    isShortMovie={isShortMovie}
                     isSliderNavigation={isSliderNavigation}
                     toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
                     onSubmitSearch={searchMovies}
-                    onChangeSearch={(e) =>
-                      setInputs({ ...inputs, [e.target.name]: e.target.value })
-                    }
-                    valueSearch={inputs}
+                    onChangeSearch={(e) => {
+                      setSearchInputs({
+                        ...searchInputs,
+                        [e.target.name]: e.target.value,
+                      });
+                    }}
+                    valueSearch={searchInputs}
                     isEmpty={isEmpty}
                   />
                 }
@@ -351,17 +374,14 @@ function App() {
                   <ProtectedRoute
                     component={SavedMovies}
                     loggedIn={loggedIn}
+                    setSearchInputs={setSearchInputs}
                     handleDelete={handleDelete}
-                    isShortMovie={isShortMovie}
                     toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
-                    onSubmitSearch={() =>
-                      console.log('поиск среди своих фильмов')
-                    }
                     onChangeSearch={(e) =>
                       setInputs({ ...inputs, [e.target.name]: e.target.value })
                     }
-                    valueSearch={inputs}
+                    valueSearch={searchInputs}
                   />
                 }
               />
