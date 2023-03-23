@@ -54,3 +54,7 @@
 - защита роутов;
 
 ### [макет в ОБЛАКЕ](https://disk.yandex.ru/d/MFfNa1KunMQ8-w)
+### [ссылка на приложение](https://movie.klazar.online/)
+
+### [ссылка на pull-Request](https://github.com/CyrilLaz/movies-explorer-frontend/pull/46)
+
