@@ -126,6 +126,10 @@ function App() {
             isOpen: true,
             message: 'Вы ввели неправильный логин или пароль.',
           });
+          setModalSettings({
+            isOpen: true,
+            message: 'При попытке войти учетную запись произошла ошибка',
+          });
       });
   }
 
