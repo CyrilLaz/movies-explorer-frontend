@@ -322,7 +322,7 @@ function App() {
                 <Layout
                   header={{
                     children: isMain ? (
-                      <MainNavigation loggedIn={loggedIn} />
+                      <MainNavigation loggedIn={loggedIn} onLogout={onLogout}/>
                     ) : isSliderNavigation ? (
                       <SliderNavigation
                         toggleSlider={toggleSlider}
