@@ -16,7 +16,7 @@ function MainNavigation(props) {
           <li className="main-navigation__item">
             <Link
               className="my-button main-navigation__link main-navigation__link_type_button"
-              to="/signin"
+              to="/movies"
             >
               {`Войти, как ${user.email}`}
             </Link>
