@@ -229,7 +229,6 @@ function App() {
       })
       .catch((err) => {
         setModalSettings({
-          ...modalSettings,
           isOpen: true,
           message:
             'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',
@@ -258,7 +257,11 @@ function App() {
           })
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>         setModalSettings({
+        isOpen: true,
+        message:
+          'Во время запроса произошла ошибка.',
+      }));
   }
 
   function handleDelete(card) {
@@ -277,7 +280,11 @@ function App() {
         );
       })
 
-      .catch((err) => console.log(err));
+      .catch((err) => setModalSettings({
+        isOpen: true,
+        message:
+          'Во время запроса произошла ошибка.',
+      }));
   }
 
   function closeModal() {
