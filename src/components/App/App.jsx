@@ -59,14 +59,8 @@ function App() {
   const [inputs, setInputs] = useState({});
   const [isEmpty, setIsEmpty] = useState(false);
   const [searchInputs, setSearchInputs] = useState({});
-  const [
-    setColumns,
-    setArray,
-    getArray,
-    nextState,
-    isPaginator,
-    resetState,
-  ] = usePaginator();
+  const [setColumns, setArray, getArray, nextState, isPaginator, resetState] =
+    usePaginator();
 
   useEffect(() => {
     setColumns(countColumn);
@@ -173,6 +167,11 @@ function App() {
         if (!data) throw res;
         setUser({ ...data });
         editMode(false);
+        setModalSettings({
+          isOpen: true,
+          message: 'Успешно поменяли свои данные',
+          isResponse: true,
+        });
       })
       .catch((err) => {
         if (err.status === 409) {
@@ -197,7 +196,7 @@ function App() {
   function searchMovies() {
     setArray([]);
     setShowPreloader(true);
-    resetState()
+    resetState();
     MoviesApi.getMovieList()
       .then((data) => {
         const movies = searcher(
@@ -278,7 +277,7 @@ function App() {
   }
 
   function closeModal() {
-    setModalSettings({ isOpen: false, message: '' });
+    setModalSettings({ isOpen: false, message: '', isResponse: false });
   }
 
   function toggleSlider() {
@@ -322,7 +321,7 @@ function App() {
                 <Layout
                   header={{
                     children: isMain ? (
-                      <MainNavigation loggedIn={loggedIn} onLogout={onLogout}/>
+                      <MainNavigation loggedIn={loggedIn} onLogout={onLogout} />
                     ) : isSliderNavigation ? (
                       <SliderNavigation
                         toggleSlider={toggleSlider}
