@@ -1,4 +1,4 @@
-const {REACT_APP_BASE_URL='https://api.nomoreparties.co/beatfilm-movies'} = process.env;
+const REACT_APP_BASE_URL='https://api.nomoreparties.co/beatfilm-movies';
 
 class Api {
   constructor({ baseUrl, headers }) {

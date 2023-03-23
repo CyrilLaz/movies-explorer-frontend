@@ -377,9 +377,12 @@ function App() {
                     handleDelete={handleDelete}
                     toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
-                    onChangeSearch={(e) =>
-                      setInputs({ ...inputs, [e.target.name]: e.target.value })
-                    }
+                    onChangeSearch={(e) => {
+                      setSearchInputs({
+                        ...searchInputs,
+                        [e.target.name]: e.target.value,
+                      });
+                    }}
                     valueSearch={searchInputs}
                   />
                 }
