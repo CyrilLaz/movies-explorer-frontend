@@ -12,27 +12,27 @@ function usePaginator() {
     switch (columns) {
       case 3:
         setFirstState(12);
+        setStep(3);
         break;
       case 2:
         setFirstState(8);
+        setStep(2);
         break;
       default:
         setFirstState(5);
+        setStep(2);
         break;
     }
     if (state < firstState) setState(firstState);
   }, [firstState, columns, state]);
 
-  const resetState = useCallback(   //при изменени массива сбрасывать состояние до начального
+  const resetState = useCallback(
+    //при изменени массива сбрасывать состояние до начального
     (newState = 0) => {
       setState(newState);
     },
     [setState]
   );
-
-  useEffect(() => {
-    setStep(columns);
-  }, [columns]);
 
   const nextState = useCallback(() => {
     if (isPaginator) {
@@ -49,7 +49,6 @@ function usePaginator() {
       setState(state - 1);
     return setIsPaginator(array.length - state > 0);
   }, [isPaginator, state, array.length, step, columns]);
-
 
   const getArray = useCallback(() => {
     if (state === 0 && firstState !== 0) setState(firstState);

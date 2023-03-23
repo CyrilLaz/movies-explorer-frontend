@@ -5,14 +5,8 @@ import SearchForm from '../SearchForm/SearchForm';
 import './Movie.css';
 
 function Movie(props) {
-  const [
-    setColumns,
-    setArray,
-    getArray,
-    nextState,
-    isPaginator,
-    resetState,
-  ] = usePaginator();
+  const [setColumns, setArray, getArray, nextState, isPaginator, resetState] =
+    usePaginator();
 
   useEffect(() => {
     setColumns(props.countColumn);

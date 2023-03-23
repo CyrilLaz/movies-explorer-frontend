@@ -28,7 +28,7 @@ export function useFormValidator(customVal) {
     [setErrors, setIsButtonDisabled]
   );
 
-  const toggleButtonDisabling = useCallback(
+  const toggleButtonDisable = useCallback(
     (state) => {
       setIsButtonDisabled(state);
     },
@@ -40,6 +40,6 @@ export function useFormValidator(customVal) {
     errors,
     isButtonDisabled,
     resetForm,
-    toggleButtonDisabling,
+    toggleButtonDisable,
   ];
 }

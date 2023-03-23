@@ -1,12 +1,16 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/userContext';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import './Profile.css';
 
 function Profile(props) {
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [isEditMode, setEditMode] = useState(false);
   const [inputs, setInputs] = useState({ ...user, _id: undefined });
+
+  useEffect(()=>{
+    if(user) setInputs({ ...user, _id: undefined });
+  },[user])
 
   function handleChange(e) {
     props.handleValidForm(e);
@@ -14,24 +18,29 @@ function Profile(props) {
     const valueInput = e.target.value;
     setInputs({ ...inputs, [nameInput]: valueInput });
     if (valueInput === user[nameInput]) {
-      props.toggleButtonDisabling(true);
+      props.toggleButtonDisable(true);
     } else {
-      props.toggleButtonDisabling(false);
+      props.toggleButtonDisable(false);
     }
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+    const { name, email } = inputs;
+    props.onSubmit(name, email,setEditMode);
+  }
+
+  function cancelEdit(e) {
+    e.preventDefault();
+    setInputs({ ...user, _id: undefined });
+    props.resetError();
+    setEditMode(!isEditMode);
   }
 
   return (
     <main className="profile">
       <h1 className="profile__title">{`Привет, ${user.name}!`}</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const { name, email } = inputs;
-          props.onSubmit(name, email);
-        }}
-        className="profile__form"
-        noValidate
-      >
+      <form onSubmit={onSubmit} className="profile__form" noValidate>
         <ul className="profile__inputs-list">
           <li className="profile__inputs-item">
             <label htmlFor="name" className="profile__label">
@@ -44,10 +53,9 @@ function Profile(props) {
                 minLength="2"
                 maxLength="30"
                 required
-                // defaultValue={user.name}
                 disabled={!isEditMode}
                 onChange={handleChange}
-                value={inputs.name||''}
+                value={inputs.name || ''}
               />
             </label>
 
@@ -62,14 +70,13 @@ function Profile(props) {
                 type="email"
                 className="profile__input"
                 required
-                // defaultValue={user.name}
                 disabled={!isEditMode}
                 onChange={handleChange}
-                value={inputs.email||''}
+                value={inputs.email || ''}
               />
             </label>
 
-            <span className={`profile__input-error`}>{props.email}</span>
+            <span className="profile__input-error">{props.email}</span>
           </li>
         </ul>
         <div
@@ -78,12 +85,7 @@ function Profile(props) {
           }`}
         >
           <button
-            onClick={(e) => {
-              e.preventDefault();
-              setInputs({ ...user, _id: undefined });
-              props.resetError();
-              setEditMode(!isEditMode);
-            }}
+            onClick={cancelEdit}
             className="my-link profile__button profile__button_type_edit"
           >
             Отменить редактирование

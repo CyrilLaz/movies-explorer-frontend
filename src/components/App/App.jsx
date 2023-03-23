@@ -30,7 +30,7 @@ function App() {
     errors,
     isButtonDisabled,
     resetForm,
-    toggleButtonDisabling,
+    toggleButtonDisable,
   ] = useFormValidator((e) => {
     // проверка адреса почты с помощью стороннего модуля
     if (e.target.name === 'email') {
@@ -70,11 +70,13 @@ function App() {
       })
       .catch((err) => {
         localStorage.removeItem('logged'); // отработка ошибки с токеном
-        // setLoggedIn(false);
-        // setModalSettings({
-        //   isOpen: true,
-        //   message: 'Что т опроизошло при попытке авторизации',
-        // });
+        setLoggedIn(false);
+        if (err.status === 400)
+          return setModalSettings({
+            isOpen: true,
+            message:
+              'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
+          });
       });
   }, []);
 
@@ -84,21 +86,25 @@ function App() {
 
   function onRegister(e) {
     e.preventDefault();
-    toggleButtonDisabling(true);
+    toggleButtonDisable(true);
     const { name, email, password } = inputs;
     MainApi.register(name, email, password)
       .then((res) => {
-        if (!res.data)
-          throw new Error('Что т опроизошло при попытке регистрации');
+        if (!res.data) throw res;
         login(email, password);
       })
-      .catch((err) =>
+      .catch((err) => {
+        if (err.status === 409) {
+          return setModalSettings({
+            isOpen: true,
+            message: 'Пользователь с таким email уже существует.',
+          });
+        }
         setModalSettings({
-          ...modalSettings,
           isOpen: true,
-          message: err.message,
-        })
-      );
+          message: 'При регистрации пользователя произошла ошибка.',
+        });
+      });
   }
 
   function login(email, password) {
@@ -110,18 +116,18 @@ function App() {
         setUser(res.data);
         navigate('/movies');
       })
-      .catch((err) =>
-        setModalSettings({
-          ...modalSettings,
-          isOpen: true,
-          message: err.message,
-        })
-      );
+      .catch((err) => {
+        if (err.status === 401)
+          return setModalSettings({
+            isOpen: true,
+            message: 'Вы ввели неправильный логин или пароль.',
+          });
+      });
   }
 
   function onLogin(e) {
     e.preventDefault();
-    toggleButtonDisabling(true);
+    toggleButtonDisable(true);
     const { email, password } = inputs;
     login(email, password);
   }
@@ -135,25 +141,42 @@ function App() {
         navigate('/');
       })
       .catch((err) => {
+        if (err.status === 500) {
+          return setModalSettings({
+            isOpen: true,
+            message: 'На сервере произошла ошибка.',
+          });
+        }
         setModalSettings({
-          ...modalSettings,
           isOpen: true,
-          message: 'произошло не предвиденное',
+          message: 'При выходе с учетной записи произошла ошибка',
         });
       });
   }
 
-  function onUpdateUser(name, email) {
+  function onUpdateUser(name, email, editMode) {
     return MainApi.updateUser(name, email)
       .then(({ data, ...res }) => {
         if (!data) throw res;
         setUser({ ...data });
+        editMode(false);
       })
       .catch((err) => {
+        if (err.status === 409) {
+          return setModalSettings({
+            isOpen: true,
+            message: 'Пользователь с таким email уже существует.',
+          });
+        }
+        if (err.status === 500) {
+          return setModalSettings({
+            isOpen: true,
+            message: 'На сервере произошла ошибка.',
+          });
+        }
         setModalSettings({
-          ...modalSettings,
           isOpen: true,
-          message: 'произошла ошибка при изменении профиля',
+          message: 'При обновлении профиля произошла ошибка.',
         });
       });
   }
@@ -182,6 +205,10 @@ function App() {
           setCards(movies);
           setIsEmpty(true);
         }
+        // localStorage.setItem(
+        //   'search',
+        //   JSON.stringify({ movies, keyword: inputs.search, isShortMovie })
+        // );
       })
       .catch((err) => {
         setModalSettings({
@@ -252,7 +279,7 @@ function App() {
 
   useEffect(() => {
     setIsSliderNavigation(width <= 800);
-    setCountColumn(width>1065?3:width>700?2:1);
+    setCountColumn(width > 1065 ? 3 : width > 700 ? 2 : 1);
   }, [width]);
 
   useEffect(() => {
@@ -263,10 +290,6 @@ function App() {
   function toShowShortMovie() {
     setIsShortMovie(!isShortMovie);
   }
-
-  // function showPreloader() {
-  //   setShowPreloader(!isPreloader);
-  // }
 
   return (
     <UserContext.Provider value={{ user, userCards }}>
@@ -350,7 +373,7 @@ function App() {
                     loggedIn={loggedIn}
                     onLogout={onLogout}
                     handleValidForm={handleValidForm}
-                    toggleButtonDisabling={toggleButtonDisabling}
+                    toggleButtonDisable={toggleButtonDisable}
                     onSubmit={onUpdateUser}
                     values={inputs}
                     setInputs={setInputs}
