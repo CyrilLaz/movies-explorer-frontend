@@ -41,7 +41,7 @@ function SavedMovies({ setSearchInputs, setCards, ...props }) {
       />
       <MoviesCardList
         isEmpty={isEmpty}
-        handleCard={props.handleDelete}
+        deleteLike={props.handleDelete}
         isLiked={true}
         isSaved={true}
         cards={sortedCards || userCards}

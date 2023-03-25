@@ -20,7 +20,8 @@ function Movie({ paginator, setSearchInputs, nextState, isPaginator, setCards, .
       />
       <MoviesCardList
         cards={props.cards}
-        handleCard={props.handleSave}
+        putLike={props.handleSave}
+        deleteLike={props.handleDelete}
         isPreloader={props.isPreloader}
         isPaginator={isPaginator}
         nextStep={nextState}

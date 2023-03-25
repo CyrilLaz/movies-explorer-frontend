@@ -8,7 +8,8 @@ function MoviesCardList(props) {
       <ul className="movies-cards__list">
         {props.cards.map((elem) => (
           <MovieCard
-            handleCard={() => props.handleCard(elem)}
+            putLike={() => props.putLike(elem)}
+            deleteLike={()=>props.deleteLike(elem)}
             key={elem.id}
             isLiked={props.isLiked}
             isSaved={props.isLiked}

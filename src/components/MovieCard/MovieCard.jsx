@@ -26,7 +26,7 @@ function MovieCard(props) {
           </div>
           <button
             className={cardButtonClassName}
-            onClick={props.handleCard}
+            onClick={props.isLiked?props.deleteLike:props.putLike}
           ></button>
         </figcaption>
       </figure>
