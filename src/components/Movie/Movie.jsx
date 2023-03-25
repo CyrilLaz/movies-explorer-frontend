@@ -3,12 +3,12 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import './Movie.css';
 
-function Movie({ paginator, setSearchInputs, setArray, nextState, isPaginator, ...props }) {
+function Movie({ paginator, setSearchInputs, nextState, isPaginator, setCards, ...props }) {
 
   useEffect(() => {
-    setArray(JSON.parse(localStorage.getItem('searchMovies'))||[]);
+    setCards(JSON.parse(localStorage.getItem('searchMovies'))||[]);
     setSearchInputs(JSON.parse(localStorage.getItem('searchInputs'))||{});
-  }, [setSearchInputs, setArray]);
+  }, [setSearchInputs, setCards]);
 
   return (
     <main className="Movie">

@@ -28,6 +28,7 @@ import ProtectedRoute from '../ProtectedRouter/ProtectedRoute';
 import MoviesApi from '../../utils/MoviesApi';
 import searcher from '../../utils/searcher';
 import usePaginator from '../../hooks/usePaginator';
+import useStateIsSave from '../../hooks/useStateIsSave';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
@@ -48,7 +49,6 @@ function App() {
     }
   });
   const [isPreloader, setShowPreloader] = useState(false);
-  const [userCards, setUserCards] = useState([]);
   const [user, setUser] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
@@ -66,6 +66,7 @@ function App() {
   const [searchInputs, setSearchInputs] = useState({});
   const [setColumns, setArray, getArray, nextState, isPaginator, resetState] =
     usePaginator();
+  const [cards, userCards, setCards, setUserCards] = useStateIsSave(); // хук для установки состояний карточек
 
   useEffect(() => {
     setColumns(countColumn);
@@ -87,7 +88,7 @@ function App() {
               'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
           });
       });
-  }, []);
+  }, [setUserCards]);
 
   useEffect(() => {
     getInitialData();
@@ -216,20 +217,16 @@ function App() {
           elem.thumbnail =
             'https://api.nomoreparties.co' + elem.image.formats.thumbnail.url;
           elem.image = 'https://api.nomoreparties.co' + elem.image.url;
-          if (userCards.find((card) => card.id === elem.id)) {
-            elem.isLiked = true;
-          }
           return elem;
         });
 
         if (movies.length > 0) {
-          setArray(movies);
+          setCards(movies);
           setIsEmpty(false);
+          localStorage.setItem('searchMovies', JSON.stringify(movies));
         } else {
-          setArray(movies);
           setIsEmpty(true);
         }
-        localStorage.setItem('searchMovies', JSON.stringify(movies));
         localStorage.setItem('searchInputs', JSON.stringify(searchInputs));
       })
       .catch((err) => {
@@ -251,16 +248,6 @@ function App() {
     MainApi.saveMovie(card)
       .then(({ data }) => {
         setUserCards([...userCards, data]);
-        setArray((cards) =>
-          cards.map((c) => {
-            if (c.id === card.id) {
-              c.isLiked = true;
-              return c;
-            } else {
-              return c;
-            }
-          })
-        );
       })
       .catch((err) =>
         setModalSettings({
@@ -274,18 +261,7 @@ function App() {
     MainApi.deleteMovie(card._id)
       .then((res) => {
         setUserCards((cards) => cards.filter((c) => c.id !== card.id));
-        setArray((cards) =>
-          cards.map((c) => {
-            if (c.id === card.id) {
-              c.isLiked = false;
-              return c;
-            } else {
-              return c;
-            }
-          })
-        );
       })
-
       .catch((err) =>
         setModalSettings({
           isOpen: true,
@@ -297,6 +273,10 @@ function App() {
   function closeModal() {
     setModalSettings({ isOpen: false, message: '', isResponse: false });
   }
+
+  useEffect(() => {
+    setArray(cards);
+  }, [cards, setArray]);
 
   useEffect(() => {
     resetForm();
@@ -357,7 +337,7 @@ function App() {
                     component={Movie}
                     setInputs={setInputs}
                     setSearchInputs={setSearchInputs}
-                    setArray={setArray}
+                    setCards={setCards}
                     nextState={nextState}
                     isPaginator={isPaginator}
                     countColumn={countColumn}
