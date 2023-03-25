@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { isEmail } from 'validator';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import useWindowDimensions from '../../hooks/useWindowDimentions';
 import Main from '../Main/Main';
 import MainApi from '../../utils/MainApi';
@@ -125,10 +131,10 @@ function App() {
             isOpen: true,
             message: 'Вы ввели неправильный логин или пароль.',
           });
-          setModalSettings({
-            isOpen: true,
-            message: 'При попытке войти учетную запись произошла ошибка',
-          });
+        setModalSettings({
+          isOpen: true,
+          message: 'При попытке войти учетную запись произошла ошибка',
+        });
       });
   }
 
@@ -256,11 +262,12 @@ function App() {
           })
         );
       })
-      .catch((err) =>         setModalSettings({
-        isOpen: true,
-        message:
-          'Во время запроса произошла ошибка.',
-      }));
+      .catch((err) =>
+        setModalSettings({
+          isOpen: true,
+          message: 'Во время запроса произошла ошибка.',
+        })
+      );
   }
 
   function handleDelete(card) {
@@ -279,11 +286,12 @@ function App() {
         );
       })
 
-      .catch((err) => setModalSettings({
-        isOpen: true,
-        message:
-          'Во время запроса произошла ошибка.',
-      }));
+      .catch((err) =>
+        setModalSettings({
+          isOpen: true,
+          message: 'Во время запроса произошла ошибка.',
+        })
+      );
   }
 
   function closeModal() {
@@ -326,9 +334,14 @@ function App() {
                 <Layout
                   header={{
                     children: isMain ? (
-                      <MainNavigation isSliderNavigation = {isSliderNavigation} loggedIn={loggedIn} />
+                      <MainNavigation
+                        isSliderNavigation={isSliderNavigation}
+                        loggedIn={loggedIn}
+                      />
                     ) : (
-                      <MovieNavigation isSliderNavigation = {isSliderNavigation} />
+                      <MovieNavigation
+                        isSliderNavigation={isSliderNavigation}
+                      />
                     ),
                   }}
                   isMain={isMain}
@@ -409,31 +422,39 @@ function App() {
             <Route
               path="/signup"
               element={
-                <RegisterWithForm
-                  onChange={(e) => {
-                    setInputs({ ...inputs, [e.target.name]: e.target.value });
-                    handleValidForm(e);
-                  }}
-                  values={{ ...inputs }}
-                  onSubmit={onRegister}
-                  {...errors}
-                  isButtonDisabled={isButtonDisabled}
-                />
+                loggedIn ? (
+                  <Navigate to={'/'} />
+                ) : (
+                  <RegisterWithForm
+                    onChange={(e) => {
+                      setInputs({ ...inputs, [e.target.name]: e.target.value });
+                      handleValidForm(e);
+                    }}
+                    values={{ ...inputs }}
+                    onSubmit={onRegister}
+                    {...errors}
+                    isButtonDisabled={isButtonDisabled}
+                  />
+                )
               }
             />
             <Route
               path="/signin"
               element={
-                <LoginWithForm
-                  onChange={(e) => {
-                    setInputs({ ...inputs, [e.target.name]: e.target.value });
-                    handleValidForm(e);
-                  }}
-                  values={{ ...inputs }}
-                  onSubmit={onLogin}
-                  {...errors}
-                  isButtonDisabled={isButtonDisabled}
-                />
+                loggedIn ? (
+                  <Navigate to={'/'} />
+                ) : (
+                  <LoginWithForm
+                    onChange={(e) => {
+                      setInputs({ ...inputs, [e.target.name]: e.target.value });
+                      handleValidForm(e);
+                    }}
+                    values={{ ...inputs }}
+                    onSubmit={onLogin}
+                    {...errors}
+                    isButtonDisabled={isButtonDisabled}
+                  />
+                )
               }
             />
             <Route
