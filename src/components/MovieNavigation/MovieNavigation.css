@@ -21,6 +21,10 @@
   border-radius: 20px;
 }
 
+.movie-navigation__button_color_green {
+  background: #3ddc84;
+}
+
 .movie-navigation__links {
   list-style: none;
   padding: 0;

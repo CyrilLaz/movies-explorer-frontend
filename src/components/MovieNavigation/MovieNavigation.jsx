@@ -9,8 +9,8 @@ function MovieNavigation(props) {
     }`;
   const buttonClassName = ({ isActive }) =>
     `my-button movie-navigation__button${
-      isActive ? ' movie-navigation__button_active' : ''
-    }`;
+      props.isMain ? ' movie-navigation__button_color_green' : ''
+    }${isActive ? ' movie-navigation__button_active' : ''}`;
   const desktopNavigation = (
     <ul className="movie-navigation__list">
       <li className="movie-navigation__item">
