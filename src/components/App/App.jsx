@@ -41,7 +41,6 @@ function App() {
       }
     }
   });
-  const [sliderIsOpen, setSliderIsOpen] = useState(false);
   const [isPreloader, setShowPreloader] = useState(false);
   const [userCards, setUserCards] = useState([]);
   const [user, setUser] = useState({});
@@ -291,12 +290,7 @@ function App() {
     setModalSettings({ isOpen: false, message: '', isResponse: false });
   }
 
-  function toggleSlider() {
-    setSliderIsOpen(!sliderIsOpen);
-  }
-
   useEffect(() => {
-    if (isSliderNavigation === true) setSliderIsOpen(false);
     resetForm();
     setInputs({});
   }, [location, isSliderNavigation, resetForm]); // закрываем слайдер после перехода на другой адрес или после того как слайдер перестал быть нужным
@@ -332,14 +326,9 @@ function App() {
                 <Layout
                   header={{
                     children: isMain ? (
-                      <MainNavigation loggedIn={loggedIn} onLogout={onLogout} />
-                    ) : isSliderNavigation ? (
-                      <SliderNavigation
-                        toggleSlider={toggleSlider}
-                        sliderIsOpen={sliderIsOpen}
-                      />
+                      <MainNavigation isSliderNavigation = {isSliderNavigation} loggedIn={loggedIn} />
                     ) : (
-                      <MovieNavigation />
+                      <MovieNavigation isSliderNavigation = {isSliderNavigation} />
                     ),
                   }}
                   isMain={isMain}
