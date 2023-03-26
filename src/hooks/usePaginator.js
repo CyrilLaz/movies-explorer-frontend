@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-function usePaginator() {
+function usePaginator(settings) {
   const [array, setArray] = useState([]);
   const [columns, setColumns] = useState(1);
   const [isPaginator, setIsPaginator] = useState(false);
@@ -9,22 +9,13 @@ function usePaginator() {
   const [state, setState] = useState(firstState);
 
   useEffect(() => {
-    switch (columns) {
-      case 3:
-        setFirstState(12);
-        setStep(3);
-        break;
-      case 2:
-        setFirstState(8);
-        setStep(2);
-        break;
-      default:
-        setFirstState(5);
-        setStep(2);
-        break;
+    if (columns) {
+      const config = settings.find((item) => item.columns === columns);
+      setFirstState(config.firstState);
+      setStep(config.step);
     }
     if (state < firstState) setState(firstState);
-  }, [firstState, columns, state]);
+  }, [firstState, columns, state, settings]);
 
   const resetState = useCallback(
     //при изменени массива сбрасывать состояние до начального

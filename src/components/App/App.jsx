@@ -29,7 +29,7 @@ import MoviesApi from '../../utils/MoviesApi';
 import searcher from '../../utils/searcher';
 import usePaginator from '../../hooks/usePaginator';
 import useStateIsSave from '../../hooks/useStateIsSave';
-import {shortMovieDuration} from '../../constants/appSettings'
+import {paginatorSettings, shortMovieDuration} from '../../constants/appSettings'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
@@ -66,7 +66,7 @@ function App() {
   const [isEmpty, setIsEmpty] = useState(false);
   const [searchInputs, setSearchInputs] = useState({});
   const [setColumns, setArray, getArray, nextState, isPaginator, resetState] =
-    usePaginator();
+    usePaginator(paginatorSettings);
   const [cards, userCards, setCards, setUserCards] = useStateIsSave(); // хук для установки состояний карточек
 
   const toggleShortMovie = useCallback(
