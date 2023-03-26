@@ -300,7 +300,8 @@ function App() {
   }, [location.pathname]);
 
   function toShowShortMovie(state) {
-    localStorage.setItem(
+    if(location.pathname === 'movies')
+{    localStorage.setItem(
       'searchInputs',
       JSON.stringify({
         ...searchInputs,
@@ -380,6 +381,7 @@ function App() {
                 element={
                   <ProtectedRoute
                     component={SavedMovies}
+                    toggleShortMovie={toggleShortMovie}
                     loggedIn={loggedIn}
                     setSearchInputs={setSearchInputs}
                     handleDelete={handleDelete}

@@ -6,37 +6,39 @@ import SearchForm from '../SearchForm/SearchForm';
 
 import './SavedMovies.css';
 
-function SavedMovies({ setSearchInputs, setCards, ...props }) {
+function SavedMovies({
+  setSearchInputs,
+  toggleShortMovie,
+  valueSearch,
+  ...props
+}) {
   const { userCards } = useContext(UserContext);
-  const [sortedCards, setSortedCards] = useState(null);
+  const [sortedCards, setSortedCards] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     setSearchInputs({});
-  }, [setSearchInputs]);
-
+    setCards(userCards);
+  }, [setSearchInputs, userCards]);
 
   function onSubmitSearch() {
-    const result = searcher(
-      userCards,
-      '' + props.valueSearch.search,
-      props.isShortMovie
-    );
-    if(result.length > 0) {
-      setSortedCards(result);
-      setIsEmpty(false);
-      return;
-    }
-   setSortedCards(result);
-   setIsEmpty(true);
+    const result = searcher(userCards, '' + valueSearch.search);
+    setCards(result);
   }
+
+  useEffect(() => {
+    const filteredCards = toggleShortMovie(cards);
+    setIsEmpty(filteredCards.length === 0);
+    setSortedCards(filteredCards);
+  }, [cards, toggleShortMovie]);
 
   return (
     <main className="SavedMovies">
       <SearchForm
         onSubmit={onSubmitSearch}
         onChange={props.onChangeSearch}
-        value={props.valueSearch}
+        value={valueSearch}
         toShowShortMovie={props.toShowShortMovie}
       />
       <MoviesCardList
@@ -44,7 +46,7 @@ function SavedMovies({ setSearchInputs, setCards, ...props }) {
         deleteLike={props.handleDelete}
         isLiked={true}
         isSaved={true}
-        cards={sortedCards || userCards}
+        cards={sortedCards}
       />
     </main>
   );
