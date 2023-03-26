@@ -182,6 +182,7 @@ function App() {
           message: 'Успешно поменяли свои данные',
           isResponse: true,
         });
+        toggleButtonDisable(true);
       })
       .catch((err) => {
         if (err.status === 409) {
