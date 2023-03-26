@@ -29,6 +29,7 @@ import MoviesApi from '../../utils/MoviesApi';
 import searcher from '../../utils/searcher';
 import usePaginator from '../../hooks/usePaginator';
 import useStateIsSave from '../../hooks/useStateIsSave';
+import {shortMovieDuration} from '../../constants/appSettings'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
@@ -67,6 +68,15 @@ function App() {
   const [setColumns, setArray, getArray, nextState, isPaginator, resetState] =
     usePaginator();
   const [cards, userCards, setCards, setUserCards] = useStateIsSave(); // хук для установки состояний карточек
+
+  const toggleShortMovie = useCallback(
+    (array) => {
+      return array.filter((item) =>
+        searchInputs.isShortMovie ? item.duration <= shortMovieDuration : item
+      );
+    },
+    [searchInputs.isShortMovie]
+  );
 
   useEffect(() => {
     setColumns(countColumn);
@@ -212,23 +222,16 @@ function App() {
       .then((data) => {
         const movies = searcher(
           data,
-          '' + searchInputs.search,
-          searchInputs.isShortMovie
+          '' + searchInputs.search
         ).map((elem) => {
           elem.thumbnail =
             'https://api.nomoreparties.co' + elem.image.formats.thumbnail.url;
           elem.image = 'https://api.nomoreparties.co' + elem.image.url;
           return elem;
         });
-
-        if (movies.length > 0) {
-          setCards(movies);
-          setIsEmpty(false);
-          localStorage.setItem('searchMovies', JSON.stringify(movies));
-        } else {
-          setIsEmpty(true);
-        }
+        localStorage.setItem('searchMovies', JSON.stringify(movies));
         localStorage.setItem('searchInputs', JSON.stringify(searchInputs));
+        setCards(movies);
       })
       .catch((err) => {
         setModalSettings({
@@ -276,8 +279,10 @@ function App() {
   }
 
   useEffect(() => {
-    setArray(cards);
-  }, [cards, setArray]);
+    const filteredCards = toggleShortMovie(cards);
+    setIsEmpty(filteredCards.length === 0);
+    setArray(filteredCards);
+  }, [cards, setArray, toggleShortMovie]);
 
   useEffect(() => {
     resetForm();
@@ -295,6 +300,15 @@ function App() {
   }, [location.pathname]);
 
   function toShowShortMovie(state) {
+    localStorage.setItem(
+      'searchInputs',
+      JSON.stringify({
+        ...searchInputs,
+        isShortMovie: state.target.checked,
+      })
+    );
+    setCards(cards); // обновляем до актуального состояние
+  }
     setSearchInputs({
       ...searchInputs,
       isShortMovie: state.target.checked,
