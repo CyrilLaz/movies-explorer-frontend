@@ -44,6 +44,7 @@ function SavedMovies({
         onChange={props.onChangeSearch}
         value={valueSearch}
         toShowShortMovie={props.toShowShortMovie}
+        isFormInvalid={props.isFormInvalid}
       />
       <MoviesCardList
         isEmpty={isEmpty}

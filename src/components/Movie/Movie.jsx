@@ -20,6 +20,7 @@ function Movie({ paginator, setSearchInputs, nextState, isPaginator, setCards, s
         value={props.valueSearch}
         toShowShortMovie={props.toShowShortMovie}
         setIsSearchMode={setIsSearchMode}
+        isFormInvalid={props.isFormInvalid}
       />
       <MoviesCardList
         cards={props.cards}

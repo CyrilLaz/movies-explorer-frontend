@@ -1,21 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './SearchForm.css';
 
-function SearchForm({ setCards, setSearchInputs, ...props }) {
+function SearchForm({
+  setCards,
+  setSearchInputs,
+  isFormInvalid,
+  ...props
+}) {
   const [isEmptyInput, setIsEmptyInput] = useState(false);
 
   function onSubmit(e) {
     e.preventDefault();
-    if (isEmptyInput) return;
-    if (!props.value.search || props.value.search === '') {
-      setIsEmptyInput(true);
-      setTimeout(() => {
-        setIsEmptyInput(false);
-      }, 2000);
+    if (!isFormInvalid) {
+      props.onSubmit();
       return;
     }
-    props.onSubmit();
+    setIsEmptyInput(true);
   }
+  const errorMessage = isEmptyInput ? 'Нужно ввести ключевое слово' : '';
+
+  useEffect(()=>{
+    if(!isFormInvalid) setIsEmptyInput(false);
+  },[isFormInvalid])
 
   return (
     <form className="search-form" onSubmit={onSubmit} noValidate>
@@ -34,9 +40,7 @@ function SearchForm({ setCards, setSearchInputs, ...props }) {
           Найти
         </button>
       </fieldset>
-      <span className="search-form__error">
-        {isEmptyInput ? 'Нужно ввести ключевое слово' : ''}
-      </span>
+      <span className="search-form__error">{errorMessage}</span>
       <fieldset className="search-form__field search-form__switch-container">
         <label className="search-form__label">
           <input
@@ -44,7 +48,7 @@ function SearchForm({ setCards, setSearchInputs, ...props }) {
             name="isShortMovie"
             type="checkbox"
             onChange={props.toShowShortMovie}
-            checked={props.value.isShortMovie||false}
+            checked={props.value.isShortMovie || false}
           />
           <span className="search-form__switcher"></span>
         </label>
