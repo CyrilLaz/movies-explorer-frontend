@@ -164,10 +164,12 @@ function App() {
         if (!res) throw res;
         setLoggedIn(false);
         setUser({});
+        setUserCards([]);
+        setCards([]);
+        setArray([]);
+        setIsEmpty(false)
         navigate('/');
-        localStorage.removeItem('search');
-        localStorage.removeItem('searchMovies');
-        localStorage.removeItem('searchInputs');
+        localStorage.clear();
       })
       .catch((err) => {
         if (err.status === 500) {
