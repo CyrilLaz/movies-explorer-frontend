@@ -3,7 +3,7 @@ import { UserContext } from '../../context/userContext';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import './Profile.css';
 
-function Profile(props) {
+function Profile({resetError,...props}) {
   const { user } = useContext(UserContext);
   const [isEditMode, setEditMode] = useState(false);
   const [inputs, setInputs] = useState({ ...user, _id: undefined });
@@ -28,10 +28,12 @@ function Profile(props) {
     props.onSubmit(name, email, setEditMode);
   }
 
+  useEffect(()=>resetError(),[resetError]); // сбрасывать ошибки если в процессе поменять страницу
+
   function cancelEdit(e) {
     e.preventDefault();
     setInputs({ ...user, _id: undefined });
-    props.resetError(e);
+    resetError(e);
     setEditMode(!isEditMode);
   }
 

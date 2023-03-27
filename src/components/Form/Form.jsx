@@ -2,8 +2,11 @@ import { Link } from 'react-router-dom';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import Header from '../Header/Header';
 import './Form.css';
+import { useEffect } from 'react';
 
-function Form({ button, isFormInvalid, ...props }) {
+function Form({ button, isFormInvalid, resetError, setInputs, ...props }) {
+  useEffect(() => resetError(), [resetError]); // сбрасывать ошибки если в процессе поменять страницу
+  useEffect(() => setInputs({}), [setInputs]); // сбрасывать ошибки если в процессе поменять страницу
 
   return (
     <div className="signing">

@@ -41,13 +41,13 @@ function App() {
     isFormInvalid,
     resetForm,
     toggleButtonDisable,
-  ] = useFormValidator(
-    [{
+  ] = useFormValidator([
+    {
       name: 'email',
       validator: (e) => isEmail(e.target.value),
       message: 'Не верный формат для адреса почты',
-    },]
-  );
+    },
+  ]);
   const [isPreloader, setShowPreloader] = useState(false);
   const [user, setUser] = useState({});
   const location = useLocation();
@@ -290,11 +290,6 @@ function App() {
   }, [cards, isSearchMode, setArray, toggleShortMovie]);
 
   useEffect(() => {
-    resetForm();
-    setInputs({});
-  }, [location, isSliderNavigation, resetForm]); // закрываем слайдер после перехода на другой адрес или после того как слайдер перестал быть нужным
-
-  useEffect(() => {
     setIsSliderNavigation(width <= 800);
     setCountColumn(width > 1065 ? 3 : width > 700 ? 2 : 1);
   }, [width]);
@@ -376,9 +371,12 @@ function App() {
                         ...searchInputs,
                         [e.target.name]: e.target.value,
                       });
+                      handleValidForm(e);
                     }}
                     valueSearch={searchInputs}
                     isEmpty={isEmpty}
+                    handleValidForm={handleValidForm}
+                    isFormInvalid={isFormInvalid}
                   />
                 }
               />
@@ -398,8 +396,11 @@ function App() {
                         ...searchInputs,
                         [e.target.name]: e.target.value,
                       });
+                      handleValidForm(e);
                     }}
                     valueSearch={searchInputs}
+                    handleValidForm={handleValidForm}
+                    isFormInvalid={isFormInvalid}
                   />
                 }
               />
@@ -437,6 +438,8 @@ function App() {
                     onSubmit={onRegister}
                     {...errors}
                     isFormInvalid={isFormInvalid}
+                    resetError={resetForm}
+                    setInputs={setInputs}
                   />
                 )
               }
@@ -456,6 +459,8 @@ function App() {
                     onSubmit={onLogin}
                     {...errors}
                     isFormInvalid={isFormInvalid}
+                    resetError={resetForm}
+                    setInputs={setInputs}
                   />
                 )
               }
