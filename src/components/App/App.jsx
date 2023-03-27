@@ -14,7 +14,6 @@ import Movie from '../Movie/Movie';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
 import Profile from '../Profile/Profile';
-import SliderNavigation from '../SliderNavigation/SliderNavigation';
 import MovieNavigation from '../MovieNavigation/MovieNavigation';
 import MainNavigation from '../MainNavigation/MainNavigation';
 import RegisterWithForm from '../RegisterWithForm/RegisterWithForm';
@@ -29,7 +28,10 @@ import MoviesApi from '../../utils/MoviesApi';
 import searcher from '../../utils/searcher';
 import usePaginator from '../../hooks/usePaginator';
 import useStateIsSave from '../../hooks/useStateIsSave';
-import {paginatorSettings, shortMovieDuration} from '../../constants/appSettings'
+import {
+  paginatorSettings,
+  shortMovieDuration,
+} from '../../constants/appSettings';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
@@ -68,6 +70,7 @@ function App() {
   const [setColumns, setArray, getArray, nextState, isPaginator, resetState] =
     usePaginator(paginatorSettings);
   const [cards, userCards, setCards, setUserCards] = useStateIsSave(); // хук для установки состояний карточек
+  const [isSearchMode, setIsSearchMode] = useState(false);
 
   const toggleShortMovie = useCallback(
     (array) => {
@@ -168,6 +171,7 @@ function App() {
         setCards([]);
         setArray([]);
         setIsEmpty(false)
+        setIsSearchMode(false);
         navigate('/');
         localStorage.clear();
       })
@@ -219,15 +223,13 @@ function App() {
   }
 
   function searchMovies() {
+    setIsSearchMode(true);
     setArray([]);
     setShowPreloader(true);
     resetState();
     MoviesApi.getMovieList()
       .then((data) => {
-        const movies = searcher(
-          data,
-          '' + searchInputs.search
-        ).map((elem) => {
+        const movies = searcher(data, '' + searchInputs.search).map((elem) => {
           elem.thumbnail =
             'https://api.nomoreparties.co' + elem.image.formats.thumbnail.url;
           elem.image = 'https://api.nomoreparties.co' + elem.image.url;
@@ -283,10 +285,12 @@ function App() {
   }
 
   useEffect(() => {
-    const filteredCards = toggleShortMovie(cards);
-    setIsEmpty(filteredCards.length === 0);
-    setArray(filteredCards);
-  }, [cards, setArray, toggleShortMovie]);
+    if (isSearchMode) {
+      const filteredCards = toggleShortMovie(cards);
+      setIsEmpty(filteredCards.length === 0);
+      setArray(filteredCards);
+    }
+  }, [cards, isSearchMode, setArray, toggleShortMovie]);
 
   useEffect(() => {
     resetForm();
@@ -304,16 +308,16 @@ function App() {
   }, [location.pathname]);
 
   function toShowShortMovie(state) {
-    if(location.pathname === 'movies')
-{    localStorage.setItem(
-      'searchInputs',
-      JSON.stringify({
-        ...searchInputs,
-        isShortMovie: state.target.checked,
-      })
-    );
-    setCards(cards); // обновляем до актуального состояние
-  }
+    if (location.pathname === 'movies') {
+      localStorage.setItem(
+        'searchInputs',
+        JSON.stringify({
+          ...searchInputs,
+          isShortMovie: state.target.checked,
+        })
+      );
+      setCards(cards); // обновляем до актуального состояние
+    }
     setSearchInputs({
       ...searchInputs,
       isShortMovie: state.target.checked,
@@ -357,6 +361,7 @@ function App() {
                     component={Movie}
                     setInputs={setInputs}
                     setSearchInputs={setSearchInputs}
+                    setIsSearchMode={setIsSearchMode}
                     setCards={setCards}
                     nextState={nextState}
                     isPaginator={isPaginator}

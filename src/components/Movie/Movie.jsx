@@ -3,12 +3,14 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import './Movie.css';
 
-function Movie({ paginator, setSearchInputs, nextState, isPaginator, setCards, ...props }) {
+function Movie({ paginator, setSearchInputs, nextState, isPaginator, setCards, setIsSearchMode,...props }) {
 
   useEffect(() => {
-    setCards(JSON.parse(localStorage.getItem('searchMovies'))||[]);
+    const storageCards = JSON.parse(localStorage.getItem('searchMovies'));
+    if(storageCards) setIsSearchMode(true);
+    setCards(storageCards||[]);
     setSearchInputs(JSON.parse(localStorage.getItem('searchInputs'))||{});
-  }, [setSearchInputs, setCards]);
+  }, [setSearchInputs, setCards, setIsSearchMode]);
 
   return (
     <main className="Movie">
@@ -17,6 +19,7 @@ function Movie({ paginator, setSearchInputs, nextState, isPaginator, setCards, .
         onChange={props.onChangeSearch}
         value={props.valueSearch}
         toShowShortMovie={props.toShowShortMovie}
+        setIsSearchMode={setIsSearchMode}
       />
       <MoviesCardList
         cards={props.cards}

@@ -16,6 +16,7 @@ function SavedMovies({
   const [sortedCards, setSortedCards] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [cards, setCards] = useState([]);
+  const [isSearchMode, setIsSearchMode] = useState(false);
 
   useEffect(() => {
     setSearchInputs({});
@@ -23,15 +24,18 @@ function SavedMovies({
   }, [setSearchInputs, userCards]);
 
   function onSubmitSearch() {
+    setIsSearchMode(true);
     const result = searcher(userCards, '' + valueSearch.search);
     setCards(result);
   }
 
   useEffect(() => {
-    const filteredCards = toggleShortMovie(cards);
-    setIsEmpty(filteredCards.length === 0);
-    setSortedCards(filteredCards);
-  }, [cards, toggleShortMovie]);
+    if (isSearchMode) {
+      const filteredCards = toggleShortMovie(cards);
+      setIsEmpty(filteredCards.length === 0);
+      setSortedCards(filteredCards);
+    }
+  }, [cards, isSearchMode, toggleShortMovie]);
 
   return (
     <main className="SavedMovies">
