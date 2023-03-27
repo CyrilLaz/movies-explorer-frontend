@@ -19,19 +19,19 @@ function Profile(props) {
     setInputs({ ...inputs, [nameInput]: valueInput });
     if (valueInput === user[nameInput]) {
       props.toggleButtonDisable(true);
-    } 
+    }
   }
 
   function onSubmit(e) {
     e.preventDefault();
     const { name, email } = inputs;
-    props.onSubmit(name, email,setEditMode);
+    props.onSubmit(name, email, setEditMode);
   }
 
   function cancelEdit(e) {
     e.preventDefault();
     setInputs({ ...user, _id: undefined });
-    props.resetError();
+    props.resetError(e);
     setEditMode(!isEditMode);
   }
 
@@ -90,7 +90,7 @@ function Profile(props) {
           </button>
           <SubmitButton
             button="Сохранить"
-            isButtonDisabled={props.isButtonDisabled}
+            isButtonDisabled={props.isFormInvalid}
           />
         </div>
       </form>

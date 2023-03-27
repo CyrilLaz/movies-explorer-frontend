@@ -3,7 +3,7 @@ import SubmitButton from '../SubmitButton/SubmitButton';
 import Header from '../Header/Header';
 import './Form.css';
 
-function Form({ button, isButtonDisabled, ...props }) {
+function Form({ button, isFormInvalid, ...props }) {
 
   return (
     <div className="signing">
@@ -32,7 +32,7 @@ function Form({ button, isButtonDisabled, ...props }) {
             </li>
           ))}
         </ul>
-        <SubmitButton button={button} isButtonDisabled={isButtonDisabled} />
+        <SubmitButton button={button} isButtonDisabled={isFormInvalid} />
       </form>
       <div className="signing__entry">
         <span className="signing__entry-text">{props.entryText}</span>

@@ -1,44 +1,54 @@
 import { useState, useCallback } from 'react';
 
-export function useFormValidator(customVal) {
+export function useFormValidator(mode) {
   const [errors, setErrors] = useState({});
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isFormInvalid, setIsFormInvalid] = useState(true);
 
   const handleValidForm = (event) => {
     const target = event.target;
     const name = target.name;
-
-    if (!!customVal) {
-      if (!target.validity.valueMissing) {
-        customVal(event);
-      } else {
-        target.setCustomValidity('');
+    if (mode) {
+      const modeItem = mode.find((item) => item.name === name);
+      if (modeItem) {
+        if (!event.target.value || modeItem.validator(event)) {
+          target.setCustomValidity('');
+        } else {
+          target.setCustomValidity(modeItem.message);
+        }
       }
     }
-
+    setIsFormInvalid(!target.closest('form').checkValidity());
     setErrors({ ...errors, [name]: target.validationMessage });
-    setIsButtonDisabled(!target.closest('form').checkValidity());
   };
 
   const resetForm = useCallback(
-    (newErrors = {}, newIsButtonDisabled = true) => {
+    (e, newErrors = {}, newIsFormInvalid = true) => {
+      if (e) {
+        const form = e.target.closest('form');
+        form.reset();
+        form.querySelectorAll('input').forEach((element) => {
+          // сбрасываю состояние invalid с инпутов
+          element.setCustomValidity('');
+        });
+      }
+
       setErrors(newErrors);
-      setIsButtonDisabled(newIsButtonDisabled);
+      setIsFormInvalid(newIsFormInvalid);
     },
-    [setErrors, setIsButtonDisabled]
+    [setErrors, setIsFormInvalid]
   );
 
   const toggleButtonDisable = useCallback(
     (state) => {
-      setIsButtonDisabled(state);
+      setIsFormInvalid(state);
     },
-    [setIsButtonDisabled]
+    [setIsFormInvalid]
   );
 
   return [
     handleValidForm,
     errors,
-    isButtonDisabled,
+    isFormInvalid,
     resetForm,
     toggleButtonDisable,
   ];

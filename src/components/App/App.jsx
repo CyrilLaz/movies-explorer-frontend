@@ -38,19 +38,16 @@ function App() {
   const [
     handleValidForm,
     errors,
-    isButtonDisabled,
+    isFormInvalid,
     resetForm,
     toggleButtonDisable,
-  ] = useFormValidator((e) => {
-    // проверка адреса почты с помощью стороннего модуля
-    if (e.target.name === 'email') {
-      if (!isEmail(e.target.value)) {
-        return e.target.setCustomValidity('Не верный формат для адреса почты');
-      } else {
-        return e.target.setCustomValidity('');
-      }
-    }
-  });
+  ] = useFormValidator(
+    [{
+      name: 'email',
+      validator: (e) => isEmail(e.target.value),
+      message: 'Не верный формат для адреса почты',
+    },]
+  );
   const [isPreloader, setShowPreloader] = useState(false);
   const [user, setUser] = useState({});
   const location = useLocation();
@@ -170,7 +167,7 @@ function App() {
         setUserCards([]);
         setCards([]);
         setArray([]);
-        setIsEmpty(false)
+        setIsEmpty(false);
         setIsSearchMode(false);
         navigate('/');
         localStorage.clear();
@@ -419,7 +416,7 @@ function App() {
                     values={inputs}
                     setInputs={setInputs}
                     {...errors}
-                    isButtonDisabled={isButtonDisabled}
+                    isFormInvalid={isFormInvalid}
                     resetError={resetForm}
                   />
                 }
@@ -439,7 +436,7 @@ function App() {
                     values={{ ...inputs }}
                     onSubmit={onRegister}
                     {...errors}
-                    isButtonDisabled={isButtonDisabled}
+                    isFormInvalid={isFormInvalid}
                   />
                 )
               }
@@ -458,7 +455,7 @@ function App() {
                     values={{ ...inputs }}
                     onSubmit={onLogin}
                     {...errors}
-                    isButtonDisabled={isButtonDisabled}
+                    isFormInvalid={isFormInvalid}
                   />
                 )
               }
