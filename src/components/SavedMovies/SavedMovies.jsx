@@ -13,7 +13,7 @@ function SavedMovies({
   ...props
 }) {
   const { userCards } = useContext(UserContext);
-  const [sortedCards, setSortedCards] = useState([]);
+  const [sortedCards, setSortedCards] = useState(null);
   const [isEmpty, setIsEmpty] = useState(false);
   const [cards, setCards] = useState([]);
   const [isSearchMode, setIsSearchMode] = useState(false);
@@ -51,7 +51,7 @@ function SavedMovies({
         deleteLike={props.handleDelete}
         isLiked={true}
         isSaved={true}
-        cards={sortedCards}
+        cards={sortedCards||userCards}
       />
     </main>
   );
