@@ -10,6 +10,7 @@ function SavedMovies({
   setSearchInputs,
   toggleShortMovie,
   valueSearch,
+  resetError,
   ...props
 }) {
   const { userCards } = useContext(UserContext);
@@ -18,7 +19,10 @@ function SavedMovies({
   const [cards, setCards] = useState([]);
   const [isSearchMode, setIsSearchMode] = useState(false);
 
+  useEffect(() => resetError(), [resetError]);
+
   useEffect(() => {
+    if (userCards.length > 0) setIsSearchMode(true);
     setSearchInputs({});
     setCards(userCards);
   }, [setSearchInputs, userCards]);
@@ -51,7 +55,7 @@ function SavedMovies({
         deleteLike={props.handleDelete}
         isLiked={true}
         isSaved={true}
-        cards={sortedCards||userCards}
+        cards={sortedCards || userCards}
       />
     </main>
   );

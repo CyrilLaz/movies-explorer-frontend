@@ -383,6 +383,7 @@ function App() {
                     isEmpty={isEmpty}
                     handleValidForm={handleValidForm}
                     isFormInvalid={isFormInvalid}
+                    resetError={resetForm}
                   />
                 }
               />
@@ -401,6 +402,7 @@ function App() {
                     valueSearch={searchInputs}
                     handleValidForm={handleValidForm}
                     isFormInvalid={isFormInvalid}
+                    resetError={resetForm}
                   />
                 }
               />

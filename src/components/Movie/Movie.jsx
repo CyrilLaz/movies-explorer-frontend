@@ -3,8 +3,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import './Movie.css';
 
-function Movie({ paginator, setSearchInputs, nextState, isPaginator, setCards, setIsSearchMode,...props }) {
+function Movie({ paginator, setSearchInputs, nextState, isPaginator, setCards, setIsSearchMode,resetError,...props }) {
 
+  useEffect(()=>resetError(),[resetError]);
   useEffect(() => {
     const storageCards = JSON.parse(localStorage.getItem('searchMovies'));
     if(storageCards) setIsSearchMode(true);
