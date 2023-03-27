@@ -129,8 +129,10 @@ function App() {
 
   function login(email, password) {
     return MainApi.login(email, password)
-      .then((res) => {
+      .then(async (res) => {
         if (!res.data) throw res;
+        const { data } = await MainApi.getUserMovie();
+        setUserCards(data);
         setLoggedIn(true);
         localStorage.setItem('logged', JSON.stringify(true));
         setUser(res.data);
