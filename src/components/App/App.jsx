@@ -281,6 +281,18 @@ function App() {
     setModalSettings({ isOpen: false, message: '', isResponse: false });
   }
 
+  function catchSearchInputs(e) {
+    setSearchInputs({
+      ...searchInputs,
+      [e.target.name]: e.target.value,
+    });
+    handleValidForm(e);
+  }
+  function catchFormInputs(e) {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+    handleValidForm(e);
+  }
+
   useEffect(() => {
     if (isSearchMode) {
       const filteredCards = toggleShortMovie(cards);
@@ -366,13 +378,7 @@ function App() {
                     toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
                     onSubmitSearch={searchMovies}
-                    onChangeSearch={(e) => {
-                      setSearchInputs({
-                        ...searchInputs,
-                        [e.target.name]: e.target.value,
-                      });
-                      handleValidForm(e);
-                    }}
+                    onChangeSearch={catchSearchInputs}
                     valueSearch={searchInputs}
                     isEmpty={isEmpty}
                     handleValidForm={handleValidForm}
@@ -391,13 +397,7 @@ function App() {
                     handleDelete={handleDelete}
                     toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
-                    onChangeSearch={(e) => {
-                      setSearchInputs({
-                        ...searchInputs,
-                        [e.target.name]: e.target.value,
-                      });
-                      handleValidForm(e);
-                    }}
+                    onChangeSearch={catchSearchInputs}
                     valueSearch={searchInputs}
                     handleValidForm={handleValidForm}
                     isFormInvalid={isFormInvalid}
@@ -430,10 +430,7 @@ function App() {
                   <Navigate to={'/'} />
                 ) : (
                   <RegisterWithForm
-                    onChange={(e) => {
-                      setInputs({ ...inputs, [e.target.name]: e.target.value });
-                      handleValidForm(e);
-                    }}
+                    onChange={catchFormInputs}
                     values={{ ...inputs }}
                     onSubmit={onRegister}
                     {...errors}
@@ -451,10 +448,7 @@ function App() {
                   <Navigate to={'/'} />
                 ) : (
                   <LoginWithForm
-                    onChange={(e) => {
-                      setInputs({ ...inputs, [e.target.name]: e.target.value });
-                      handleValidForm(e);
-                    }}
+                    onChange={catchFormInputs}
                     values={{ ...inputs }}
                     onSubmit={onLogin}
                     {...errors}
