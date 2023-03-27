@@ -19,9 +19,7 @@ function Profile(props) {
     setInputs({ ...inputs, [nameInput]: valueInput });
     if (valueInput === user[nameInput]) {
       props.toggleButtonDisable(true);
-    } else {
-      props.toggleButtonDisable(false);
-    }
+    } 
   }
 
   function onSubmit(e) {
