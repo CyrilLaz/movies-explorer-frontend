@@ -85,6 +85,8 @@ function App() {
   const getInitialData = useCallback(() => {
     Promise.all([MainApi.getUserData(), MainApi.getUserMovie()])
       .then(([userData, userMovie]) => {
+        setLoggedIn(true); // если куки есть, но попытаться зайти на сервис без интернета или сервер временно не доступен
+        localStorage.setItem('logged', JSON.stringify(true)); // надо обновить состояния
         setUser(userData.data);
         setUserCards(userMovie.data);
       })
