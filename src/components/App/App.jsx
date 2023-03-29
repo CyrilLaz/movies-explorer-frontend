@@ -312,7 +312,7 @@ function App() {
   }, [location.pathname]);
 
   function toShowShortMovie(state) {
-    if (location.pathname === 'movies') {
+    if (location.pathname === '/movies') {
       localStorage.setItem(
         'searchInputs',
         JSON.stringify({
