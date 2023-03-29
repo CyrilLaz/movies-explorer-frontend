@@ -11,7 +11,7 @@ function SearchForm({
 
   function onSubmit(e) {
     e.preventDefault();
-    if (!isFormInvalid||props.value.search.length!==0) {
+    if (!isFormInvalid||(props.value.search&&props.value.search.length!==0)) {
       props.onSubmit();
       return;
     }
