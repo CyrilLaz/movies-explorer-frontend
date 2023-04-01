@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './SliderNavigation.css';
 
 function SliderNavigation(props) {
+  const [sliderIsOpen, setSliderIsOpen] = useState(false);
+
   const linkClassName = ({ isActive }) =>
     `my-link slider-navigation__link${
       isActive ? ' slider-navigation__link_active' : ''
@@ -11,22 +14,26 @@ function SliderNavigation(props) {
       isActive ? ' slider-navigation__slider-button_active' : ''
     }`;
   const sliderNavigationClassName = `slider-navigation ${
-    props.sliderIsOpen ? ' slider-navigation_visible' : ''
+    sliderIsOpen ? ' slider-navigation_visible' : ''
   }`;
   const sliderNavigationContainerClassName = `slider-navigation__container${
-    props.sliderIsOpen ? ' slider-navigation__container_visible' : ''
+    sliderIsOpen ? ' slider-navigation__container_visible' : ''
   }`;
+
+  function toggleSlider() {
+    setSliderIsOpen(!sliderIsOpen);
+  }
 
   return (
     <>
       <div
-        onClick={props.toggleSlider}
+        onClick={toggleSlider}
         className="my-button header__burger"
       ></div>
       <div className={sliderNavigationClassName}>
         <div className={sliderNavigationContainerClassName}>
           <div
-            onClick={props.toggleSlider}
+            onClick={toggleSlider}
             className="my-button slider-navigation__close-button"
           ></div>
           <nav className="slider-navigation__menu">
@@ -34,24 +41,24 @@ function SliderNavigation(props) {
               <li className="slider-navigation__menu-item">
                 <ul className="slider-navigation__links">
                   <li className="slider-navigation__links-item">
-                    <NavLink className={linkClassName} to={'/'}>
+                    <NavLink onClick={toggleSlider} className={linkClassName} to={'/'}>
                       Главная
                     </NavLink>
                   </li>
                   <li className="slider-navigation__links-item">
-                    <NavLink className={linkClassName} to={'/movies'}>
+                    <NavLink onClick={toggleSlider} className={linkClassName} to={'/movies'}>
                       Фильмы
                     </NavLink>
                   </li>
                   <li className="slider-navigation__links-item">
-                    <NavLink className={linkClassName} to={'/saved-movies'}>
+                    <NavLink onClick={toggleSlider} className={linkClassName} to={'/saved-movies'}>
                       Сохранённые фильмы
                     </NavLink>
                   </li>
                 </ul>
               </li>
               <li className="slider-navigation__menu-item">
-                <NavLink className={buttonClassName} to={'/profile'}>
+                <NavLink onClick={toggleSlider} className={buttonClassName} to={'/profile'}>
                   Аккаунт
                 </NavLink>
               </li>

@@ -4,26 +4,24 @@ function LoginWithForm(props) {
   return (
     <>
       <Form
+        {...props}
         header={props.header}
         formName="login"
         greeting="Рады видеть!!"
-        onSubmit={props.onSubmit}
         inputs={[
           {
-            onChange: (e) => console.log(e.target.value),
             type: 'email',
             id: 'email',
             name: 'email',
             label: 'E-mail',
           },
           {
-            onChange: (e) => console.log(e.target.value),
             type: 'password',
             id: 'password',
             name: 'password',
             label: 'Пароль',
             autoComplete: 'current-password',
-            minLength: 2,
+            minLength: 3,
             maxLength: 30,
           },
         ]}

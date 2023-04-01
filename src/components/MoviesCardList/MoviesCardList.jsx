@@ -6,10 +6,11 @@ function MoviesCardList(props) {
   return (
     <section className="movies-cards">
       <ul className="movies-cards__list">
-        {props.cards.map((elem, index) => (
+        {props.cards.map((elem) => (
           <MovieCard
-            handler={props.handlerCard}
-            key={index}
+            putLike={() => props.putLike(elem)}
+            deleteLike={()=>props.deleteLike(elem)}
+            key={elem.id}
             isLiked={props.isLiked}
             isSaved={props.isLiked}
             {...elem}
@@ -21,10 +22,12 @@ function MoviesCardList(props) {
       ) : props.isPaginator ? (
         <button
           className="my-button movies-cards__paginator"
-          onClick={props.handlerPage}
+          onClick={props.nextStep}
         >
           Ещё
         </button>
+      ) : props.isEmpty ? (
+        <span className="movies-cards__message">Ничего не найдено</span>
       ) : null}
     </section>
   );

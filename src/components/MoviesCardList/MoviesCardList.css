@@ -9,7 +9,7 @@
   margin: 0 0 60px;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
   justify-items: center;
   row-gap: 37px;
   column-gap: 24px;
@@ -30,10 +30,25 @@
   color: #fff;
 }
 
+.movies-cards__message {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #fff;
+  text-align: center;
+}
+
 @media screen and (max-width: 1065px) {
   .movies-cards__list {
     gap: 30px;
     margin-bottom: 80px;
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .movies-cards__list {
+    grid-template-columns: repeat(1, minmax(300px, 1fr));
   }
 }
 
@@ -44,7 +59,7 @@
   }
 
   .movies-cards__paginator {
-    max-width: calc(240/300*100%);
+    max-width: calc(240 / 300 * 100%);
     margin-bottom: 80px;
   }
 }

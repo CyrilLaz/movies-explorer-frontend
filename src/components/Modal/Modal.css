@@ -52,6 +52,10 @@
   margin: 60px 0 31px;
 }
 
+.modal__image_ok {
+  background-image: url(../../images/change-profile.svg);
+}
+
 .modal__text {
   max-width: 260px;
   min-height: 26px;
@@ -61,4 +65,8 @@
   line-height: 13px;
   text-align: center;
   color: #ff004c;
+}
+
+.modal__text_ok {
+  color: green;
 }

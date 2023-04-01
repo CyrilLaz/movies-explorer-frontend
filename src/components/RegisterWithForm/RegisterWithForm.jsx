@@ -8,10 +8,8 @@ function RegisterWithForm(props) {
         header={props.header}
         formName="register"
         greeting="Добро пожаловать!"
-        onSubmit={props.onSubmit}
         inputs={[
           {
-            onChange: (e) => console.log(e.target.value),
             type: 'text',
             id: 'name',
             name: 'name',
@@ -21,7 +19,6 @@ function RegisterWithForm(props) {
             autoComplete:"username ",
           },
           {
-            onChange: (e) => console.log(e.target.value),
             type: 'email',
             id: 'email',
             name: 'email',
@@ -29,7 +26,6 @@ function RegisterWithForm(props) {
             autoComplete:"email",
           },
           {
-            onChange: (e) => console.log(e.target.value),
             type: 'password',
             id: 'password',
             name: 'password',

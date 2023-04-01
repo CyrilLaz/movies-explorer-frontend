@@ -74,19 +74,6 @@
   color: #ee3465;
 }
 
-.form__submit-button {
-  background-color: #4285f4;
-  border-radius: 3px;
-  border: none;
-  color: #fff;
-  height: 45px;
-  margin-bottom: 16px;
-}
-
-.form__submit-button_inactive {
-  background-color: #f8f8f8;
-}
-
 .signing__entry {
   display: flex;
   justify-content: center;
