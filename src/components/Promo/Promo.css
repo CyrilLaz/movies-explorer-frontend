@@ -1,3 +1,12 @@
+@keyframes split {
+  from {
+    transform:translateX(0);
+  }
+  to {
+    transform:translateX(437px); /*width - width*0.05*/
+  }
+}
+
 .promo {
   margin: 0;
   background-color: #073042;
@@ -63,6 +72,33 @@
   height: 310px;
 }
 
+.promo__globus {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 310px;
+  height: 310px;
+}
+
+.promo__globus-image {
+  animation: split 10s linear infinite forwards;
+  height: 100%;
+  width: 460px;
+  transform:translateX(0);
+  background-image: url('../../images/propmo-gloubus.svg');
+  background-repeat: no-repeat;
+  display: flex;
+}
+
+.promo__globus-image::before{
+  height: 100%;
+  width: 460px;
+  content: '';
+  background-image: url('../../images/propmo-gloubus.svg');
+  background-repeat: no-repeat;
+  display: block;
+  transform: translateX(-95%);
+}
+
 @media screen and (max-width: 1070px) {
   .promo__container {
     flex-direction: column-reverse;
@@ -70,7 +106,7 @@
     padding-top: 140px;
   }
 
-  .promo__label {
+  .promo__globus {
     margin-bottom: 43px;
   }
 
