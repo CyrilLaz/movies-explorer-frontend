@@ -314,16 +314,14 @@ function App() {
   }, [location.pathname]);
 
   function toShowShortMovie(state) {
-    if (location.pathname === '/movies') {
-      localStorage.setItem(
-        'searchInputs',
-        JSON.stringify({
-          ...searchInputs,
-          isShortMovie: state.target.checked,
-        })
-      );
-      setCards(cards); // обновляем до актуального состояние
-    }
+    localStorage.setItem(
+      'searchInputs',
+      JSON.stringify({
+        ...searchInputs,
+        isShortMovie: state.target.checked,
+      })
+    );
+    setCards(cards); // обновляем до актуального состояние
     setSearchInputs({
       ...searchInputs,
       isShortMovie: state.target.checked,
@@ -394,14 +392,9 @@ function App() {
                 element={
                   <ProtectedRoute
                     component={SavedMovies}
-                    toggleShortMovie={toggleShortMovie}
                     loggedIn={loggedIn}
-                    setSearchInputs={setSearchInputs}
                     handleDelete={handleDelete}
-                    toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
-                    onChangeSearch={catchSearchInputs}
-                    valueSearch={searchInputs}
                     handleValidForm={handleValidForm}
                     isFormInvalid={isFormInvalid}
                     resetError={resetForm}

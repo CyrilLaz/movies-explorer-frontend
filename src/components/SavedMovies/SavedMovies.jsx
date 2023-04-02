@@ -1,16 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/userContext';
 import searcher from '../../utils/searcher';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
 import './SavedMovies.css';
+import { shortMovieDuration } from '../../constants/appSettings';
 
 function SavedMovies({
-  setSearchInputs,
-  toggleShortMovie,
-  valueSearch,
   resetError,
+  handleValidForm,
   ...props
 }) {
   const { userCards } = useContext(UserContext);
@@ -18,18 +17,42 @@ function SavedMovies({
   const [isEmpty, setIsEmpty] = useState(false);
   const [cards, setCards] = useState([]);
   const [isSearchMode, setIsSearchMode] = useState(false);
+  const [inputValues, setInputValues] = useState({});
+
+  const toggleShortMovie = useCallback(
+    (array) => {
+      return array.filter((item) =>
+      inputValues.isShortMovie ? item.duration <= shortMovieDuration : item
+      );
+    },
+    [inputValues.isShortMovie]
+  );
+
+  function catchSearchInputs(e) {
+    setInputValues({
+      ...inputValues,
+      [e.target.name]: e.target.value,
+    });
+    handleValidForm(e);
+  }
+
+  function toShowShortMovie(state) {
+    setInputValues({
+      ...inputValues,
+      isShortMovie: state.target.checked,
+    });
+  }
 
   useEffect(() => resetError(), [resetError]);
 
   useEffect(() => {
     if (userCards.length > 0) setIsSearchMode(true);
-    setSearchInputs({});
     setCards(userCards);
-  }, [setSearchInputs, userCards]);
+  }, [userCards]);
 
   function onSubmitSearch() {
     setIsSearchMode(true);
-    const result = searcher(userCards, '' + valueSearch.search);
+    const result = searcher(userCards, '' + inputValues.search);
     setCards(result);
   }
 
@@ -45,9 +68,9 @@ function SavedMovies({
     <main className="SavedMovies">
       <SearchForm
         onSubmit={onSubmitSearch}
-        onChange={props.onChangeSearch}
-        value={valueSearch}
-        toShowShortMovie={props.toShowShortMovie}
+        onChange={catchSearchInputs}
+        value={inputValues}
+        toShowShortMovie={toShowShortMovie}
         isFormInvalid={props.isFormInvalid}
       />
       <MoviesCardList
