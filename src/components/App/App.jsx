@@ -32,6 +32,8 @@ import {
   paginatorSettings,
   shortMovieDuration,
 } from '../../constants/appSettings';
+import ScrollerToTop from '../ScrollerToTop/ScrollerToTop';
+import useScrollPosition from '../../hooks/useScrollPositions';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
@@ -68,7 +70,8 @@ function App() {
     usePaginator(paginatorSettings);
   const [cards, userCards, setCards, setUserCards] = useStateIsSave(); // хук для установки состояний карточек
   const [isSearchMode, setIsSearchMode] = useState(false);
-
+  const scrollPosition = useScrollPosition();
+  const [isScroller, setIsScroller] = useState(false);
   const toggleShortMovie = useCallback(
     (array) => {
       return array.filter((item) =>
@@ -77,6 +80,9 @@ function App() {
     },
     [searchInputs.isShortMovie]
   );
+  useEffect(() => {
+    setIsScroller(scrollPosition>300);
+  }, [scrollPosition]);
 
   useEffect(() => {
     setColumns(countColumn);
@@ -314,16 +320,14 @@ function App() {
   }, [location.pathname]);
 
   function toShowShortMovie(state) {
-    if (location.pathname === '/movies') {
-      localStorage.setItem(
-        'searchInputs',
-        JSON.stringify({
-          ...searchInputs,
-          isShortMovie: state.target.checked,
-        })
-      );
-      setCards(cards); // обновляем до актуального состояние
-    }
+    localStorage.setItem(
+      'searchInputs',
+      JSON.stringify({
+        ...searchInputs,
+        isShortMovie: state.target.checked,
+      })
+    );
+    setCards(cards); // обновляем до актуального состояние
     setSearchInputs({
       ...searchInputs,
       isShortMovie: state.target.checked,
@@ -336,6 +340,7 @@ function App() {
         <div
           className={`App__container${isMain ? ' App__container_main' : ''}`}
         >
+          <ScrollerToTop onClick={()=>{document.querySelector('.App').scrollIntoView({behavior:"smooth"})}} isScroller={isScroller}/>
           <Modal {...modalSettings} close={closeModal} />
           <Routes>
             <Route
@@ -394,14 +399,9 @@ function App() {
                 element={
                   <ProtectedRoute
                     component={SavedMovies}
-                    toggleShortMovie={toggleShortMovie}
                     loggedIn={loggedIn}
-                    setSearchInputs={setSearchInputs}
                     handleDelete={handleDelete}
-                    toShowShortMovie={toShowShortMovie}
                     isPreloader={isPreloader}
-                    onChangeSearch={catchSearchInputs}
-                    valueSearch={searchInputs}
                     handleValidForm={handleValidForm}
                     isFormInvalid={isFormInvalid}
                     resetError={resetForm}

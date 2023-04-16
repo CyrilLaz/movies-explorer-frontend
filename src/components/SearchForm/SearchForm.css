@@ -69,14 +69,9 @@
 }
 
 .search-form__switcher {
-  display: block;
-  background-image: url('../../images/smalltumboff.svg');
   width: 36px;
   height: 20px;
-}
-
-.search-form__checkbox:checked + .search-form__switcher {
-  background-image: url('../../images/smalltumb.svg');
+  display: flex;
 }
 
 .search-form__text {

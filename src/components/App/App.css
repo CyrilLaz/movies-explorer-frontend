@@ -15,6 +15,10 @@
   margin: 0 auto;
 }
 
+body::-webkit-scrollbar {
+  width: 0;
+}
+
 .App__container_bloked {
   overflow: hidden;
 }
