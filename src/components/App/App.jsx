@@ -32,6 +32,8 @@ import {
   paginatorSettings,
   shortMovieDuration,
 } from '../../constants/appSettings';
+import ScrollerToTop from '../ScrollerToTop/ScrollerToTop';
+import useScrollPosition from '../../hooks/useScrollPositions';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('logged'));
@@ -68,7 +70,8 @@ function App() {
     usePaginator(paginatorSettings);
   const [cards, userCards, setCards, setUserCards] = useStateIsSave(); // хук для установки состояний карточек
   const [isSearchMode, setIsSearchMode] = useState(false);
-
+  const scrollPosition = useScrollPosition();
+  const [isScroller, setIsScroller] = useState(false);
   const toggleShortMovie = useCallback(
     (array) => {
       return array.filter((item) =>
@@ -77,6 +80,9 @@ function App() {
     },
     [searchInputs.isShortMovie]
   );
+  useEffect(() => {
+    setIsScroller(scrollPosition>300);
+  }, [scrollPosition]);
 
   useEffect(() => {
     setColumns(countColumn);
@@ -334,6 +340,7 @@ function App() {
         <div
           className={`App__container${isMain ? ' App__container_main' : ''}`}
         >
+          <ScrollerToTop onClick={()=>{document.querySelector('.App').scrollIntoView({behavior:"smooth"})}} isScroller={isScroller}/>
           <Modal {...modalSettings} close={closeModal} />
           <Routes>
             <Route
