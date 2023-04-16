@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
 import './SearchForm.css';
+import Toggle from '../Toggle/Toggle';
 
-function SearchForm({
-  setCards,
-  setSearchInputs,
-  isFormInvalid,
-  ...props
-}) {
+function SearchForm({ setCards, setSearchInputs, isFormInvalid, ...props }) {
   const [isEmptyInput, setIsEmptyInput] = useState(false);
 
   function onSubmit(e) {
     e.preventDefault();
-    if (!isFormInvalid||(props.value.search&&props.value.search.length!==0)) {
+    if (
+      !isFormInvalid ||
+      (props.value.search && props.value.search.length !== 0)
+    ) {
       props.onSubmit();
       return;
     }
@@ -19,9 +18,9 @@ function SearchForm({
   }
   const errorMessage = isEmptyInput ? 'Нужно ввести ключевое слово' : '';
 
-  useEffect(()=>{
-    if(!isFormInvalid) setIsEmptyInput(false);
-  },[isFormInvalid])
+  useEffect(() => {
+    if (!isFormInvalid) setIsEmptyInput(false);
+  }, [isFormInvalid]);
 
   return (
     <form className="search-form" onSubmit={onSubmit} noValidate>
@@ -50,7 +49,9 @@ function SearchForm({
             onChange={props.toShowShortMovie}
             checked={props.value.isShortMovie || false}
           />
-          <span className="search-form__switcher"></span>
+          <div className="search-form__switcher">
+            <Toggle isShortMovie={props.value.isShortMovie}/>
+          </div>
         </label>
         <span className="search-form__text">Короткометражки</span>
       </fieldset>
