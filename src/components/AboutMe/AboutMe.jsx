@@ -9,20 +9,26 @@ function AboutMe() {
       <h2 className="about-me__header section-header">Студент</h2>
       <div className="about-me__info-container">
         <article className="about-me__biography">
-          <h3 className="about-me__name">Виталий</h3>
-          <p className="about-me__job">Фронтенд&#8209;разработчик, 30 лет</p>
-          <p className="about-me__info">
-            Я родился и живу в Саратове, закончил факультет экономики СГУ. У
-            меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь
-            бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ
-            Контур». После того, как прошёл курс по веб-разработке, начал
-            заниматься фриланс&#8209;заказами и ушёл с постоянной работы.
+          <h3 className="about-me__name">Моё имя ...</h3>
+          <p className="about-me__job">
+            Похож на Фронтенд&#8209;разработчика, ∞ лет
           </p>
-          <Link className="my-link about-me__link" target={'_blank'} to={'https://github.com'}>
+          <p className="about-me__info">
+            Здесь можно написать, что все же где-то родился, что где то учился,
+            и может чему-то научился. Потом может быть работал где-то и кем-то.
+            Может быть оказался чем-то не доволен, решил заложить начало переменам,
+            начав учиться на курсах Яндекс.Практикума.
+            Может что-то из этого и получилось, но это не точно.
+          </p>
+          <Link
+            className="my-link about-me__link"
+            target={'_blank'}
+            to={'https://github.com'}
+          >
             Github
           </Link>
         </article>
-        <img className='about-me__photo' src={myPhoto} alt="Моя фотография" />
+        <img className="about-me__photo" src={myPhoto} alt="Моя фотография" />
       </div>
       <Portfolio />
     </section>
